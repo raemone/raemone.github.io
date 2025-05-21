@@ -1,42 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ask Kat</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            /*background: url('img/kyndryl-bg.png') ;*/
-            background-size: cover;
-        }
-        header {
-            background-color: #000;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-        header img {
-            max-width: 150px;
-        }
-        main {
-            padding: 20px;
-            text-align: center;
-        }
-        footer {
-            background-color: #000;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        /*background: url('img/kyndryl-bg.png') ;*/
+        background-size: cover;
+      }
+      header {
+        background-color: #000;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+      }
+      header img {
+        max-width: 150px;
+      }
+      main {
+        padding: 20px;
+        text-align: center;
+      }
+      footer {
+        background-color: #000;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+      }
     </style>
-</head>
-<body>
-    <script id="Microsoft_Omnichannel_LCWidget" src="https://oc-cdn-ocprod.azureedge.net/livechatwidget/scripts/LiveChatBootstrapper.js" data-app-id="dcc1d71d-e1a9-4e8b-877a-2e018b09263f" data-lcw-version="prod" data-org-id="dfedbedc-a5e5-4a31-9d41-477e30b29694" data-org-url="https://m-dfedbedc-a5e5-4a31-9d41-477e30b29694.us.omnichannelengagementhub.com"></script>
-</body>
+  </head>
+  <body>
+
+    <script type="text/javascript">
+      
+      function lcw() {
+        return {
+
+          styleProps: {
+            generalStyles: {
+                width: "400px",
+                height: "800px"
+            }
+          },
+
+          webChatContainerProps: {
+            webChatStyles: {
+              hideUploadButton: false,
+              suggestedActionLayout: "stacked",
+              suggestedActionsStackedOverflow: "auto",
+              suggestedActionsStackedHeight: 300,
+              bubbleBorderRadius: "22px !important",
+              bubbleFromUserBorderRadius: 22
+            },
+          },
+        };
+      }
+
+      function contextProvider(){
+        //Here it is assumed that the corresponding work stream would have context variables with logical name of 'contextKey1', 'contextKey2', 'contextKey3'. If no context variable exists with a matching logical name, items are created assuming Type:string               
+        return {
+            'userToken': 'contextValue2'
+        };
+      }
+
+      window.addEventListener("lcw:ready", function handleLivechatReadyEvent() {
+
+        console.log("lcw:ready");
+        Microsoft.Omnichannel.LiveChatWidget.SDK.setContextProvider(contextProvider);
+        Microsoft.Omnichannel.LiveChatWidget.SDK.startChat();
+        let registeredAuthTokenProvider = Microsoft.Omnichannel.LiveChatWidget.SDK.getAuthTokenProvider();
+
+      });
+
+      // window.addEventListener("lcw:onMessageReceived", function handleLivechatContextEvent(contextEvent) {
+      //   // Handle LiveChat SDK context event
+      //   console.log("lcw:context");
+      //   console.log(contextEvent);
+      //   let registeredAuthTokenProvider = Microsoft.Omnichannel.LiveChatWidget.SDK.getAuthTokenProvider();
+      //   console.log("registeredAuthTokenProvider", registeredAuthTokenProvider);
+      // });
+
+      window.addEventListener("lcw:error", function handleLivechatErrorEvent(errorEvent){
+        // Handle LiveChat SDK error event
+        console.log("lcw:error");
+        console.log(errorEvent);
+      });
+
+    </script>
+
+    <script
+      id="Microsoft_Omnichannel_LCWidget"
+      src="https://oc-cdn-ocprod.azureedge.net/livechatwidget/scripts/LiveChatBootstrapper.js"
+      data-app-id="dcc1d71d-e1a9-4e8b-877a-2e018b09263f"
+      data-lcw-version="prod"
+      data-org-id="dfedbedc-a5e5-4a31-9d41-477e30b29694"
+      data-org-url="https://m-dfedbedc-a5e5-4a31-9d41-477e30b29694.us.omnichannelengagementhub.com"
+      data-suggested-action-layout="stacked" 
+      data-customization-callback="lcw"
+    ></script>
+  </body>
 </html>
