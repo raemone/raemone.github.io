@@ -95,12 +95,12 @@
     <script>
 
         const oktaSignIn = new OktaSignIn({
-            baseUrl: "https://{your okta subdomain}.okta.com", //e.g. https://mydomain.okta.com
-            clientId: "{your app configuration ID}",
-            redirectUri: "{the published URL for index.html}", // For example http://localhost:5501/CopilotStudioSamples/3rdPartySSOWithOKTA/public/index.html
+            baseUrl: "https://trial-3151868.okta.com", //e.g. https://mydomain.okta.com
+            clientId: "0oasikledytppfRf3697",
+            redirectUri: "http://raemone.github.io/okta/index.html", // For example http://localhost:5501/CopilotStudioSamples/3rdPartySSOWithOKTA/public/index.html
             authParams: {
                 responseType: ['code'],
-                issuer: "https://{your okta subdomain}.okta.com/oauth2/default", //for example: https://mydomain.okta.com/oauth2/default
+                issuer: "https://trial-3151868.okta.com/oauth2/default", //for example: https://mydomain.okta.com/oauth2/default
                 display: 'page',
                 pkce: true,
                 scopes: ['openid', 'email', 'profile'],
@@ -131,7 +131,7 @@
         function signOut() {
             oktaSignIn.authClient.signOut({
                 clearTokensBeforeRedirect: true,
-                postLogoutRedirectUri: '{The published URL for signout.html}'// For example, 'http://127.0.0.1:5501/CopilotStudioSamples/3rdPartySSOWithOKTA/public/signout.html'
+                postLogoutRedirectUri: 'http://raemone.github.io/okta/signout.html'// For example, 'http://127.0.0.1:5501/CopilotStudioSamples/3rdPartySSOWithOKTA/public/signout.html'
             });
         }
 
@@ -163,7 +163,7 @@
                     userEmail = idToken.claims.email;
                 });
 
-            const tokenEndpoint = "{your copilot token endpoint}"
+            const tokenEndpoint = "https://fd643f383de8e4b5be42b6f792f669.10.environment.api.powerplatform.com/powervirtualagents/botsbyschema/cr119_oktaAgent/directline/token?api-version=2022-03-01-preview"
 
             const userID = userEmail != null ?
                 (userEmail).substr(0, 36) :
