@@ -1,0 +1,485 @@
+  <!-- Chabot code -->
+  <script src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+  <script>
+    let webChatInstance = null;
+    let directLineUrl = null;
+
+    // Replace with your direct line token endpoint (you can get it from Channel / Email)
+    const tokenEndpoint = "https://c22a303d3f50e7e5b419508f85f5cb.1a.environment.api.powerplatform.com/powervirtualagents/botsbyschema/cr119_agent_bxEwub/directline/token?api-version=2022-03-01-preview";
+
+    const styleOptions = {"accent":"#0078D4","autoScrollSnapOnPage":true,"autoScrollSnapOnPageOffset":0,"avatarBorderRadius":"7%","avatarSize":31,"backgroundColor":"#ffffff","botAvatarBackgroundColor":"#ffffff00","botAvatarImage":"https://powercatexternal.blob.core.windows.net/creatorkit/Assets/ChatbotLogoBlue.png","botAvatarInitials":"B","bubbleAttachmentMaxWidth":480,"bubbleAttachmentMinWidth":250,"bubbleBackground":"#f0eded","bubbleBorderColor":"#f5f5f5","bubbleBorderRadius":41,"bubbleBorderStyle":"solid","bubbleBorderWidth":1,"bubbleFromUserBackground":"#ebefff","bubbleFromUserBorderColor":"#f5f5f5","bubbleFromUserBorderRadius":41,"bubbleFromUserBorderStyle":"solid","bubbleFromUserBorderWidth":1,"bubbleFromUserNubOffset":0,"bubbleFromUserNubSize":0,"bubbleFromUserTextColor":"#242424","bubbleImageHeight":10,"bubbleImageMaxHeight":240,"bubbleImageMinHeight":240,"bubbleMessageMaxWidth":480,"bubbleMessageMinWidth":120,"bubbleMinHeight":50,"bubbleNubOffset":0,"bubbleTextColor":"#242424","emojiSet":true,"fontSizeSmall":"70%","hideUploadButton":false,"messageActivityWordBreak":"break-word","monospaceFont":"Consolas","paddingRegular":10,"paddingWide":10,"primaryFont":null,"sendBoxBackground":"#ffffff","sendBoxBorderTop":"solid 1px #808080","sendBoxButtonColor":"#0078d4","sendBoxButtonColorOnHover":"#006cbe","sendBoxButtonShadeBorderRadius":40,"sendBoxButtonShadeColorOnHover":"","sendBoxHeight":60,"sendBoxPlaceholderColor":"#171616","sendBoxTextColor":"#2e2d2d","showAvatarInGroup":"status","spinnerAnimationHeight":16,"spinnerAnimationPadding":12,"spinnerAnimationWidth":16,"subtleColor":"#000000FF","suggestedActionBackgroundColor":"#006FC4FF","suggestedActionBackgroundColorOnHover":"#0078D4","suggestedActionBorderColor":"","suggestedActionBorderRadius":10,"suggestedActionBorderWidth":1,"suggestedActionLayout":"flow","suggestedActionTextColor":"#FFFFFFFF","typingAnimationBackgroundImage":"url('https://wpamelia.com/wp-content/uploads/2018/11/ezgif-2-6d0b072c3d3f.gif')","typingAnimationDuration":5000,"typingAnimationHeight":20,"typingAnimationWidth":64,"userAvatarBackgroundColor":"#2e2d2d","userAvatarImage":"","userAvatarInitials":"U"};
+    const backgroundImage = "";
+    document.addEventListener('DOMContentLoaded', () => {
+      const root = document.documentElement;
+      root.style.setProperty('--primary-color', createGradient(styleOptions.accent));
+      root.style.setProperty('--header-textColor', styleOptions.suggestedActionTextColor);
+      if (backgroundImage) {
+        const webchatElement = document.getElementById('webchat');
+        webchatElement.style.backgroundImage = `url(${backgroundImage})`;
+        webchatElement.style.backgroundSize = 'cover';
+        webchatElement.style.backgroundPosition = 'center';
+        webchatElement.style.backgroundRepeat = 'no-repeat';
+        const overlay = document.createElement('div');
+        overlay.className = 'webchat-overlay';
+        webchatElement.appendChild(overlay);
+      }
+    });
+    function createGradient(baseColor) {
+      const r = parseInt(baseColor.slice(1,3), 16);
+      const g = parseInt(baseColor.slice(3,5), 16);
+      const b = parseInt(baseColor.slice(5,7), 16);
+      const lighterColor = `#${Math.min(255, r+30).toString(16).padStart(2,'0')}${Math.min(255, g+30).toString(16).padStart(2,'0')}${Math.min(255, b+30).toString(16).padStart(2,'0')}`;
+      const darkerColor = `#${Math.max(0, r-30).toString(16).padStart(2,'0')}${Math.max(0, g-30).toString(16).padStart(2,'0')}${Math.max(0, b-30).toString(16).padStart(2,'0')}`;
+      return `linear-gradient(135deg, ${lighterColor}, ${baseColor}, ${darkerColor})`;
+    }
+    const environmentEndPoint = tokenEndpoint.slice(
+      0,
+      tokenEndpoint.indexOf("/powervirtualagents")
+    );
+    const apiVersion = tokenEndpoint
+      .slice(tokenEndpoint.indexOf("api-version"))
+      .split("=")[1];
+    const regionalChannelSettingsURL = `${environmentEndPoint}/powervirtualagents/regionalchannelsettings?api-version=${apiVersion}`;
+    function showChat() {
+      const popup = document.getElementById("chatbot-popup");
+      const openButton = document.getElementById("open-chat");
+      popup.classList.add("visible");
+      openButton.classList.add("hidden");
+    }
+    function hideChat() {
+      const popup = document.getElementById("chatbot-popup");
+      const openButton = document.getElementById("open-chat");
+      popup.classList.remove("visible");
+      openButton.classList.remove("hidden");
+    }
+    function createCustomStore() {
+      return window.WebChat.createStore(
+        {},
+        ({ dispatch }) =>
+          (next) =>
+          (action) => {
+            if (action.type === "DIRECT_LINE/CONNECT_FULFILLED") {
+              dispatch({
+                type: "DIRECT_LINE/POST_ACTIVITY",
+                meta: { method: "keyboard" },
+                payload: {
+                  activity: {
+                    channelData: { postBack: true },
+                    name: "startConversation",
+                    type: "event",
+                  },
+                },
+              });
+            }
+            return next(action);
+          }
+      );
+    }
+    async function restartConversation() {
+      try {
+        if (!directLineUrl) {
+          console.error("DirectLine URL not initialized");
+          return;
+        }
+        const response = await fetch(tokenEndpoint);
+        const conversationInfo = await response.json();
+        if (!conversationInfo.token) {
+          throw new Error("Failed to get conversation token");
+        }
+        const newDirectLine = window.WebChat.createDirectLine({
+          domain: `${directLineUrl}v3/directline`,
+          token: conversationInfo.token,
+        });
+        const webchatElement = document.getElementById("webchat");
+        webChatInstance = window.WebChat.renderWebChat(
+          {
+            directLine: newDirectLine,
+            styleOptions,
+            store: createCustomStore(),
+          },
+          webchatElement
+        );
+      } catch (err) {
+        console.error("Failed to restart conversation:", err);
+      }
+    }
+    async function initializeChat() {
+      try {
+        const response = await fetch(regionalChannelSettingsURL);
+        const data = await response.json();
+        directLineUrl = data.channelUrlsById.directline;
+        if (!directLineUrl) {
+          throw new Error("Failed to get DirectLine URL");
+        }
+        const conversationResponse = await fetch(tokenEndpoint);
+        const conversationInfo = await conversationResponse.json();
+        if (!conversationInfo.token) {
+          throw new Error("Failed to get conversation token");
+        }
+        const directLine = window.WebChat.createDirectLine({
+          domain: `${directLineUrl}v3/directline`,
+          token: conversationInfo.token,
+        });
+        webChatInstance = window.WebChat.renderWebChat(
+          {
+            directLine,
+            styleOptions,
+            store: createCustomStore(),
+          },
+          document.getElementById("webchat")
+        );
+      } catch (err) {
+        console.error("Failed to initialize chat:", err);
+      }
+    }
+    initializeChat();
+  </script>
+  <!-- Chabot code -->
+
+  <!-- Chabot style -->
+  <style>
+    :root {
+      --primary-gradient: var(--primary-color);
+      --chat-width: 30%;
+      --chat-height: 80%;
+      --header-height: 56px;
+      --border-radius: 16px;
+      --transition-speed: 0.3s;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      background-color: #f3f4f6;
+    }
+    #chatbot-popup {
+      display: none;
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: var(--chat-width);
+      height: var(--chat-height);
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: 0 18px 40px -5px rgba(0, 0, 0, 0.2),
+        0 15px 20px -5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      opacity: 0;
+      transform-origin: bottom right;
+      transform: scale(0.95);
+      transition: all var(--transition-speed) ease-in-out;
+      z-index: 999;
+    }
+    #chatbot-popup.visible {
+      display: block;
+      opacity: 1;
+      transform: scale(1);
+    }
+    #chatbot-header {
+      background: var(--primary-color);
+      padding: 16px 20px;
+      height: var(--header-height);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--header-textColor);
+    }
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .header-buttons {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .icon-button {
+      background: none;
+      border: none;
+      color: var(--header-textColor);
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .icon-button:hover {
+      color: var(--header-textColor);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .icon-button:focus {
+      outline: 2px solid rgba(255, 255, 255, 0.5);
+      outline-offset: 2px;
+    }
+    #webchat {
+      height: calc(100% - var(--header-height));
+      background-color: #f9fafb;
+      position: relative;
+    }
+    .webchat-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.85);
+      pointer-events: none;
+      z-index: 1;
+    }
+    #webchat > div {
+      position: relative;
+      z-index: 2;
+    }
+    #webchat .webchat__basic-transcript__content {
+      white-space: pre-wrap !important;
+      word-break: break-word !important;
+    }
+    #webchat .webchat__bubble__content {
+      padding: 8px 12px !important;
+    }
+    #webchat .webchat__bubble {
+      max-width: 85% !important;
+      margin: 8px !important;
+    }
+    #webchat .webchat__basic-transcript__content ul,
+    #webchat .webchat__basic-transcript__content ol,
+    #webchat .webchat__bubble__content ul,
+    #webchat .webchat__bubble__content ol {
+      padding-left: 24px !important;
+      margin: 8px 0 !important;
+      list-style-position: outside !important;
+    }
+    #webchat .webchat__basic-transcript__content li,
+    #webchat .webchat__bubble__content li {
+      margin: 4px 0 !important;
+      padding-left: 4px !important;
+    }
+    #open-chat {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--primary-gradient);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      transition: all var(--transition-speed) ease-in-out;
+      z-index: 998;
+    }
+    #open-chat.hidden {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+      pointer-events: none;
+    }
+    #open-chat:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    #open-chat:focus {
+      outline: 3px solid rgba(79, 70, 229, 0.5);
+      outline-offset: 2px;
+    }
+    #open-chat svg {
+      width: 28px;
+      height: 28px;
+      color: white;
+      transition: transform 0.2s ease;
+    }
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    .main-content h1 {
+      font-size: 36px;
+      color: #111827;
+      text-align: center;
+    }
+    .main-content p {
+      font-size: 18px;
+      color: #4b5563;
+      line-height: 1.6;
+      margin-bottom: 48px;
+      text-align: center;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+    .content-box {
+      background: linear-gradient(135deg, #e6e6e6, #c4c4c4, #9f9f9f);
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .content-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+    .content-box.featured {
+      grid-column: span 2;
+      min-height: 350px;
+      background: linear-gradient(135deg, #e6e6e6, #c4c4c4, #9f9f9f);
+      color: #000000;
+    }
+    .content-box h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .content-box p {
+      font-size: 16px;
+      color: #6b7280;
+      margin-bottom: 0;
+    }
+    .content-box.featured p {
+      color: #000000;
+    }
+    @media (max-width: 768px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+      .content-box.featured {
+        grid-column: span 1;
+      }
+      .main-content {
+        padding: 24px 16px;
+      }
+      .main-content h1 {
+        font-size: 28px;
+      }
+      #chatbot-popup {
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+      }
+    }
+  </style>
+  <!-- Chabot style -->
+
+  <!-- Chatbot Popup -->
+  <div id="chatbot-popup" role="complementary" aria-label="Chat Assistant">
+    <div id="chatbot-header">
+      <div class="header-title">
+        <svg
+          class="chat-icon"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+          ></path>
+        </svg>
+        <span>ISP Buddy</span>
+      </div>
+      <div class="header-buttons">
+        <button
+          class="icon-button"
+          id="restart-button"
+          onclick="restartConversation()"
+          aria-label="Restart Conversation"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+            ></path>
+            <path d="M3 3v5h5"></path>
+          </svg>
+        </button>
+        <button
+          class="icon-button"
+          id="close-button"
+          onclick="hideChat()"
+          aria-label="Close Chat"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="webchat" role="main"></div>
+  </div>
+  <button
+    id="open-chat"
+    onclick="showChat()"
+    aria-label="Open Chat Assistant"
+  >
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path
+        d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+      ></path>
+    </svg>
+  </button>
+   <!-- Chatbot Popup -->
