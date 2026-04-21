@@ -77,7 +77,7 @@
         const params = new URLSearchParams(window.location.search);
         //Microsoft.Omnichannel.LiveChatWidget.SDK.setContextProvider(contextProvider);
         Microsoft.Omnichannel.LiveChatWidget.SDK.startChat({
-            inNewWindow: true,
+            // inNewWindow: true,
             customContext: {
                 'conversationHistory': {'value': params.get('conversationHistory') ?? '', 'isDisplayable': true}
             }
