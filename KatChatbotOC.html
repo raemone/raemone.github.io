@@ -64,28 +64,35 @@
       }
 
       function contextProvider(){
-        //Here it is assumed that the corresponding work stream would have context variables with logical name of 'contextKey1', 'contextKey2', 'contextKey3'. If no context variable exists with a matching logical name, items are created assuming Type:string               
+        const params = new URLSearchParams(window.location.search);
         return {
-            'userToken': 'contextValue2'
+            'userToken': params.get('userToken') ?? '',
+            'conversationHistory': params.get('conversationHistory') ?? ''
         };
       }
 
       window.addEventListener("lcw:ready", function handleLivechatReadyEvent() {
 
         console.log("lcw:ready");
-        Microsoft.Omnichannel.LiveChatWidget.SDK.setContextProvider(contextProvider);
-        Microsoft.Omnichannel.LiveChatWidget.SDK.startChat();
+        const params = new URLSearchParams(window.location.search);
+        //Microsoft.Omnichannel.LiveChatWidget.SDK.setContextProvider(contextProvider);
+        Microsoft.Omnichannel.LiveChatWidget.SDK.startChat({
+            inNewWindow: true,
+            customContext: {
+                'conversationHistory': {'value': params.get('conversationHistory') ?? '', 'isDisplayable': true}
+            }
+        });
         let registeredAuthTokenProvider = Microsoft.Omnichannel.LiveChatWidget.SDK.getAuthTokenProvider();
 
       });
 
-      // window.addEventListener("lcw:onMessageReceived", function handleLivechatContextEvent(contextEvent) {
-      //   // Handle LiveChat SDK context event
-      //   console.log("lcw:context");
-      //   console.log(contextEvent);
-      //   let registeredAuthTokenProvider = Microsoft.Omnichannel.LiveChatWidget.SDK.getAuthTokenProvider();
-      //   console.log("registeredAuthTokenProvider", registeredAuthTokenProvider);
-      // });
+      window.addEventListener("lcw:onMessageReceived", function handleLivechatContextEvent(contextEvent) {
+        // Handle LiveChat SDK context event
+        console.log("lcw:context");
+        console.log(contextEvent);
+        let registeredAuthTokenProvider = Microsoft.Omnichannel.LiveChatWidget.SDK.getAuthTokenProvider();
+        console.log("registeredAuthTokenProvider", registeredAuthTokenProvider);
+      });
 
       window.addEventListener("lcw:error", function handleLivechatErrorEvent(errorEvent){
         // Handle LiveChat SDK error event
@@ -105,5 +112,6 @@
       data-suggested-action-layout="stacked" 
       data-customization-callback="lcw"
     ></script>
+
   </body>
 </html>
