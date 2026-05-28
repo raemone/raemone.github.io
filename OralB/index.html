@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Oral-B Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --oralb-navy: #003a70;
+      --oralb-navy-dark: #002a52;
+      --oralb-blue: #0072ce;
+      --oralb-bg: #f4f7fb;
+      --oralb-border: #e1e7ef;
+      --oralb-text: #1a1a1a;
+      --oralb-muted: #5a6675;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; height: 100%; font-family: 'Open Sans', Arial, sans-serif; color: var(--oralb-text); background: var(--oralb-bg); }
+
+    .page {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header.brand {
+      background: #ffffff;
+      border-bottom: 1px solid var(--oralb-border);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0, 58, 112, 0.06);
+      z-index: 2;
+    }
+    .brand-left { display: flex; align-items: center; gap: 16px; }
+    .brand-logo {
+      height: 38px;
+      width: auto;
+      display: block;
+    }
+    .brand-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--oralb-border);
+    }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--oralb-navy);
+      letter-spacing: 0.2px;
+    }
+    .brand-right a {
+      color: var(--oralb-navy);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border: 1px solid var(--oralb-navy);
+      border-radius: 999px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .brand-right a:hover { background: var(--oralb-navy); color: #fff; }
+
+    .hero {
+      background: linear-gradient(135deg, var(--oralb-navy) 0%, var(--oralb-blue) 100%);
+      color: #fff;
+      padding: 24px 28px;
+      text-align: center;
+    }
+    .hero h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .hero p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    main.chat-wrap {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      overflow: hidden;
+    }
+    .chat-card {
+      width: 100%;
+      max-width: 960px;
+      background: #fff;
+      border: 1px solid var(--oralb-border);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 58, 112, 0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    #webchat {
+      flex: 1;
+      min-height: 0;
+    }
+
+    footer.brand-footer {
+      background: #ffffff;
+      border-top: 1px solid var(--oralb-border);
+      color: var(--oralb-muted);
+      font-size: 12px;
+      text-align: center;
+      padding: 12px 16px;
+    }
+    footer.brand-footer a {
+      color: var(--oralb-navy);
+      text-decoration: none;
+      margin: 0 8px;
+    }
+    footer.brand-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      header.brand { padding: 10px 16px; }
+      .brand-title { font-size: 15px; }
+      .hero { padding: 18px 16px; }
+      .hero h1 { font-size: 20px; }
+      main.chat-wrap { padding: 0; }
+      .chat-card { border-radius: 0; border-left: 0; border-right: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="brand">
+      <div class="brand-left">
+        <img class="brand-logo" alt="Oral-B" src="https://pg-lex.my.salesforce.com/servlet/servlet.ImageServer?id=015KZ000000h2sT&oid=00D80000000PUz7&lastMod=1758094993000" />
+        <div class="brand-divider"></div>
+        <div class="brand-title">Support</div>
+      </div>
+      <div class="brand-right">
+        <a href="https://oralb.com" target="_blank" rel="noopener noreferrer">Go to Oral-B website</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>Hello, there!</h1>
+      <p>Ask me anything about Oral-B products, warranty, and care.</p>
+    </section>
+
+    <main class="chat-wrap">
+      <div class="chat-card">
+        <div id="webchat" role="main"></div>
+      </div>
+    </main>
+
+    <footer class="brand-footer">
+      <a href="https://privacypolicy.pg.com/en-GB/" target="_blank" rel="noopener noreferrer">Privacy</a>|
+      <a href="https://termsandconditions.pg.com/en-uk/" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>|
+      <a href="https://preferencecenter.pg.com/en-gb/" target="_blank" rel="noopener noreferrer">My Data</a>
+    </footer>
+  </div>
+
+  <script crossorigin="anonymous" src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+  <script>
+    (async function () {
+      const tokenUrl = 'https://6ab826a6e92de2e68f096a895e476e.14.environment.api.powerplatform.com/powervirtualagents/botsbyschema/cr88d_ProductCatalogAgent/directline/token?api-version=2022-03-01-preview';
+      const res = await fetch(tokenUrl);
+      const { token } = await res.json();
+
+      const directLine = window.WebChat.createDirectLine({ token });
+      const store = window.WebChat.createStore({}, ({ dispatch }) => next => action => {
+        if (action.type === 'DIRECT_LINE/CONNECT_FULFILLED') {
+          dispatch({
+            type: 'WEB_CHAT/SEND_EVENT',
+            payload: { name: 'startConversation', value: { text: 'hello' } }
+          });
+        }
+        return next(action);
+      });
+
+      const styleOptions = {
+        // Brand colors
+        accent: '#0072ce',
+        bubbleBackground: '#ffffff',
+        bubbleBorderColor: '#e1e7ef',
+        bubbleBorderRadius: 12,
+        bubbleBorderStyle: 'solid',
+        bubbleBorderWidth: 1,
+        bubbleTextColor: '#1a1a1a',
+        bubbleFromUserBackground: '#003a70',
+        bubbleFromUserBorderColor: '#003a70',
+        bubbleFromUserBorderRadius: 12,
+        bubbleFromUserTextColor: '#ffffff',
+        // Layout / typography
+        backgroundColor: '#ffffff',
+        rootHeight: '100%',
+        rootWidth: '100%',
+        fontSizeSmall: '85%',
+        primaryFont: "'Open Sans', Arial, sans-serif",
+        // Avatars
+        botAvatarInitials: 'OB',
+        botAvatarBackgroundColor: '#003a70',
+        userAvatarInitials: 'You',
+        userAvatarBackgroundColor: '#0072ce',
+        avatarSize: 36,
+        // Send box
+        sendBoxBackground: '#f4f7fb',
+        sendBoxButtonColor: '#003a70',
+        sendBoxButtonColorOnHover: '#0072ce',
+        sendBoxBorderTop: 'solid 1px #e1e7ef',
+        sendBoxTextColor: '#1a1a1a',
+        // Suggested actions
+        suggestedActionBackgroundColor: '#ffffff',
+        suggestedActionBorderColor: '#003a70',
+        suggestedActionBorderRadius: 999,
+        suggestedActionTextColor: '#003a70',
+        suggestedActionBorderWidth: 1
+      };
+
+      window.WebChat.renderWebChat(
+        {
+          directLine,
+          store,
+          locale: 'en-US',
+          styleOptions
+        },
+        document.getElementById('webchat')
+      );
+    })();
+  </script>
+</body>
+</html>
