@@ -1,0 +1,117 @@
+{
+  "name": "Rémi Dyon",
+  "initials": "RD",
+  "headline": {
+    "en": "Principal AI Architect, Copilot Studio",
+    "fr": "Architecte IA principal, Copilot Studio"
+  },
+  "tagline": {
+    "en": "I help the world's largest organisations turn conversational AI from a demo into something that survives production.",
+    "fr": "J'aide les plus grandes organisations à transformer l'IA conversationnelle d'une démo en un système qui tient en production."
+  },
+  "currentCompany": "Microsoft",
+  "currentRole": {
+    "en": "Principal AI Architect — Copilot Acceleration Team (CAT)",
+    "fr": "Architecte IA principal — Copilot Acceleration Team (CAT)"
+  },
+  "basedIn": {
+    "en": "Atlanta, Georgia, United States",
+    "fr": "Atlanta, Géorgie, États-Unis"
+  },
+  "originFrom": {
+    "en": "Grenoble, France",
+    "fr": "Grenoble, France"
+  },
+  "timezone": "America/New_York",
+  "bio": {
+    "en": [
+      "Principal AI Architect on the Copilot Acceleration Team (CAT) at Microsoft, specialised in Microsoft Copilot Studio. With deep expertise in generative, conversational and agentic AI, I work with Microsoft’s most strategic enterprise customers — and closely with product leadership and program management — to get conversational AI live and keep it running.",
+      "Much of the job is translating between two worlds. I channel what customers actually hit in production back into product improvements, and turn product capability into practical guidance, reusable samples and architectural patterns that teams can adopt without a consultant in the room.",
+      "Twenty years in, the path has run from Grenoble and a year at Oxford Brookes, through maintaining supply-chain software in Paris, to managing a delivery in Sapporo, to retail business intelligence, and now to conversational and agentic AI. Projects along the way have taken me across Europe, North Africa, the Middle East and Japan. I have been based in Atlanta since 2014."
+    ],
+    "fr": [
+      "Architecte IA principal au sein de la Copilot Acceleration Team (CAT) chez Microsoft, spécialisé dans Microsoft Copilot Studio. Fort d’une expertise approfondie en IA générative, conversationnelle et agentique, j’accompagne les clients grands comptes les plus stratégiques de Microsoft — en lien étroit avec les équipes produit — pour mettre l’IA conversationnelle en production et l’y maintenir.",
+      "Une grande partie du métier consiste à faire le pont entre deux mondes. Je fais remonter ce que les clients rencontrent réellement en production vers les améliorations produit, et je traduis les capacités du produit en recommandations concrètes, en exemples réutilisables et en patterns d’architecture que les équipes peuvent adopter seules.",
+      "Vingt ans plus tard, le parcours est passé par Grenoble et une année à Oxford Brookes, puis par la maintenance de logiciels supply chain à Paris, la conduite d’un projet à Sapporo, la business intelligence dans la distribution, et aujourd’hui l’IA conversationnelle et agentique. Les projets m’ont mené en Europe, en Afrique du Nord, au Moyen-Orient et au Japon. Je vis à Atlanta depuis 2014."
+    ]
+  },
+  "funFacts": [
+    {
+      "text": {
+        "en": "Soapbox derby cars — I have built one and raced it at the Madison Avenue Derby every year for the last five years",
+        "fr": "Caisses à savon — j’en construis une et je la pilote au Madison Avenue Derby chaque année depuis cinq ans"
+      },
+      "url": "https://www.madavederby.org/"
+    },
+    {
+      "text": {
+        "en": "Winter sports — I volunteered as a snowboard instructor when I was younger",
+        "fr": "Sports d’hiver — j’ai été moniteur de snowboard bénévole quand j’étais plus jeune"
+      }
+    },
+    {
+      "text": {
+        "en": "Avid Lego builder",
+        "fr": "Constructeur de Lego assidu"
+      }
+    },
+    {
+      "text": {
+        "en": "Technology tinkerer",
+        "fr": "Bricoleur de technologie"
+      }
+    },
+    {
+      "text": {
+        "en": "Home automation lover",
+        "fr": "Passionné de domotique"
+      }
+    }
+  ],
+  "photo": "/images/portrait.jpg",
+  "photoAlt": {
+    "en": "Portrait of Rémi Dyon",
+    "fr": "Portrait de Rémi Dyon"
+  },
+  "gallery": [],
+  "languages": [
+    {
+      "name": {
+        "en": "French",
+        "fr": "Français"
+      },
+      "level": {
+        "en": "Native",
+        "fr": "Langue maternelle"
+      }
+    },
+    {
+      "name": {
+        "en": "English",
+        "fr": "Anglais"
+      },
+      "level": {
+        "en": "Fluent",
+        "fr": "Courant"
+      }
+    }
+  ],
+  "traits": [
+    {
+      "en": "Empathic leader",
+      "fr": "Leader empathique"
+    },
+    {
+      "en": "Constant over-achiever",
+      "fr": "Toujours en quête de dépassement"
+    },
+    {
+      "en": "Lifelong learner",
+      "fr": "Apprenant à vie"
+    },
+    {
+      "en": "Passionate about solving complex problems",
+      "fr": "Passionné par la résolution de problèmes complexes"
+    }
+  ]
+}

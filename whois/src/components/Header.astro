@@ -1,0 +1,147 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import LangSwitcher from './LangSwitcher.astro';
+import { NAV_PAGES } from '@/lib/pages';
+import { profile } from '@/lib/content';
+import { localizePath, t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+import type { PageId } from '@/lib/pages';
+
+interface Props {
+  lang: Lang;
+  pageId: PageId;
+}
+
+const { lang, pageId } = Astro.props;
+---
+
+{/*
+  The header is deliberately NOT `transition:persist`. Persisting it carried the
+  previous page's DOM across a client-side navigation, which left both the
+  active underline and `aria-current="page"` pointing at the page you just came
+  from. Re-rendering per page keeps them correct, and the `nav-indicator`
+  transition name below lets the browser slide the underline to its new place.
+*/}
+<header class="sticky top-0 z-50 border-b border-border/70 bg-bg/80 backdrop-blur-xl">
+  <div class="container-page flex h-16 items-center gap-4">
+    <a
+      href={localizePath('/', lang)}
+      class="group flex shrink-0 items-center gap-2.5"
+      aria-label={profile.name}
+    >
+      <span
+        class="grid size-8 place-items-center rounded-lg bg-accent font-mono text-xs font-bold text-accent-contrast transition-transform duration-300 ease-[var(--ease-spring)] group-hover:rotate-[-6deg] group-hover:scale-110"
+      >
+        {profile.initials}
+      </span>
+      <span class="hidden text-sm font-semibold tracking-tight sm:block">{profile.name}</span>
+    </a>
+
+    <nav class="ml-auto hidden md:block" aria-label="Primary">
+      <ul class="flex items-center gap-0.5">
+        {
+          NAV_PAGES.filter((page) => page.id !== 'home').map((page) => {
+            const isActive = page.id === pageId;
+            return (
+              <li>
+                <a
+                  href={localizePath(page.path, lang)}
+                  aria-current={isActive ? 'page' : undefined}
+                  class:list={[
+                    'relative block rounded-lg px-3 py-2 text-sm transition-colors duration-200',
+                    isActive ? 'text-text' : 'text-muted hover:text-text',
+                  ]}
+                >
+                  {t(page.labelKey, lang)}
+                  {isActive && (
+                    <span
+                      class="absolute inset-x-3 -bottom-px h-px bg-accent"
+                      transition:name="nav-indicator"
+                    />
+                  )}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+
+    <div class="ml-auto flex items-center gap-1 md:ml-0">
+      <button
+        type="button"
+        data-palette-trigger
+        class="flex items-center gap-2 rounded-lg border border-border px-2.5 py-1.5 text-muted transition-colors hover:border-border-strong hover:text-text"
+        aria-label={t('palette.open', lang)}
+      >
+        <svg class="size-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="m13.5 13.5 3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+        </svg>
+        <kbd class="hidden font-mono text-[0.65rem] lg:block">⌘K</kbd>
+      </button>
+
+      <LangSwitcher lang={lang} />
+      <ThemeToggle lang={lang} />
+
+      <button
+        type="button"
+        data-menu-trigger
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        class="rounded-lg border border-border p-2 text-muted transition-colors hover:text-text md:hidden"
+        aria-label={t('nav.menu', lang)}
+      >
+        <svg class="size-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-nav" hidden class="border-t border-border md:hidden" aria-label="Primary mobile">
+    <ul class="container-page py-2">
+      {
+        NAV_PAGES.filter((page) => page.id !== 'home').map((page) => (
+          <li>
+            <a
+              href={localizePath(page.path, lang)}
+              aria-current={page.id === pageId ? 'page' : undefined}
+              class:list={[
+                'block border-b border-border/60 py-3 text-sm last:border-0',
+                page.id === pageId ? 'text-accent' : 'text-muted',
+              ]}
+            >
+              {t(page.labelKey, lang)}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  function initHeader() {
+    document.querySelectorAll<HTMLButtonElement>('[data-palette-trigger]').forEach((button) => {
+      if (button.dataset.bound === 'true') return;
+      button.dataset.bound = 'true';
+      button.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent('palette:open'));
+      });
+    });
+
+    const trigger = document.querySelector<HTMLButtonElement>('[data-menu-trigger]');
+    const menu = document.querySelector<HTMLElement>('#mobile-nav');
+    if (!trigger || !menu || trigger.dataset.bound === 'true') return;
+
+    trigger.dataset.bound = 'true';
+    trigger.addEventListener('click', () => {
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      trigger.setAttribute('aria-expanded', String(!isOpen));
+      menu.hidden = isOpen;
+    });
+  }
+
+  document.addEventListener('astro:page-load', initHeader);
+</script>

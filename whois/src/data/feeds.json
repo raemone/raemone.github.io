@@ -1,0 +1,24 @@
+{
+  "note": "Feeds polled by scripts/sync-articles.mjs. 'author' filters a shared, multi-author feed down to a single writer — match it to the name the feed publishes, which for The Custom Engine is a GitHub handle. LinkedIn publishes no RSS, so LinkedIn articles stay hand-written in articles.json.",
+  "feeds": [
+    {
+      "enabled": true,
+      "source": "The Custom Engine",
+      "url": "https://microsoft.github.io/mcscatblog/feed.xml",
+      "author": "raemone",
+      "maxItems": 10
+    },
+    {
+      "enabled": false,
+      "source": "Microsoft Tech Community",
+      "url": "https://techcommunity.microsoft.com/t5/s/gxcuf89792/rss/board?board.id=TODO",
+      "maxItems": 10
+    },
+    {
+      "enabled": false,
+      "source": "DevBlogs",
+      "url": "https://devblogs.microsoft.com/TODO/feed/",
+      "maxItems": 10
+    }
+  ]
+}

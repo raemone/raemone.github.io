@@ -1,0 +1,153 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import CommandPalette from '@/components/react/CommandPalette';
+import { buildSearchIndex } from '@/lib/search';
+import { profile } from '@/lib/content';
+import { assetPath, localizePath, t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+import type { PageId } from '@/lib/pages';
+import '@/styles/global.css';
+
+interface Props {
+  lang: Lang;
+  pageId: PageId;
+  title: string;
+  description: string;
+  /** Set to false on the résumé, which is meant to be printed rather than framed. */
+  chrome?: boolean;
+}
+
+const { lang, pageId, title, description, chrome = true } = Astro.props;
+
+const fullTitle = pageId === 'home' ? `${profile.name} — ${title}` : `${title} · ${profile.name}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(assetPath(`og/${lang}/${pageId}.png`), Astro.site);
+const searchIndex = buildSearchIndex(lang);
+
+const alternates: { lang: Lang; href: string }[] = [
+  { lang: 'en', href: new URL(localizePath(Astro.props.pageId === 'home' ? '/' : `/${pageId}`, 'en'), Astro.site).href },
+  { lang: 'fr', href: new URL(localizePath(Astro.props.pageId === 'home' ? '/' : `/${pageId}`, 'fr'), Astro.site).href },
+];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={assetPath('favicon.svg')} type="image/svg+xml" />
+    <link rel="sitemap" href={assetPath('sitemap-index.xml')} />
+
+    {alternates.map((alternate) => <link rel="alternate" hreflang={alternate.lang} href={alternate.href} />)}
+    <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_GB'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fcfcfd" media="(prefers-color-scheme: light)" />
+
+    <ClientRouter />
+
+    <script is:inline>
+      // Runs before first paint so the correct theme is already applied and the
+      // page never flashes the wrong background.
+      (function () {
+        function applyTheme() {
+          try {
+            var stored = localStorage.getItem('theme');
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = stored === 'light' || stored === 'dark' ? stored : prefersDark ? 'dark' : 'light';
+            document.documentElement.dataset.theme = theme;
+          } catch (error) {
+            document.documentElement.dataset.theme = 'light';
+          }
+        }
+
+        applyTheme();
+
+        // View transitions swap the whole document, which drops the attribute.
+        if (!window.__themeBound) {
+          window.__themeBound = true;
+          document.addEventListener('astro:after-swap', applyTheme);
+        }
+      })();
+    </script>
+  </head>
+
+  <body class="min-h-screen bg-bg text-text antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-200 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:text-accent-contrast"
+    >
+      {t('nav.skipToContent', lang)}
+    </a>
+
+    {chrome && <Header lang={lang} pageId={pageId} />}
+
+    <main id="main" class="min-h-[60vh]">
+      <slot />
+    </main>
+
+    {chrome && <Footer lang={lang} />}
+
+    <CommandPalette
+      client:idle
+      items={searchIndex}
+      labels={{
+        placeholder: t('palette.placeholder', lang),
+        empty: t('palette.empty', lang),
+        hint: t('palette.hint', lang),
+        close: t('palette.close', lang),
+        groups: {
+          pages: t('palette.group.pages', lang),
+          projects: t('palette.group.projects', lang),
+          articles: t('palette.group.articles', lang),
+          talks: t('palette.group.talks', lang),
+        },
+      }}
+    />
+
+    <script>
+      // Reveals `.reveal` elements as they scroll in. Re-registered on every
+      // view transition because the observer's targets are replaced on swap.
+      function initReveal() {
+        const targets = document.querySelectorAll<HTMLElement>('.reveal:not(.is-revealed)');
+        if (targets.length === 0) return;
+
+        if (!('IntersectionObserver' in window)) {
+          targets.forEach((element) => element.classList.add('is-revealed'));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add('is-revealed');
+              observer.unobserve(entry.target);
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
+        );
+
+        targets.forEach((element) => observer.observe(element));
+      }
+
+      document.addEventListener('astro:page-load', initReveal);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,297 @@
+@import 'tailwindcss';
+
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+
+/* Theme is driven by an explicit attribute so the inline boot script can set it
+   before first paint. The media query below only covers the no-JS case. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+:root {
+  --bg: oklch(99% 0.002 260);
+  --bg-subtle: oklch(97% 0.003 260);
+  --surface: oklch(100% 0 0);
+  --surface-raised: oklch(100% 0 0);
+  --border: oklch(90% 0.005 260);
+  --border-strong: oklch(82% 0.008 260);
+  --text: oklch(21% 0.01 260);
+  --text-muted: oklch(50% 0.012 260);
+  --text-faint: oklch(65% 0.01 260);
+  --accent: oklch(52% 0.22 264);
+  --accent-hover: oklch(46% 0.23 264);
+  --accent-contrast: oklch(99% 0 0);
+  --accent-subtle: oklch(95% 0.03 264);
+  --ring: oklch(52% 0.22 264);
+  --shadow-color: 260 20% 40%;
+  --grid-line: oklch(93% 0.004 260);
+}
+
+[data-theme='dark'] {
+  --bg: oklch(15% 0.008 265);
+  --bg-subtle: oklch(18% 0.009 265);
+  --surface: oklch(19% 0.01 265);
+  --surface-raised: oklch(23% 0.012 265);
+  --border: oklch(28% 0.012 265);
+  --border-strong: oklch(38% 0.015 265);
+  --text: oklch(96% 0.004 265);
+  --text-muted: oklch(72% 0.012 265);
+  --text-faint: oklch(55% 0.012 265);
+  --accent: oklch(72% 0.17 264);
+  --accent-hover: oklch(79% 0.15 264);
+  --accent-contrast: oklch(16% 0.01 265);
+  --accent-subtle: oklch(26% 0.05 264);
+  --ring: oklch(72% 0.17 264);
+  --shadow-color: 265 40% 2%;
+  --grid-line: oklch(22% 0.01 265);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: oklch(15% 0.008 265);
+    --bg-subtle: oklch(18% 0.009 265);
+    --surface: oklch(19% 0.01 265);
+    --surface-raised: oklch(23% 0.012 265);
+    --border: oklch(28% 0.012 265);
+    --border-strong: oklch(38% 0.015 265);
+    --text: oklch(96% 0.004 265);
+    --text-muted: oklch(72% 0.012 265);
+    --text-faint: oklch(55% 0.012 265);
+    --accent: oklch(72% 0.17 264);
+    --accent-hover: oklch(79% 0.15 264);
+    --accent-contrast: oklch(16% 0.01 265);
+    --accent-subtle: oklch(26% 0.05 264);
+    --ring: oklch(72% 0.17 264);
+    --grid-line: oklch(22% 0.01 265);
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-accent-subtle: var(--accent-subtle);
+
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv05' 1, 'ss01' 1;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Colour changes are animated so the theme toggle reads as a transition
+     rather than a flash. Excluded from transform/opacity work to keep it cheap. */
+  body,
+  header,
+  footer,
+  .themed {
+    transition:
+      background-color 280ms var(--ease-out-expo),
+      border-color 280ms var(--ease-out-expo),
+      color 280ms var(--ease-out-expo);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.875rem;
+    transition:
+      border-color 200ms var(--ease-out-expo),
+      transform 300ms var(--ease-out-expo),
+      box-shadow 300ms var(--ease-out-expo);
+  }
+
+  .card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px -12px hsl(var(--shadow-color) / 0.25);
+  }
+
+  /* Underline that wipes in from the left on hover, rather than appearing at once. */
+  .link-wipe {
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 320ms var(--ease-out-expo);
+  }
+
+  .link-wipe:hover,
+  .link-wipe:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  .grid-backdrop {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 4rem 4rem;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+}
+
+@layer utilities {
+  /* Elements marked with this fade and lift as they scroll into view; the
+     observer in BaseLayout adds `.is-revealed`. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 620ms var(--ease-out-expo),
+      transform 620ms var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Astro view transitions: pages cross-fade and slide a few pixels. */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+::view-transition-old(root) {
+  animation: page-out 220ms var(--ease-out-expo) both;
+}
+
+::view-transition-new(root) {
+  animation: page-in 320ms var(--ease-out-expo) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  :root {
+    --bg: #fff;
+    --surface: #fff;
+    --text: #000;
+    --text-muted: #333;
+    --border: #ccc;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+
+  .card {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,364 @@
+[
+  {
+    "id": "cat-podcast-script-skill",
+    "title": "Turn Your Daily Digest Into a Podcast You'll Actually Listen To",
+    "url": "https://microsoft.github.io/mcscatblog/posts/podcast-script-skill/",
+    "source": "The Custom Engine",
+    "date": "2026-07-28",
+    "excerpt": {
+      "en": "A Copilot Studio Skill that turns any document, email or press review into a two-host podcast episode — multi-voice SSML, an Azure Text to Speech endpoint, and an agent you can listen to from your phone.",
+      "fr": "Une Skill Copilot Studio qui transforme n’importe quel document, e-mail ou revue de presse en épisode de podcast à deux voix — SSML multi-voix, point de terminaison Azure Text to Speech, et un agent que l’on écoute depuis son téléphone."
+    },
+    "tags": [
+      "Copilot Studio",
+      "Skills",
+      "Azure Speech",
+      "SSML"
+    ],
+    "featured": true,
+    "auto": false
+  },
+  {
+    "id": "cat-redlining-documents",
+    "title": "Redlining Documents with the New Copilot Studio Experience",
+    "url": "https://microsoft.github.io/mcscatblog/posts/redlining-documents-new-copilot-studio-experience/",
+    "source": "The Custom Engine",
+    "date": "2026-07-15",
+    "excerpt": {
+      "en": "Comparing documents from an agent using Microsoft Word’s native redlining and tracked changes, rather than reimplementing a diff.",
+      "fr": "Comparer des documents depuis un agent en s’appuyant sur le suivi des modifications natif de Microsoft Word, plutôt que de réimplémenter un diff."
+    },
+    "tags": [
+      "Copilot Studio",
+      "Microsoft Word",
+      "Documents"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "cat-pdf-page-level-citations",
+    "title": "Page-Level PDF Citations in Copilot Studio",
+    "url": "https://microsoft.github.io/mcscatblog/posts/pdf-page-level-citations/",
+    "source": "The Custom Engine",
+    "date": "2026-06-02",
+    "excerpt": {
+      "en": "How to deliver page-level PDF citations for SharePoint and uploaded file knowledge sources, so users land on the exact page that grounded the answer instead of the top of a 200-page document.",
+      "fr": "Comment produire des citations PDF au niveau de la page pour les sources SharePoint et les fichiers téléversés, afin que l’utilisateur arrive sur la page exacte qui fonde la réponse plutôt qu’en tête d’un document de 200 pages."
+    },
+    "tags": [
+      "Copilot Studio",
+      "Citations",
+      "SharePoint",
+      "RAG"
+    ],
+    "featured": true,
+    "auto": false
+  },
+  {
+    "id": "cat-orchestrator-secrets",
+    "title": "The Orchestrator’s Secrets: Chain-of-Thought & Transcript on Demand",
+    "url": "https://microsoft.github.io/mcscatblog/posts/power-of-topics-copilot-studio/",
+    "source": "The Custom Engine",
+    "date": "2026-03-17",
+    "excerpt": {
+      "en": "Topics are where the secret switches are hidden in Copilot Studio. Two under-the-radar tricks: surfacing the orchestrator’s chain of thought as it works, and pulling the full conversation transcript into a variable on demand.",
+      "fr": "Les rubriques sont l’endroit où se cachent les interrupteurs secrets de Copilot Studio. Deux astuces méconnues : afficher le raisonnement de l’orchestrateur pendant son exécution, et récupérer la transcription complète de la conversation dans une variable à la demande."
+    },
+    "tags": [
+      "Copilot Studio",
+      "Orchestration",
+      "Topics"
+    ],
+    "featured": true,
+    "auto": false
+  },
+  {
+    "id": "cat-teams-deployment",
+    "title": "Best Practices for Deploying Copilot Studio Agents in Microsoft Teams",
+    "url": "https://microsoft.github.io/mcscatblog/posts/copilot-studio-teams-deployment-ux/",
+    "source": "The Custom Engine",
+    "date": "2025-11-14",
+    "excerpt": {
+      "en": "Managing session state, handling updates and keeping performance predictable when an agent ships to Microsoft Teams.",
+      "fr": "Gérer l’état de session, les mises à jour et la stabilité des performances lorsqu’un agent est déployé dans Microsoft Teams."
+    },
+    "tags": [
+      "Copilot Studio",
+      "Microsoft Teams",
+      "Deployment"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "sparks-of-agi-claude-sonnet-45",
+    "title": "Sparks of AGI in Business Applications: Early Experiment with Claude Sonnet 4.5",
+    "url": "https://www.linkedin.com/pulse/sparks-agi-business-applications-early-experiment-claude-r%C3%A9mi-dyon-zwc1e",
+    "source": "LinkedIn",
+    "date": "2025-11-10",
+    "excerpt": {
+      "en": "A little over a month after Anthropic released Claude Sonnet 4.5, early experiments reveal a significant leap in how models reason over relational databases and business data.",
+      "fr": "Un peu plus d'un mois après la sortie de Claude Sonnet 4.5 par Anthropic, les premières expérimentations révèlent un bond significatif dans la façon dont les modèles raisonnent sur les bases de données relationnelles et les données métier."
+    },
+    "tags": [
+      "Claude",
+      "Business Applications",
+      "Experiment"
+    ],
+    "featured": true,
+    "auto": false
+  },
+  {
+    "id": "cat-passing-files",
+    "title": "Tutorial: Passing Files from Copilot Studio to Agent Flows, Connectors and Tools",
+    "url": "https://microsoft.github.io/mcscatblog/posts/copilot-studio-passing-files-flows-connectors/",
+    "source": "The Custom Engine",
+    "date": "2025-10-15",
+    "excerpt": {
+      "en": "A step-by-step guide to passing files from a Copilot Studio agent to downstream systems using Agent Flows, Power Automate and connectors.",
+      "fr": "Un guide pas à pas pour transmettre des fichiers depuis un agent Copilot Studio vers les systèmes en aval via les Agent Flows, Power Automate et les connecteurs."
+    },
+    "tags": [
+      "Copilot Studio",
+      "Agent Flows",
+      "Tutorial"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "copilot-studio-conversation-transcript-runtime",
+    "title": "Accessing Copilot Studio Conversation Transcript at Runtime",
+    "url": "https://www.linkedin.com/pulse/accessing-copilot-studio-conversation-transcript-runtime-r%C3%A9mi-dyon-2q8ie",
+    "source": "LinkedIn",
+    "date": "2025-06-27",
+    "excerpt": {
+      "en": "How to reach the full conversation transcript from inside a running Copilot Studio agent, and what that unlocks for context, escalation and analytics.",
+      "fr": "Comment accéder à la transcription complète de la conversation depuis un agent Copilot Studio en cours d'exécution, et ce que cela permet en matière de contexte, d'escalade et d'analyse."
+    },
+    "tags": [
+      "Copilot Studio",
+      "Runtime",
+      "Analytics"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "dynamic-graph-copilot-studio-webchat",
+    "title": "How to dynamically generate a graph and display it in Copilot Studio webchat",
+    "url": "https://www.linkedin.com/pulse/how-dynamically-generate-graph-display-copilot-studio-r%C3%A9mi-dyon-chhge",
+    "source": "LinkedIn",
+    "date": "2024-11-07",
+    "excerpt": {
+      "en": "One of those questions that sits just beyond the product's documented capabilities: generating a chart on the fly and rendering it inside the web chat canvas.",
+      "fr": "Une de ces questions qui se situe juste au-delà des capacités documentées du produit : générer un graphique à la volée et l'afficher dans le canvas du web chat."
+    },
+    "tags": [
+      "Copilot Studio",
+      "Web Chat",
+      "Data Visualisation"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "sharepoint-dataverse-hybrid-grounding",
+    "title": "Sync your SharePoint library with Dataverse: how a hybrid approach will boost your Copilot Agents answers",
+    "url": "https://www.linkedin.com/pulse/sync-your-sharepoint-library-dataverse-how-hybrid-approach-r%C3%A9mi-dyon-8lyle",
+    "source": "LinkedIn",
+    "date": "2024-10-25",
+    "excerpt": {
+      "en": "Makers want the ease of SharePoint for maintaining a document library and the retrieval quality of Dataverse. A hybrid approach gives you both.",
+      "fr": "Les makers veulent la simplicité de SharePoint pour gérer une bibliothèque documentaire et la qualité de recherche de Dataverse. Une approche hybride offre les deux."
+    },
+    "tags": [
+      "Copilot Studio",
+      "SharePoint",
+      "Dataverse",
+      "RAG"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "copilot-studio-phi3-llama31-teams",
+    "title": "Leveraging Copilot Studio to chat with Phi 3 and Llama 3.1 in Microsoft Teams",
+    "url": "https://www.linkedin.com/pulse/leveraging-copilot-studio-chat-phi-3-llama-31-microsoft-r%C3%A9mi-dyon-mfrqe",
+    "source": "LinkedIn",
+    "date": "2024-08-14",
+    "excerpt": {
+      "en": "ChatGPT taught us that successful AI puts the user at the centre. Here is how to put open models like Phi 3 and Llama 3.1 behind a Teams chat experience.",
+      "fr": "ChatGPT nous a appris qu'une IA réussie place l'utilisateur au centre. Voici comment mettre des modèles ouverts comme Phi 3 et Llama 3.1 derrière une expérience de chat dans Teams."
+    },
+    "tags": [
+      "Copilot Studio",
+      "Phi 3",
+      "Llama",
+      "Microsoft Teams"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "copilot-power-automate-desktop-it-support",
+    "title": "Copilot and Power Automate Desktop: A Powerful Duo for IT Support",
+    "url": "https://www.linkedin.com/pulse/copilot-power-automate-desktop-powerful-duo-support-remi-dyon-6xtye",
+    "source": "LinkedIn",
+    "date": "2023-11-27",
+    "excerpt": {
+      "en": "Building an IT support topic that actually resolves the problem — clearing a user's cache and cookies — rather than just describing how to do it.",
+      "fr": "Construire un sujet de support informatique qui résout réellement le problème — vider le cache et les cookies — plutôt que de simplement expliquer comment faire."
+    },
+    "tags": [
+      "Copilot Studio",
+      "Power Automate Desktop",
+      "IT Support"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "uploaded-documents-generative-answers",
+    "title": "Use uploaded documents for generative answers (preview)",
+    "url": "https://www.linkedin.com/pulse/use-uploaded-documents-generative-answers-preview-remi-dyon",
+    "source": "LinkedIn",
+    "date": "2023-10-09",
+    "excerpt": {
+      "en": "Generative answers let a bot answer from a specific data source. This preview extends that to documents the user uploads mid-conversation.",
+      "fr": "Les réponses génératives permettent à un bot de répondre à partir d'une source de données précise. Cette préversion étend cela aux documents téléversés par l'utilisateur en cours de conversation."
+    },
+    "tags": [
+      "Power Virtual Agents",
+      "Generative Answers"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "chat-with-your-data-power-platform",
+    "title": "Chat with your data using ONLY the Power Platform",
+    "url": "https://www.linkedin.com/pulse/chat-your-data-using-only-power-platform-r%C3%A9mi-dyon",
+    "source": "LinkedIn",
+    "date": "2023-07-28",
+    "excerpt": {
+      "en": "Everyone was pairing Azure OpenAI with Azure Cognitive Search to chat with their data. This shows how far you can get without leaving the Power Platform.",
+      "fr": "Tout le monde associait Azure OpenAI à Azure Cognitive Search pour dialoguer avec ses données. Voici jusqu'où l'on peut aller sans quitter la Power Platform."
+    },
+    "tags": [
+      "Power Platform",
+      "RAG",
+      "Azure OpenAI"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "extract-data-ocr-gpt",
+    "title": "Extract data from ANY documents with OCR+GPT",
+    "url": "https://www.linkedin.com/pulse/extract-data-from-any-documents-ocrgpt-r%C3%A9mi-dyon",
+    "source": "LinkedIn",
+    "date": "2023-07-12",
+    "excerpt": {
+      "en": "AI Builder models handle invoices and known document types. Pairing OCR with GPT handles everything else, and lands the result in Dataverse.",
+      "fr": "Les modèles AI Builder traitent les factures et les types de documents connus. Associer l'OCR à GPT couvre tout le reste, et place le résultat dans Dataverse."
+    },
+    "tags": [
+      "OCR",
+      "GPT",
+      "Dataverse",
+      "AI Builder"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "secret-power-of-virtual-agents",
+    "title": "The Secret Power of Virtual Agents",
+    "url": "https://www.linkedin.com/pulse/secret-power-virtual-agents-r%C3%A9mi-dyon",
+    "source": "LinkedIn",
+    "date": "2023-05-11",
+    "excerpt": {
+      "en": "Power Virtual Agents can receive information straight from the user's browser — a small capability that changes what a bot can personalise.",
+      "fr": "Power Virtual Agents peut recevoir des informations directement depuis le navigateur de l'utilisateur — une petite capacité qui change ce qu'un bot peut personnaliser."
+    },
+    "tags": [
+      "Power Virtual Agents",
+      "Web Chat"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "supercharge-power-virtual-agents",
+    "title": "How to supercharge your Power Virtual Agents",
+    "url": "https://www.linkedin.com/pulse/how-supercharge-your-power-virtual-agents-r%C3%A9mi-dyon",
+    "source": "LinkedIn",
+    "date": "2023-03-06",
+    "excerpt": {
+      "en": "A first look at the conversation boost feature the day Microsoft shipped it to preview, and what it meant for bots grounded on a website.",
+      "fr": "Un premier aperçu de la fonctionnalité conversation boost le jour de sa sortie en préversion, et ce qu'elle signifiait pour les bots ancrés sur un site web."
+    },
+    "tags": [
+      "Power Virtual Agents",
+      "Conversation Boost"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "openai-power-virtual-agent-part-2",
+    "title": "Connecting OpenAI to Power Virtual Agent — Part 2: keeping the conversation rolling!",
+    "url": "https://www.linkedin.com/pulse/connecting-openai-power-virtual-agent-part-2-keeping-r%C3%A9mi-dyon",
+    "source": "LinkedIn",
+    "date": "2023-01-30",
+    "excerpt": {
+      "en": "Part two of the experiment: adding conversation context so the model remembers what was said instead of answering each turn from scratch.",
+      "fr": "Deuxième partie de l'expérience : ajouter le contexte conversationnel pour que le modèle se souvienne de ce qui a été dit, au lieu de répondre à chaque tour en repartant de zéro."
+    },
+    "tags": [
+      "OpenAI",
+      "Power Virtual Agents",
+      "Context"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "openai-power-virtual-agent-10-minutes",
+    "title": "Connecting OpenAI to Power Virtual Agent in 10 minutes",
+    "url": "https://www.linkedin.com/pulse/connecting-openai-power-virtual-agent-10-minutes-r%C3%A9mi-dyon",
+    "source": "LinkedIn",
+    "date": "2023-01-24",
+    "excerpt": {
+      "en": "Wiring GPT into a Power Virtual Agent bot end to end, in about the time it takes to make a coffee.",
+      "fr": "Brancher GPT dans un bot Power Virtual Agents de bout en bout, en à peu près le temps de préparer un café."
+    },
+    "tags": [
+      "OpenAI",
+      "Power Virtual Agents",
+      "GPT"
+    ],
+    "featured": false,
+    "auto": false
+  },
+  {
+    "id": "virtual-agent-rest-api-power-automate",
+    "title": "Connecting a Virtual Agent to a REST API using Power Automate",
+    "url": "https://www.linkedin.com/pulse/connecting-virtual-agent-rest-api-using-power-automate-r%C3%A9mi-dyon",
+    "source": "LinkedIn",
+    "date": "2023-01-11",
+    "excerpt": {
+      "en": "From answering FAQs to checking a flight status — the step where a bot stops talking and starts calling real systems.",
+      "fr": "Des réponses aux FAQ à la vérification du statut d'un vol — l'étape où un bot cesse de parler et commence à appeler de vrais systèmes."
+    },
+    "tags": [
+      "Power Virtual Agents",
+      "Power Automate",
+      "REST API"
+    ],
+    "featured": false,
+    "auto": false
+  }
+]

@@ -1,0 +1,48 @@
+---
+import { availability } from '@/lib/content';
+import { t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+
+interface Props {
+  lang: Lang;
+  class?: string;
+}
+
+const { lang, class: className } = Astro.props;
+const { openToWork } = availability;
+const value = openToWork ? t('status.openToWork', lang) : t('status.notLooking', lang);
+---
+
+{/*
+  The state is always prefixed with "Work status" — on its own, a phrase like
+  "Not seeking a new role" reads as an unexplained fragment, and a visitor has
+  no way to tell what it refers to.
+*/}
+<span
+  class:list={[
+    'inline-flex items-center gap-2 rounded-full border py-1 pl-2.5 pr-3 text-xs',
+    openToWork
+      ? 'border-accent/40 bg-accent-subtle text-accent'
+      : 'border-border bg-surface text-muted',
+    className,
+  ]}
+>
+  <span class="relative flex size-1.5">
+    {
+      openToWork && (
+        <span class="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-75" />
+      )
+    }
+    <span
+      class:list={[
+        'relative inline-flex size-1.5 rounded-full',
+        openToWork ? 'bg-accent' : 'bg-faint',
+      ]}></span>
+  </span>
+
+  <span class="font-mono text-[0.625rem] uppercase tracking-[0.12em] text-faint">
+    {t('status.label', lang)}
+  </span>
+  <span class="text-faint" aria-hidden="true">·</span>
+  <span class="font-medium">{value}</span>
+</span>

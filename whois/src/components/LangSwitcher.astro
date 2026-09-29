@@ -1,0 +1,54 @@
+---
+import { LANGUAGES, LANGUAGE_NAMES, switchLangPath, t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const options = LANGUAGES.map((code) => ({
+  code,
+  name: LANGUAGE_NAMES[code],
+  href: switchLangPath(Astro.url.pathname, code),
+  isActive: code === lang,
+}));
+---
+
+{/*
+  A segmented toggle rather than a single link: both languages are visible, so
+  a reader can see the site is bilingual and which one they are currently on,
+  instead of having to infer it from a lone opposite-language code.
+*/}
+<div
+  class="flex items-center rounded-lg border border-border p-0.5"
+  role="group"
+  aria-label={t('lang.switch', lang)}
+>
+  {
+    options.map((option) =>
+      option.isActive ? (
+        <span
+          class="rounded-[0.3rem] bg-accent px-2 py-1 font-mono text-[0.7rem] font-medium uppercase text-accent-contrast"
+          aria-current="true"
+        >
+          <span class="sr-only">{option.name} — </span>
+          {option.code}
+        </span>
+      ) : (
+        <a
+          href={option.href}
+          hreflang={option.code}
+          lang={option.code}
+          rel="alternate"
+          class="rounded-[0.3rem] px-2 py-1 font-mono text-[0.7rem] font-medium uppercase text-muted transition-colors hover:text-text"
+          title={option.name}
+        >
+          <span class="sr-only">{option.name}</span>
+          <span aria-hidden="true">{option.code}</span>
+        </a>
+      ),
+    )
+  }
+</div>

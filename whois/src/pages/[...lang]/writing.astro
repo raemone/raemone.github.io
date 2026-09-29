@@ -1,0 +1,133 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import { langStaticPaths } from '@/lib/paths';
+import { getPage } from '@/lib/pages';
+import { articleSources, articles } from '@/lib/content';
+import { formatDate, pick, t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+
+export const getStaticPaths = langStaticPaths;
+
+const { lang } = Astro.props as { lang: Lang };
+const page = getPage('writing');
+const sources = articleSources();
+---
+
+<BaseLayout lang={lang} pageId="writing" title={t('writing.title', lang)} description={page.description[lang]}>
+  <PageHeader eyebrow={`${articles.length} ${t('stats.articles', lang)}`} title={t('writing.title', lang)} lead={t('writing.lead', lang)} />
+
+  <section class="container-page py-12 md:py-16">
+    {
+      sources.length > 1 && (
+        <div class="reveal mb-8 flex flex-wrap items-center gap-2" role="group" aria-label={t('writing.filterSource', lang)}>
+          <button
+            type="button"
+            data-source-filter="all"
+            aria-pressed="true"
+            class="rounded-full border border-accent bg-accent-subtle px-3.5 py-1.5 text-xs font-medium text-accent transition-colors"
+          >
+            {t('projects.filterAll', lang)}
+          </button>
+          {sources.map((source) => (
+            <button
+              type="button"
+              data-source-filter={source}
+              aria-pressed="false"
+              class="rounded-full border border-border px-3.5 py-1.5 text-xs font-medium text-muted transition-colors hover:border-border-strong hover:text-text"
+            >
+              {source}
+            </button>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      articles.length === 0 ? (
+        <p class="text-sm text-muted">{t('writing.none', lang)}</p>
+      ) : (
+        <ul class="grid gap-4 md:grid-cols-2" data-article-list>
+          {articles.map((article, index) => (
+            <li class="reveal" data-source={article.source} style={`--reveal-delay: ${(index % 6) * 70}ms`}>
+              <a
+                href={article.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="card group flex h-full flex-col p-6"
+              >
+                <div class="flex items-center justify-between gap-3">
+                  <span class="label-mono">{article.source}</span>
+                  {article.featured && (
+                    <span class="rounded-full bg-accent-subtle px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-accent">
+                      {t('writing.featured', lang)}
+                    </span>
+                  )}
+                </div>
+
+                <h2 class="mt-3 text-lg font-semibold leading-snug transition-colors group-hover:text-accent">
+                  {pick(article.title, lang)}
+                </h2>
+
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">{pick(article.excerpt, lang)}</p>
+
+                <div class="mt-5 flex items-center justify-between gap-3 border-t border-border pt-4">
+                  <span class="font-mono text-xs text-faint">{formatDate(article.date, lang)}</span>
+                  <span class="inline-flex items-center gap-1.5 text-xs text-muted transition-all duration-300 group-hover:gap-2.5 group-hover:text-accent">
+                    {t('writing.readOn', lang)} {article.source}
+                    <svg class="size-3" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M6 3h7v7M13 3 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </div>
+
+                {article.tags.length > 0 && (
+                  <div class="mt-3 flex flex-wrap gap-1.5">
+                    {article.tags.map((tag) => (
+                      <span class="rounded border border-border px-2 py-0.5 font-mono text-[0.6rem] text-faint">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+
+  <script>
+    function initSourceFilter() {
+      const buttons = document.querySelectorAll<HTMLButtonElement>('[data-source-filter]');
+      const items = document.querySelectorAll<HTMLElement>('[data-article-list] > li');
+      if (buttons.length === 0) return;
+
+      const activeClasses = ['border-accent', 'bg-accent-subtle', 'text-accent'];
+      const idleClasses = ['border-border', 'text-muted'];
+
+      buttons.forEach((button) => {
+        if (button.dataset.bound === 'true') return;
+        button.dataset.bound = 'true';
+
+        button.addEventListener('click', () => {
+          const selected = button.dataset.sourceFilter;
+
+          buttons.forEach((other) => {
+            const isActive = other === button;
+            other.setAttribute('aria-pressed', String(isActive));
+            other.classList.toggle('hover:border-border-strong', !isActive);
+            activeClasses.forEach((token) => other.classList.toggle(token, isActive));
+            idleClasses.forEach((token) => other.classList.toggle(token, !isActive));
+          });
+
+          items.forEach((item) => {
+            const matches = selected === 'all' || item.dataset.source === selected;
+            item.hidden = !matches;
+          });
+        });
+      });
+    }
+
+    document.addEventListener('astro:page-load', initSourceFilter);
+  </script>
+</BaseLayout>

@@ -1,0 +1,181 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import { langStaticPaths } from '@/lib/paths';
+import { getPage } from '@/lib/pages';
+import { education, profile } from '@/lib/content';
+import { assetPath, pick, pickAll, t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+
+export const getStaticPaths = langStaticPaths;
+
+const { lang } = Astro.props as { lang: Lang };
+const page = getPage('about');
+const paragraphs = pickAll(profile.bio, lang);
+
+const facts = [
+  { label: t('about.whereFrom', lang), value: pick(profile.originFrom, lang) },
+  { label: t('about.whereNow', lang), value: pick(profile.basedIn, lang) },
+] as const;
+---
+
+<BaseLayout lang={lang} pageId="about" title={t('about.title', lang)} description={page.description[lang]}>
+  <PageHeader eyebrow={profile.name} title={t('about.title', lang)} lead={pick(profile.tagline, lang)} />
+
+  <section class="container-page py-16 md:py-20">
+    <div class="grid gap-12 md:grid-cols-[1fr_20rem] md:gap-16">
+      <div class="order-2 md:order-1">
+        <div class="space-y-5">
+          {
+            paragraphs.map((paragraph, index) => (
+              <p class="reveal text-base leading-[1.75] text-muted" style={`--reveal-delay: ${index * 80}ms`}>
+                {paragraph}
+              </p>
+            ))
+          }
+        </div>
+
+        {
+          profile.traits.length > 0 && (
+            <div class="reveal mt-12">
+              <h2 class="label-mono mb-4">{t('about.howIWork', lang)}</h2>
+              <ul class="flex flex-wrap gap-2">
+                {profile.traits.map((trait) => (
+                  <li class="rounded-full border border-border px-3 py-1.5 text-sm text-muted transition-colors hover:border-accent hover:text-accent">
+                    {pick(trait, lang)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+
+        {
+          education.length > 0 && (
+            <div class="reveal mt-12">
+              <h2 class="label-mono mb-4">{t('about.education', lang)}</h2>
+              <ol class="space-y-5">
+                {education.map((entry) => (
+                  <li class="border-l-2 border-border pl-4">
+                    <div class="flex flex-wrap items-baseline justify-between gap-x-4">
+                      <p class="text-sm font-medium text-text">{pick(entry.qualification, lang)}</p>
+                      <span class="font-mono text-xs tabular-nums text-faint">
+                        {entry.start}–{entry.end}
+                      </span>
+                    </div>
+                    <p class="text-sm text-accent">{entry.institution}</p>
+                    <p class="font-mono text-xs text-faint">{pick(entry.location, lang)}</p>
+                    {entry.note && (
+                      <p class="mt-1.5 text-sm leading-relaxed text-muted">{pick(entry.note, lang)}</p>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )
+        }
+
+        {
+          profile.funFacts.length > 0 && (
+            <div class="reveal mt-12">
+              <h2 class="label-mono mb-4">{t('about.funFacts', lang)}</h2>
+              <ul class="space-y-3">
+                {profile.funFacts.map((fact) => (
+                  <li class="flex gap-3 text-sm leading-relaxed text-muted">
+                    <span class="mt-2 size-1 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                    {fact.url ? (
+                      <a
+                        href={fact.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="group inline transition-colors hover:text-accent"
+                      >
+                        {pick(fact.text, lang)}
+                        <svg
+                          class="ml-1 inline size-3 shrink-0 align-baseline text-faint transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M6 3h7v7M13 3 4 12"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </a>
+                    ) : (
+                      pick(fact.text, lang)
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </div>
+
+      <aside class="order-1 md:order-2">
+        <div class="reveal overflow-hidden rounded-xl border border-border bg-surface">
+          <img
+            src={assetPath(profile.photo)}
+            alt={pick(profile.photoAlt, lang)}
+            width="1080"
+            height="1080"
+            loading="eager"
+            class="aspect-square w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] hover:scale-[1.03]"
+          />
+        </div>
+
+        <dl class="reveal mt-6 space-y-4" style="--reveal-delay: 100ms">
+          {
+            facts.map((fact) => (
+              <div class="border-b border-border pb-4">
+                <dt class="label-mono">{fact.label}</dt>
+                <dd class="mt-1 text-sm text-text">{fact.value}</dd>
+              </div>
+            ))
+          }
+
+          {
+            profile.languages.length > 0 && (
+              <div>
+                <dt class="label-mono">{t('about.languages', lang)}</dt>
+                <dd class="mt-2 space-y-1">
+                  {profile.languages.map((entry) => (
+                    <p class="flex justify-between gap-3 text-sm">
+                      <span class="text-text">{pick(entry.name, lang)}</span>
+                      <span class="text-faint">{pick(entry.level, lang)}</span>
+                    </p>
+                  ))}
+                </dd>
+              </div>
+            )
+          }
+        </dl>
+      </aside>
+    </div>
+
+    {
+      profile.gallery.length > 0 && (
+        <div class="mt-20 grid gap-4 sm:grid-cols-3">
+          {profile.gallery.map((item, index) => (
+            <figure class="reveal group overflow-hidden rounded-xl border border-border bg-surface" style={`--reveal-delay: ${index * 90}ms`}>
+              <img
+                src={assetPath(item.src)}
+                alt={pick(item.caption, lang)}
+                width="600"
+                height="450"
+                loading="lazy"
+                class="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
+              />
+              <figcaption class="px-4 py-3 text-xs text-muted">{pick(item.caption, lang)}</figcaption>
+            </figure>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>

@@ -1,0 +1,74 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import ProjectMap from '@/components/react/ProjectMap';
+import type { MapProject } from '@/components/react/ProjectMap';
+import { langStaticPaths } from '@/lib/paths';
+import { getPage } from '@/lib/pages';
+import { projects, stats } from '@/lib/content';
+import { buildMapGeometry } from '@/lib/map';
+import { pick, t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+
+export const getStaticPaths = langStaticPaths;
+
+const { lang } = Astro.props as { lang: Lang };
+const page = getPage('projects');
+
+// Geometry is projected here, on the server, so d3-geo and the world TopoJSON
+// stay out of the client bundle entirely.
+const geometry = buildMapGeometry(projects);
+
+const mapProjects: MapProject[] = projects.map((project) => ({
+  id: project.id,
+  customer: project.customerPublic ? project.customer : t('projects.confidential', lang),
+  project: pick(project.project, lang),
+  description: pick(project.description, lang),
+  country: project.country,
+  countryCode: project.countryCode,
+  city: project.city,
+  year: project.year,
+  industry: pick(project.industry, lang),
+  industryKey: project.industryKey,
+  tech: project.tech,
+  outcome: project.outcome ? pick(project.outcome, lang) : undefined,
+}));
+---
+
+<BaseLayout lang={lang} pageId="projects" title={t('projects.title', lang)} description={page.description[lang]}>
+  <PageHeader
+    eyebrow={`${stats.countries} ${t('stats.countries', lang)} · ${stats.customers} ${t('stats.customers', lang)}`}
+    title={t('projects.title', lang)}
+    lead={t('projects.lead', lang)}
+  />
+
+  <section class="container-page py-12 md:py-16">
+    <div class="reveal">
+      {/*
+        client:load rather than client:visible: on a short viewport the map sits
+        just below the fold, so the server-rendered filters and view toggle were
+        visible but inert until the reader scrolled far enough to trigger
+        hydration. The island is ~8 KB and React already loads for the command
+        palette, so hydrating immediately costs almost nothing.
+      */}
+      <ProjectMap
+        client:load
+        geometry={geometry}
+        projects={mapProjects}
+        labels={{
+          filterIndustry: t('projects.filterIndustry', lang),
+          filterYear: t('projects.filterYear', lang),
+          all: t('projects.filterAll', lang),
+          reset: t('projects.reset', lang),
+          showing: t('projects.showing', lang),
+          of: t('projects.of', lang),
+          hint: t('projects.mapHint', lang),
+          listView: t('projects.listView', lang),
+          mapView: t('projects.mapView', lang),
+          outcome: t('projects.outcome', lang),
+          none: t('projects.none', lang),
+        }}
+      />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,365 @@
+[
+  {
+    "id": "microsoft-principal-ai-architect",
+    "company": "Microsoft",
+    "title": {
+      "en": "Principal AI Architect — Copilot Acceleration Team (CAT)",
+      "fr": "Architecte IA principal — Copilot Acceleration Team (CAT)"
+    },
+    "location": {
+      "en": "Atlanta, Georgia, United States",
+      "fr": "Atlanta, Géorgie, États-Unis"
+    },
+    "start": "2026-08",
+    "end": "present",
+    "current": true,
+    "summary": {
+      "en": "Architecting Copilot Studio deployments for Microsoft's most strategic enterprise customers, and feeding what those deployments reveal back into the product.",
+      "fr": "Conception d'architectures Copilot Studio pour les clients grands comptes les plus stratégiques de Microsoft, et remontée des enseignements vers le produit."
+    },
+    "highlights": {
+      "en": [
+        "TODO — the outcomes you want to be known for in this role"
+      ],
+      "fr": [
+        "TODO — les résultats pour lesquels vous voulez être reconnu dans ce rôle"
+      ]
+    },
+    "skills": [
+      "Copilot Studio",
+      "Agentic AI",
+      "Multi-agent orchestration",
+      "Model Context Protocol",
+      "RAG & knowledge grounding",
+      "Autonomous agents",
+      "Azure AI",
+      "Entra ID"
+    ]
+  },
+  {
+    "id": "microsoft-principal-pm-manager",
+    "company": "Microsoft",
+    "title": {
+      "en": "Principal PM Manager — Copilot Acceleration Team (CAT), Microsoft Copilot Studio",
+      "fr": "Principal PM Manager — Copilot Acceleration Team (CAT), Microsoft Copilot Studio"
+    },
+    "location": {
+      "en": "Atlanta, Georgia, United States",
+      "fr": "Atlanta, Géorgie, États-Unis"
+    },
+    "start": "2025-10",
+    "end": "2026-08",
+    "current": false,
+    "summary": {
+      "en": "Leading Copilot Studio engagements with top-tier enterprise customers while working alongside product leadership and program management.",
+      "fr": "Pilotage des missions Copilot Studio avec les clients grands comptes, en lien étroit avec les équipes produit et de gestion de programme."
+    },
+    "highlights": {
+      "en": [
+        "TODO — highlights from this role"
+      ],
+      "fr": [
+        "TODO — points clés de ce rôle"
+      ]
+    },
+    "skills": [
+      "Microsoft Copilot Studio",
+      "AI Agents",
+      "Conversational AI",
+      "Enterprise architecture"
+    ]
+  },
+  {
+    "id": "microsoft-principal-program-manager",
+    "company": "Microsoft",
+    "title": {
+      "en": "Principal Program Manager — Power CAT, Microsoft Copilot Studio",
+      "fr": "Principal Program Manager — Power CAT, Microsoft Copilot Studio"
+    },
+    "location": {
+      "en": "Atlanta, Georgia, United States",
+      "fr": "Atlanta, Géorgie, États-Unis"
+    },
+    "start": "2024-07",
+    "end": "2025-10",
+    "current": false,
+    "summary": {
+      "en": "Turning what enterprise customers hit in production into practical guidance, reusable samples and published architectural patterns for the wider community.",
+      "fr": "Transformation des difficultés rencontrées par les clients en production en recommandations concrètes, exemples réutilisables et patterns d'architecture publiés pour la communauté."
+    },
+    "highlights": {
+      "en": [
+        "TODO — highlights from this role"
+      ],
+      "fr": [
+        "TODO — points clés de ce rôle"
+      ]
+    },
+    "skills": [
+      "Public Speaking",
+      "Microsoft Copilot Studio",
+      "Power Platform",
+      "Community"
+    ]
+  },
+  {
+    "id": "microsoft-senior-technical-specialist",
+    "company": "Microsoft",
+    "title": {
+      "en": "Senior Technical Specialist — Power Platform",
+      "fr": "Spécialiste technique senior — Power Platform"
+    },
+    "location": {
+      "en": "Atlanta, Georgia, United States",
+      "fr": "Atlanta, Géorgie, États-Unis"
+    },
+    "start": "2022-10",
+    "end": "2024-07",
+    "current": false,
+    "summary": {
+      "en": "A bridge between business and IT, helping customers realise value from the Power Platform — from C-level stakeholders through to low-code makers and architects, and hands-on enough to build the proofs of concept myself.",
+      "fr": "Un pont entre le métier et l'IT, pour aider les clients à tirer de la valeur de la Power Platform — des dirigeants aux makers low-code et architectes, avec une approche suffisamment concrète pour construire les preuves de concept moi-même."
+    },
+    "highlights": {
+      "en": [
+        "Delivered a multi-year, multi-million implementation of a custom Copilot for the main website of a major cruise line — awarded Microsoft's \"Living our Culture\" award for the project",
+        "Recognised by peers and customers as lead SME for Microsoft Copilot Studio, supporting complex deployments across the US",
+        "Regular Executive Briefing Center speaker on Power Platform, AI transformation, automation and app modernisation",
+        "Power Platform Champion in the Power Up program, helping career switchers become Power Platform developers"
+      ],
+      "fr": [
+        "Livraison d'une implémentation pluriannuelle de plusieurs millions d'un Copilot sur mesure pour le site principal d'une grande compagnie de croisière — récompensée par le prix « Living our Culture » de Microsoft",
+        "Reconnu par mes pairs et les clients comme référent technique sur Microsoft Copilot Studio, en appui de déploiements complexes à travers les États-Unis",
+        "Intervenant régulier au Executive Briefing Center sur la Power Platform, la transformation par l'IA, l'automatisation et la modernisation applicative",
+        "Power Platform Champion du programme Power Up, accompagnant les reconversions vers le développement Power Platform"
+      ]
+    },
+    "skills": [
+      "Microsoft Power Platform",
+      "Power Virtual Agents",
+      "Business Applications",
+      "Pre-sales",
+      "Solution design"
+    ]
+  },
+  {
+    "id": "symphonyai-director-bi",
+    "company": "SymphonyAI Retail CPG",
+    "title": {
+      "en": "Director, Business Intelligence",
+      "fr": "Directeur, Business Intelligence"
+    },
+    "location": {
+      "en": "Atlanta, Georgia, United States",
+      "fr": "Atlanta, Géorgie, États-Unis"
+    },
+    "start": "2020-03",
+    "end": "2022-10",
+    "current": false,
+    "summary": {
+      "en": "Built a large-scale, user-friendly BI platform helping retailers achieve 2% year-on-year growth, owning solution architecture across every layer and ultimate responsibility for delivery.",
+      "fr": "Construction d'une plateforme décisionnelle à grande échelle aidant les distributeurs à atteindre 2 % de croissance annuelle, avec la responsabilité de l'architecture à tous les niveaux et de la livraison."
+    },
+    "highlights": {
+      "en": [
+        "Defined solution architecture and strategy for a next-generation BI platform built for performance and scale",
+        "Managed a portfolio of concurrent projects with measurable objectives, owning delivery and 24x7 operations",
+        "Provided technical direction to engineering teams and influenced the work of global cross-functional groups"
+      ],
+      "fr": [
+        "Définition de l'architecture et de la stratégie d'une plateforme BI nouvelle génération, pensée pour la performance et l'échelle",
+        "Gestion d'un portefeuille de projets simultanés avec des objectifs mesurables, responsable de la livraison et des opérations 24h/24",
+        "Direction technique des équipes d'ingénierie et influence sur des groupes pluridisciplinaires internationaux"
+      ]
+    },
+    "skills": [
+      "Node.js",
+      "Vue.js",
+      "Java",
+      "Oracle",
+      "PL/SQL",
+      "SQL Server",
+      "Power BI",
+      "Tableau",
+      "Qlikview",
+      "Splunk"
+    ]
+  },
+  {
+    "id": "symphonyai-product-manager-bi",
+    "company": "SymphonyAI Retail CPG",
+    "title": {
+      "en": "Product Manager, Business Intelligence",
+      "fr": "Chef de produit, Business Intelligence"
+    },
+    "location": {
+      "en": "Atlanta, Georgia, United States",
+      "fr": "Atlanta, Géorgie, États-Unis"
+    },
+    "start": "2014-09",
+    "end": "2020-03",
+    "current": false,
+    "summary": {
+      "en": "Owned Supply Chain Insights, a scalable business intelligence product putting promotion, productivity and store planning data in front of the right people at the right time.",
+      "fr": "Responsable de Supply Chain Insights, un produit décisionnel scalable mettant les données de promotion, de productivité et de planification magasin entre les bonnes mains au bon moment."
+    },
+    "highlights": {
+      "en": [
+        "Led the creation of the Supply Chain Insights platform, owning the roadmap, architecture, design, development and implementation of the data platform, core framework and business applications",
+        "Worked across R&D, customers, marketing, sales, support and professional services to get it into production",
+        "Managed all pre-sales for the platform: market strategy, training material, RFPs and proofs of concept"
+      ],
+      "fr": [
+        "Direction de la création de la plateforme Supply Chain Insights : roadmap, architecture, conception, développement et mise en œuvre de la plateforme de données, du socle technique et des applications métier",
+        "Collaboration avec la R&D, les clients, le marketing, les ventes, le support et les services professionnels pour la mettre en production",
+        "Pilotage de l’ensemble de l’avant-vente de la plateforme : stratégie de marché, supports de formation, appels d’offres et preuves de concept"
+      ]
+    },
+    "skills": [
+      "Product Management",
+      "Data Warehouse Architecture",
+      "Retail analytics",
+      "Pre-sales",
+      "Public Speaking"
+    ]
+  },
+  {
+    "id": "symphonyai-senior-consultant",
+    "company": "SymphonyAI Retail CPG",
+    "title": {
+      "en": "Senior Consultant / Project Manager",
+      "fr": "Consultant senior / Chef de projet"
+    },
+    "location": {
+      "en": "International",
+      "fr": "International"
+    },
+    "start": "2011-10",
+    "end": "2014-08",
+    "current": false,
+    "summary": {
+      "en": "Subject matter expert in supply chain management, leading functional design, technical architecture and roll-out of complex projects with more than thirty of the world's top fifty retailers and CPG companies.",
+      "fr": "Expert en gestion de la chaîne d'approvisionnement, pilotant la conception fonctionnelle, l'architecture technique et le déploiement de projets complexes avec plus de trente des cinquante premiers distributeurs et industriels mondiaux."
+    },
+    "highlights": {
+      "en": [
+        "Worked with 30+ of the top 50 worldwide retailers and CPG companies",
+        "Ran performance audits and code optimisation for 15+ key accounts worldwide, and prepared and executed the supply chain benchmarks behind them",
+        "Senior performance specialist in Oracle tuning, database performance audit, benchmarking and code optimisation",
+        "Fifteen years of international project experience across Europe, North America, North Africa, the Middle East and Japan"
+      ],
+      "fr": [
+        "Collaboration avec plus de 30 des 50 premiers distributeurs et industriels mondiaux",
+        "Audits de performance et optimisation de code pour plus de 15 comptes clés dans le monde, avec la préparation et l’exécution des benchmarks supply chain associés",
+        "Spécialiste performance senior : tuning Oracle, audit de performance de bases de données, benchmarks et optimisation de code",
+        "Quinze ans d'expérience projet internationale en Europe, Amérique du Nord, Afrique du Nord, Moyen-Orient et Japon"
+      ]
+    },
+    "skills": [
+      "Supply Chain Management",
+      "Solution architecture",
+      "Oracle tuning (9–12)",
+      "Benchmarking",
+      "Pre-sales",
+      "GOLD Central",
+      "GOLD Shop Operations",
+      "GOLD Warehouse Replenishment"
+    ]
+  },
+  {
+    "id": "aldata-senior-consultant",
+    "company": "Aldata",
+    "title": {
+      "en": "Senior Consultant",
+      "fr": "Consultant senior"
+    },
+    "location": {
+      "en": "International",
+      "fr": "International"
+    },
+    "start": "2009-09",
+    "end": "2012-12",
+    "current": false,
+    "summary": {
+      "en": "Technical and functional consulting on the GOLD supply chain suite for seven major European retailers, alongside performance audit work and training delivery in French and English.",
+      "fr": "Conseil technique et fonctionnel sur la suite supply chain GOLD pour sept grands distributeurs européens, avec des missions d'audit de performance et de formation en français et en anglais."
+    },
+    "highlights": {
+      "en": [
+        "Delivered around 50 days of internal and external technical training, in French and English",
+        "Ran a two-month benchmark of the GOLD application on Oracle Exadata X-2 in an Oracle lab in Atlanta with a team of five experts",
+        "Covered every phase of delivery: functional design, technical architecture, business requirements, deployment, go-live, key-user training and change management"
+      ],
+      "fr": [
+        "Animation d'environ 50 jours de formation technique interne et externe, en français et en anglais",
+        "Pilotage d'un benchmark de deux mois de l'application GOLD sur Oracle Exadata X-2 dans un laboratoire Oracle à Atlanta, avec une équipe de cinq experts",
+        "Prise en charge de toutes les phases : conception fonctionnelle, architecture technique, expression de besoin, déploiement, mise en production, formation des utilisateurs clés et conduite du changement"
+      ]
+    },
+    "skills": [
+      "GOLD",
+      "Oracle",
+      "Performance tuning",
+      "Technical training"
+    ]
+  },
+  {
+    "id": "aldata-project-manager-japan",
+    "company": "Aldata",
+    "title": {
+      "en": "Project Manager",
+      "fr": "Chef de projet"
+    },
+    "location": {
+      "en": "Sapporo, Hokkaido, Japan",
+      "fr": "Sapporo, Hokkaidō, Japon"
+    },
+    "start": "2011-10",
+    "end": "2012-06",
+    "current": false,
+    "summary": {
+      "en": "Managed resources, budget, design and implementation of GOLD for Aldata's first Japanese customer — a demanding multicultural environment with tight budget, resource and deadline constraints.",
+      "fr": "Gestion des ressources, du budget, de la conception et de la mise en œuvre de GOLD pour le premier client japonais d'Aldata — un environnement multiculturel exigeant, avec de fortes contraintes de budget, de ressources et de délais."
+    },
+    "highlights": {
+      "en": [],
+      "fr": []
+    },
+    "skills": [
+      "Project management",
+      "GOLD",
+      "Cross-cultural delivery"
+    ]
+  },
+  {
+    "id": "aldata-analyst-developer",
+    "company": "Aldata",
+    "title": {
+      "en": "Analyst-Developer",
+      "fr": "Analyste-développeur"
+    },
+    "location": {
+      "en": "Paris, France",
+      "fr": "Paris, France"
+    },
+    "start": "2006-09",
+    "end": "2009-08",
+    "current": false,
+    "summary": {
+      "en": "Maintained the GOLD supply chain applications for more than thirty international customers: bug analysis, correction, QA, delivery and follow-up across product, delivery and consulting teams.",
+      "fr": "Maintenance des applications supply chain GOLD pour plus de trente clients internationaux : analyse et correction de bugs, qualification, livraison et suivi avec les équipes produit, livraison et conseil."
+    },
+    "highlights": {
+      "en": [],
+      "fr": []
+    },
+    "skills": [
+      "Java",
+      "C",
+      "ProC",
+      "PL/SQL",
+      "Oracle",
+      "XML/SOAP"
+    ]
+  }
+]

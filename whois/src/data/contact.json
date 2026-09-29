@@ -1,0 +1,34 @@
+{
+  "links": [
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/remidyon/",
+      "handle": "in/remidyon",
+      "icon": "linkedin"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/raemone",
+      "handle": "@raemone",
+      "icon": "github"
+    }
+  ],
+  "availability": {
+    "openToWork": false,
+    "openToSpeaking": true,
+    "openToAdvising": true,
+    "statusNote": {
+      "en": "Happy at Microsoft and not seeking a new role — but open to board positions and startup advisory work, and always glad to talk about Copilot Studio, agent architecture and conference invitations. LinkedIn is the best way to reach me.",
+      "fr": "Épanoui chez Microsoft et pas en recherche de poste — mais ouvert aux postes d’administrateur et aux missions de conseil auprès de startups, et toujours ravi d’échanger sur Copilot Studio, l’architecture d’agents et les invitations à des conférences. LinkedIn est le meilleur moyen de me joindre."
+    },
+    "responseTime": {
+      "en": "Usually within a few days",
+      "fr": "Généralement sous quelques jours"
+    },
+    "openToBoard": true,
+    "advisoryNote": {
+      "en": "I have advised two French AI startups. Both engagements are under NDA, so they are not named here.",
+      "fr": "J’ai accompagné deux startups françaises spécialisées en IA. Les deux missions sont sous NDA, elles ne sont donc pas nommées ici."
+    }
+  }
+}

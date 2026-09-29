@@ -1,0 +1,77 @@
+---
+import StatusPill from './StatusPill.astro';
+import { contact, profile } from '@/lib/content';
+import { PAGES } from '@/lib/pages';
+import { formatDate, localizePath, t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const year = new Date().getUTCFullYear();
+const buildDate = new Date().toISOString().slice(0, 10);
+---
+
+<footer class="mt-24 border-t border-border">
+  <div class="container-page py-12">
+    <div class="flex flex-col gap-10 md:flex-row md:justify-between">
+      <div class="max-w-xs">
+        <p class="text-sm font-semibold">{profile.name}</p>
+        <p class="mt-1 text-sm text-muted">{profile.headline[lang]}</p>
+        <StatusPill lang={lang} class="mt-4" />
+      </div>
+
+      <nav class="grid grid-cols-2 gap-x-10 gap-y-2 sm:grid-cols-3" aria-label="Footer">
+        {
+          PAGES.map((page) => (
+            <a
+              href={localizePath(page.path, lang)}
+              class="link-wipe w-fit text-sm text-muted transition-colors hover:text-text"
+            >
+              {t(page.labelKey, lang)}
+            </a>
+          ))
+        }
+      </nav>
+
+      <div>
+        <p class="label-mono mb-3">{t('contact.elsewhere', lang)}</p>
+        <ul class="space-y-2">
+          {
+            contact.links.map((link) => (
+              <li>
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer me"
+                  class="link-wipe w-fit text-sm text-muted transition-colors hover:text-text"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-10 flex flex-col gap-2 border-t border-border pt-6 font-mono text-xs text-faint sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} {profile.name}</p>
+      <p>
+        {t('footer.updated', lang)} {formatDate(buildDate, lang, { month: 'short' })} ·
+        <a
+          href="https://github.com/raemone/raemone.github.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="link-wipe transition-colors hover:text-text"
+        >
+          {t('footer.source', lang)}
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>

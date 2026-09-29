@@ -1,0 +1,250 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { langStaticPaths } from '@/lib/paths';
+import { getPage } from '@/lib/pages';
+import {
+  currentRole,
+  featuredArticles,
+  profile,
+  projects,
+  splitTalks,
+  stats,
+} from '@/lib/content';
+import { formatDate, formatMonth, localizePath, pick, t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+
+export const getStaticPaths = langStaticPaths;
+
+const { lang } = Astro.props as { lang: Lang };
+const page = getPage('home');
+
+const { upcoming } = splitTalks();
+const nextTalks = upcoming.slice(0, 2);
+const latest = featuredArticles(3);
+const recentProjects = projects.slice(0, 4);
+
+const statCards = [
+  { value: stats.countries, label: t('stats.countries', lang) },
+  { value: stats.customers, label: t('stats.customers', lang) },
+  { value: stats.talks, label: t('stats.talks', lang) },
+  { value: stats.articles, label: t('stats.articles', lang) },
+] as const;
+---
+
+<BaseLayout lang={lang} pageId="home" title={pick(profile.headline, lang)} description={page.description[lang]}>
+  <section class="relative overflow-hidden border-b border-border">
+    <div class="grid-backdrop pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+
+    <div class="container-page py-20 md:py-32">
+      <h1 class="reveal max-w-4xl text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl" style="--reveal-delay: 80ms">
+        {profile.name}
+        <span class="block text-muted">{pick(profile.headline, lang)}</span>
+      </h1>
+
+      <p class="reveal mt-6 max-w-2xl text-lg leading-relaxed text-muted" style="--reveal-delay: 160ms">
+        {pick(profile.tagline, lang)}
+      </p>
+
+      <div class="reveal mt-9 flex flex-wrap items-center gap-3" style="--reveal-delay: 240ms">
+        <a
+          href={localizePath('/contact', lang)}
+          class="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-contrast transition-all duration-300 ease-[var(--ease-out-expo)] hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/25"
+        >
+          {t('home.getInTouch', lang)}
+        </a>
+        <a
+          href={localizePath('/about', lang)}
+          class="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-text transition-colors hover:border-border-strong"
+        >
+          {t('home.readMore', lang)}
+        </a>
+      </div>
+
+      {
+        currentRole && (
+          <div class="reveal mt-14 flex flex-wrap items-center gap-x-3 gap-y-1 border-l-2 border-accent pl-4" style="--reveal-delay: 320ms">
+            <span class="label-mono">{t('home.intro', lang)}</span>
+            <p class="text-sm text-text">
+              {pick(currentRole.title, lang)} <span class="text-faint">·</span>{' '}
+              <span class="text-muted">{currentRole.company}</span>{' '}
+              <span class="font-mono text-xs text-faint">
+                ({formatMonth(currentRole.start, lang)} — {t('experience.present', lang)})
+              </span>
+            </p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="border-b border-border bg-bg-subtle">
+    <div class="container-page grid grid-cols-2 gap-px md:grid-cols-4">
+      {
+        statCards.map((stat, index) => (
+          <div class="reveal py-8 md:py-10" style={`--reveal-delay: ${index * 70}ms`}>
+            <p class="font-mono text-3xl font-semibold tabular-nums text-text md:text-4xl" data-count-to={stat.value}>
+              0
+            </p>
+            <p class="label-mono mt-1">{stat.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container-page py-16 md:py-24">
+    <div class="mb-8 flex items-baseline justify-between gap-4">
+      <h2 class="reveal text-2xl font-semibold tracking-tight md:text-3xl">{t('home.selectedWork', lang)}</h2>
+      <a
+        href={localizePath('/projects', lang)}
+        class="link-wipe shrink-0 text-sm text-muted transition-colors hover:text-text"
+      >
+        {t('home.viewAll', lang)} →
+      </a>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      {
+        recentProjects.map((project, index) => (
+          <article class="card reveal p-6" style={`--reveal-delay: ${index * 70}ms`}>
+            <div class="flex items-baseline justify-between gap-3">
+              <p class="label-mono">{pick(project.industry, lang)}</p>
+              <span class="font-mono text-xs tabular-nums text-faint">{project.year}</span>
+            </div>
+            <h3 class="mt-2 text-lg font-semibold">{pick(project.project, lang)}</h3>
+            <p class="text-sm text-accent">
+              {project.customerPublic ? project.customer : t('projects.confidential', lang)}
+            </p>
+            <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">
+              {pick(project.description, lang)}
+            </p>
+            <p class="mt-4 font-mono text-xs text-faint">
+              {project.city}, {project.country}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-bg-subtle">
+    <div class="container-page grid gap-12 py-16 md:grid-cols-2 md:py-24">
+      <div>
+        <div class="mb-6 flex items-baseline justify-between gap-4">
+          <h2 class="reveal text-2xl font-semibold tracking-tight">{t('home.latestWriting', lang)}</h2>
+          <a
+            href={localizePath('/writing', lang)}
+            class="link-wipe shrink-0 text-sm text-muted transition-colors hover:text-text"
+          >
+            {t('home.viewAll', lang)} →
+          </a>
+        </div>
+
+        <ul class="space-y-4">
+          {
+            latest.map((article, index) => (
+              <li class="reveal" style={`--reveal-delay: ${index * 70}ms`}>
+                <a
+                  href={article.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group block border-b border-border pb-4 transition-colors last:border-0"
+                >
+                  <div class="flex items-baseline justify-between gap-3">
+                    <span class="label-mono">{article.source}</span>
+                    <span class="font-mono text-xs text-faint">{formatDate(article.date, lang, { month: 'short' })}</span>
+                  </div>
+                  <p class="mt-1.5 text-sm font-medium transition-colors group-hover:text-accent">
+                    {pick(article.title, lang)}
+                  </p>
+                  <p class="mt-1 line-clamp-2 text-sm text-muted">{pick(article.excerpt, lang)}</p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <div class="mb-6 flex items-baseline justify-between gap-4">
+          <h2 class="reveal text-2xl font-semibold tracking-tight">{t('home.nextTalks', lang)}</h2>
+          <a
+            href={localizePath('/speaking', lang)}
+            class="link-wipe shrink-0 text-sm text-muted transition-colors hover:text-text"
+          >
+            {t('home.viewAll', lang)} →
+          </a>
+        </div>
+
+        {
+          nextTalks.length === 0 ? (
+            <p class="text-sm text-muted">{t('speaking.noUpcoming', lang)}</p>
+          ) : (
+            <ul class="space-y-4">
+              {nextTalks.map((talk, index) => (
+                <li class="reveal card p-5" style={`--reveal-delay: ${index * 70}ms`}>
+                  <div class="flex items-baseline justify-between gap-3">
+                    <span class="label-mono">{talk.event}</span>
+                    <span class="font-mono text-xs text-faint">{formatDate(talk.date, lang, { month: 'short' })}</span>
+                  </div>
+                  <p class="mt-1.5 text-sm font-medium">{pick(talk.title, lang)}</p>
+                  <p class="mt-1 font-mono text-xs text-faint">
+                    {talk.city}, {talk.country}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Counts the stat tiles up once they scroll into view. Purely decorative, so
+    // it degrades to the final value when motion is reduced or JS is slow.
+    function initCounters() {
+      const counters = document.querySelectorAll<HTMLElement>('[data-count-to]');
+      if (counters.length === 0) return;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const settle = (element: HTMLElement) => {
+        element.textContent = element.dataset.countTo ?? '0';
+      };
+
+      if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+        counters.forEach(settle);
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            const element = entry.target as HTMLElement;
+            observer.unobserve(element);
+
+            const target = Number(element.dataset.countTo ?? 0);
+            const duration = 900;
+            const start = performance.now();
+
+            const tick = (now: number) => {
+              const progress = Math.min((now - start) / duration, 1);
+              // Ease-out cubic, so the number decelerates into its final value.
+              const eased = 1 - Math.pow(1 - progress, 3);
+              element.textContent = String(Math.round(target * eased));
+              if (progress < 1) requestAnimationFrame(tick);
+            };
+
+            requestAnimationFrame(tick);
+          }
+        },
+        { threshold: 0.4 },
+      );
+
+      counters.forEach((counter) => observer.observe(counter));
+    }
+
+    document.addEventListener('astro:page-load', initCounters);
+  </script>
+</BaseLayout>

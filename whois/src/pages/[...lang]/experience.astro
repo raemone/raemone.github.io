@@ -1,0 +1,87 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import { langStaticPaths } from '@/lib/paths';
+import { getPage } from '@/lib/pages';
+import { roles } from '@/lib/content';
+import { formatMonth, localizePath, pick, pickAll, t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+
+export const getStaticPaths = langStaticPaths;
+
+const { lang } = Astro.props as { lang: Lang };
+const page = getPage('experience');
+---
+
+<BaseLayout lang={lang} pageId="experience" title={t('experience.title', lang)} description={page.description[lang]}>
+  <PageHeader eyebrow={page.description[lang]} title={t('experience.title', lang)}>
+    <a
+      href={localizePath('/resume', lang)}
+      class="reveal mt-7 inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm text-text transition-colors hover:border-accent hover:text-accent"
+      style="--reveal-delay: 180ms"
+    >
+      {t('experience.downloadResume', lang)}
+      <svg class="size-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M8 2v9m0 0L4.5 7.5M8 11l3.5-3.5M2.5 13.5h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </a>
+  </PageHeader>
+
+  <section class="container-page py-16 md:py-20">
+    <ol class="relative">
+      <!-- The rail is decorative; the list itself carries the reading order. -->
+      <div class="absolute bottom-4 left-[7px] top-4 w-px bg-border md:left-[calc(9rem+7px)]" aria-hidden="true"></div>
+
+      {
+        roles.map((role, index) => (
+          <li class="reveal relative pb-14 pl-8 last:pb-0 md:pl-[calc(9rem+2rem)]" style={`--reveal-delay: ${index * 80}ms`}>
+            <span
+              class:list={[
+                'absolute left-0 top-1.5 size-[15px] rounded-full border-2 md:left-36',
+                role.current ? 'border-accent bg-accent' : 'border-border-strong bg-bg',
+              ]}
+              aria-hidden="true"
+            />
+
+            <p class="label-mono mb-2 md:absolute md:left-0 md:top-1 md:w-32 md:text-right">
+              {formatMonth(role.start, lang)} — {role.current ? t('experience.present', lang) : formatMonth(role.end, lang)}
+            </p>
+
+            <h2 class="text-xl font-semibold tracking-tight">{pick(role.title, lang)}</h2>
+            <p class="mt-0.5 text-sm">
+              <span class="text-accent">{role.company}</span>
+              <span class="text-faint"> · </span>
+              <span class="text-muted">{pick(role.location, lang)}</span>
+            </p>
+
+            <p class="mt-3 max-w-2xl text-sm leading-relaxed text-muted">{pick(role.summary, lang)}</p>
+
+            {pickAll(role.highlights, lang).length > 0 && (
+              <>
+                <p class="label-mono mt-5">{t('experience.highlights', lang)}</p>
+                <ul class="mt-2 max-w-2xl space-y-2">
+                  {pickAll(role.highlights, lang).map((highlight) => (
+                    <li class="flex gap-3 text-sm leading-relaxed text-muted">
+                      <span class="mt-2 size-1 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {role.skills.length > 0 && (
+              <div class="mt-5 flex flex-wrap gap-1.5">
+                {role.skills.map((skill) => (
+                  <span class="rounded border border-border px-2 py-0.5 font-mono text-[0.65rem] text-muted transition-colors hover:border-accent hover:text-accent">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+}
+
+const { eyebrow, title, lead } = Astro.props;
+---
+
+<section class="relative border-b border-border">
+  <div class="grid-backdrop pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+  <div class="container-page py-14 md:py-20">
+    {eyebrow && <p class="label-mono reveal mb-3">{eyebrow}</p>}
+    <h1 class="reveal text-4xl font-semibold tracking-tight md:text-5xl" style="--reveal-delay: 60ms">
+      {title}
+    </h1>
+    {
+      lead && (
+        <p class="reveal mt-4 max-w-2xl text-base leading-relaxed text-muted md:text-lg" style="--reveal-delay: 120ms">
+          {lead}
+        </p>
+      )
+    }
+    <slot />
+  </div>
+</section>

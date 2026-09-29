@@ -1,0 +1,161 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { langStaticPaths } from '@/lib/paths';
+import { getPage } from '@/lib/pages';
+import { allSkills, articles, contact, education, profile, roles, splitTalks } from '@/lib/content';
+import { formatDate, formatMonth, localizePath, pick, pickAll, t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+
+export const getStaticPaths = langStaticPaths;
+
+const { lang } = Astro.props as { lang: Lang };
+const page = getPage('resume');
+const { past } = splitTalks();
+const selectedTalks = past.slice(0, 5);
+const selectedArticles = articles.slice(0, 5);
+const skills = allSkills();
+---
+
+<BaseLayout lang={lang} pageId="resume" title={t('resume.title', lang)} description={page.description[lang]} chrome={false}>
+  <div class="mx-auto max-w-3xl px-6 py-10 print:max-w-none print:px-0 print:py-0">
+    <div class="no-print mb-8 flex items-center justify-between gap-4">
+      <a
+        href={localizePath('/', lang)}
+        class="link-wipe text-sm text-muted transition-colors hover:text-text"
+      >
+        ← {profile.name}
+      </a>
+      <button
+        type="button"
+        data-print
+        class="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-contrast transition-colors hover:bg-accent-hover"
+      >
+        {t('resume.print', lang)}
+      </button>
+    </div>
+
+    <header class="border-b border-border pb-6">
+      <h1 class="text-3xl font-semibold tracking-tight">{profile.name}</h1>
+      <p class="mt-1 text-base text-muted">{pick(profile.headline, lang)}</p>
+      <p class="mt-3 font-mono text-xs text-faint">
+        {pick(profile.basedIn, lang)}
+        {contact.links.map((link) => ` · ${link.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}`)}
+      </p>
+    </header>
+
+    <section class="mt-7">
+      <h2 class="label-mono mb-3">{t('resume.profile', lang)}</h2>
+      <p class="text-sm leading-relaxed text-muted">{pickAll(profile.bio, lang)[0]}</p>
+    </section>
+
+    <section class="mt-7">
+      <h2 class="label-mono mb-4">{t('resume.experience', lang)}</h2>
+      <div class="space-y-6">
+        {
+          roles.map((role) => (
+            <article>
+              <div class="flex flex-wrap items-baseline justify-between gap-x-4">
+                <h3 class="text-sm font-semibold">
+                  {pick(role.title, lang)} <span class="font-normal text-muted">· {role.company}</span>
+                </h3>
+                <span class="font-mono text-xs text-faint">
+                  {formatMonth(role.start, lang)} — {role.current ? t('experience.present', lang) : formatMonth(role.end, lang)}
+                </span>
+              </div>
+              <p class="font-mono text-xs text-faint">{pick(role.location, lang)}</p>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{pick(role.summary, lang)}</p>
+
+              {pickAll(role.highlights, lang).length > 0 && (
+                <ul class="mt-2 space-y-1">
+                  {pickAll(role.highlights, lang).map((highlight) => (
+                    <li class="flex gap-2 text-sm leading-relaxed text-muted">
+                      <span aria-hidden="true">·</span>
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    {
+      skills.length > 0 && (
+        <section class="mt-7">
+          <h2 class="label-mono mb-3">{t('resume.skills', lang)}</h2>
+          <p class="text-sm leading-relaxed text-muted">{skills.join(' · ')}</p>
+        </section>
+      )
+    }
+
+    {
+      education.length > 0 && (
+        <section class="mt-7">
+          <h2 class="label-mono mb-3">{t('resume.education', lang)}</h2>
+          <ul class="space-y-1.5">
+            {education.map((entry) => (
+              <li class="flex flex-wrap items-baseline justify-between gap-x-4 text-sm text-muted">
+                <span>
+                  {pick(entry.qualification, lang)} <span class="text-faint">· {entry.institution}</span>
+                </span>
+                <span class="font-mono text-xs text-faint">
+                  {entry.start}–{entry.end}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      selectedTalks.length > 0 && (
+        <section class="mt-7">
+          <h2 class="label-mono mb-3">{t('resume.speaking', lang)}</h2>
+          <ul class="space-y-1.5">
+            {selectedTalks.map((talk) => (
+              <li class="flex flex-wrap items-baseline justify-between gap-x-4 text-sm text-muted">
+                <span>
+                  {pick(talk.title, lang)} <span class="text-faint">· {talk.event}</span>
+                </span>
+                <span class="font-mono text-xs text-faint">{formatDate(talk.date, lang, { month: 'short', day: undefined })}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      selectedArticles.length > 0 && (
+        <section class="mt-7">
+          <h2 class="label-mono mb-3">{t('resume.writing', lang)}</h2>
+          <ul class="space-y-1.5">
+            {selectedArticles.map((article) => (
+              <li class="flex flex-wrap items-baseline justify-between gap-x-4 text-sm text-muted">
+                <span>
+                  {pick(article.title, lang)} <span class="text-faint">· {article.source}</span>
+                </span>
+                <span class="font-mono text-xs text-faint">{formatDate(article.date, lang, { month: 'short', day: undefined })}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </div>
+
+  <script>
+    function initPrint() {
+      document.querySelectorAll<HTMLButtonElement>('[data-print]').forEach((button) => {
+        if (button.dataset.bound === 'true') return;
+        button.dataset.bound = 'true';
+        button.addEventListener('click', () => window.print());
+      });
+    }
+
+    document.addEventListener('astro:page-load', initPrint);
+  </script>
+</BaseLayout>

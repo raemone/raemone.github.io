@@ -1,0 +1,172 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import { langStaticPaths } from '@/lib/paths';
+import { getPage } from '@/lib/pages';
+import { splitTalks, talks } from '@/lib/content';
+import { assetPath, formatDate, pick, t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+import type { Talk } from '@/lib/schema';
+
+export const getStaticPaths = langStaticPaths;
+
+const { lang } = Astro.props as { lang: Lang };
+const page = getPage('speaking');
+const { upcoming, past } = splitTalks();
+
+const FORMAT_LABELS: Record<Talk['format'], Record<Lang, string>> = {
+  keynote: { en: 'Keynote', fr: 'Plénière' },
+  session: { en: 'Session', fr: 'Session' },
+  workshop: { en: 'Workshop', fr: 'Atelier' },
+  panel: { en: 'Panel', fr: 'Table ronde' },
+  podcast: { en: 'Podcast', fr: 'Podcast' },
+  webinar: { en: 'Webinar', fr: 'Webinaire' },
+};
+---
+
+<BaseLayout lang={lang} pageId="speaking" title={t('speaking.title', lang)} description={page.description[lang]}>
+  <PageHeader
+    eyebrow={
+      upcoming.length > 0
+        ? `${upcoming.length} ${t('speaking.upcoming', lang).toLowerCase()} · ${talks.length} ${t('stats.talks', lang).toLowerCase()}`
+        : `${talks.length} ${t('stats.talks', lang)}`
+    }
+    title={t('speaking.title', lang)}
+    lead={t('speaking.lead', lang)}
+  />
+
+  <section class="container-page py-12 md:py-16">
+    <h2 class="reveal label-mono mb-6">{t('speaking.upcoming', lang)}</h2>
+
+    {
+      upcoming.length === 0 ? (
+        <p class="reveal text-sm text-muted">{t('speaking.noUpcoming', lang)}</p>
+      ) : (
+        <ul class="space-y-4">
+          {upcoming.map((talk, index) => (
+            <li id={talk.id} class="reveal card scroll-mt-24 border-l-2 border-l-accent p-6" style={`--reveal-delay: ${index * 80}ms`}>
+              <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-2">
+                <div class="min-w-0 flex-1">
+                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <span class="rounded-full bg-accent-subtle px-2.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-accent">
+                      {FORMAT_LABELS[talk.format][lang]}
+                    </span>
+                    <span class="label-mono">{talk.event}</span>
+                  </div>
+
+                  <h3 class="mt-2 text-lg font-semibold leading-snug">{pick(talk.title, lang)}</h3>
+                  <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted">{pick(talk.abstract, lang)}</p>
+                </div>
+
+                <div class="shrink-0 text-right">
+                  <p class="font-mono text-sm tabular-nums text-text">{formatDate(talk.date, lang, { month: 'short' })}</p>
+                  <p class="font-mono text-xs text-faint">{talk.city}, {talk.country}</p>
+                  <p
+                    class="mt-1 font-mono text-xs text-accent"
+                    data-countdown={talk.date}
+                    data-countdown-suffix={t('speaking.countdownDays', lang)}
+                    data-countdown-today={t('speaking.today', lang)}
+                  />
+                </div>
+              </div>
+
+              <div class="mt-5 flex flex-wrap gap-2 border-t border-border pt-4">
+                {talk.url && (
+                  <a
+                    href={talk.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="rounded-lg border border-border px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent"
+                  >
+                    {t('speaking.eventPage', lang)}
+                  </a>
+                )}
+                <a
+                  href={assetPath(`talks/${talk.id}.ics`)}
+                  download
+                  class="rounded-lg border border-border px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent"
+                >
+                  {t('speaking.addToCalendar', lang)}
+                </a>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    {past.length > 0 && <h2 class="reveal label-mono mb-6 mt-16">{t('speaking.past', lang)}</h2>}
+
+    <ul class:list={['divide-y divide-border', past.length > 0 && 'border-y border-border']}>
+      {
+        past.map((talk, index) => (
+          <li id={talk.id} class="reveal scroll-mt-24 py-6" style={`--reveal-delay: ${(index % 6) * 60}ms`}>
+            <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-2">
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <span class="rounded-full border border-border px-2.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-faint">
+                    {FORMAT_LABELS[talk.format][lang]}
+                  </span>
+                  <span class="label-mono">{talk.event}</span>
+                </div>
+                <h3 class="mt-2 text-base font-medium leading-snug">{pick(talk.title, lang)}</h3>
+                <p class="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted">{pick(talk.abstract, lang)}</p>
+
+                <div class="mt-3 flex flex-wrap gap-3">
+                  {talk.slidesUrl && (
+                    <a href={talk.slidesUrl} target="_blank" rel="noopener noreferrer" class="link-wipe text-xs text-muted hover:text-text">
+                      {t('speaking.slides', lang)}
+                    </a>
+                  )}
+                  {talk.recordingUrl && (
+                    <a href={talk.recordingUrl} target="_blank" rel="noopener noreferrer" class="link-wipe text-xs text-muted hover:text-text">
+                      {t('speaking.recording', lang)}
+                    </a>
+                  )}
+                  {talk.url && (
+                    <a href={talk.url} target="_blank" rel="noopener noreferrer" class="link-wipe text-xs text-muted hover:text-text">
+                      {t('speaking.eventPage', lang)}
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              <div class="shrink-0 text-right">
+                <p class="font-mono text-sm tabular-nums text-muted">{formatDate(talk.date, lang, { month: 'short' })}</p>
+                <p class="font-mono text-xs text-faint">{talk.city}, {talk.country}</p>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <script>
+    // Countdowns are filled in on the client so a cached page never shows a
+    // stale "12 days away".
+    function initCountdowns() {
+      const today = new Date();
+      const todayUtc = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+
+      document.querySelectorAll<HTMLElement>('[data-countdown]').forEach((element) => {
+        const iso = element.dataset.countdown;
+        if (!iso) return;
+
+        const [year, month, day] = iso.split('-').map(Number);
+        const target = Date.UTC(year, month - 1, day);
+        const days = Math.round((target - todayUtc) / 86_400_000);
+
+        if (days < 0) {
+          element.textContent = '';
+        } else if (days === 0) {
+          element.textContent = element.dataset.countdownToday ?? '';
+        } else {
+          element.textContent = `${days} ${element.dataset.countdownSuffix ?? ''}`.trim();
+        }
+      });
+    }
+
+    document.addEventListener('astro:page-load', initCountdowns);
+  </script>
+</BaseLayout>

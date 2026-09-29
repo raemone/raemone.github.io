@@ -1,0 +1,40 @@
+{
+  "name": "remi-dyon-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "sync:articles": "node scripts/sync-articles.mjs"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.2.1",
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@tailwindcss/vite": "^4.0.9",
+    "astro": "^5.4.1",
+    "astro-og-canvas": "^0.13.2",
+    "canvaskit-wasm": "^0.39.1",
+    "d3-geo": "^3.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.9",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@types/d3-geo": "^3.1.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@types/topojson-client": "^3.1.5",
+    "fast-xml-parser": "^4.5.1",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
+  }
+}

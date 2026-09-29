@@ -1,0 +1,39 @@
+[
+  {
+    "id": "grenoble-bachelor-cs-web",
+    "institution": "Université Grenoble Alpes & Comiram Innovation",
+    "qualification": {
+      "en": "Bachelor's degree, Computer Science and Web Development",
+      "fr": "Licence, Informatique et développement web"
+    },
+    "location": { "en": "Grenoble, France", "fr": "Grenoble, France" },
+    "start": "2005",
+    "end": "2006"
+  },
+  {
+    "id": "oxford-brookes-bsc-computing",
+    "institution": "Oxford Brookes University",
+    "qualification": {
+      "en": "BSc Computing — third year",
+      "fr": "BSc Computing — troisième année"
+    },
+    "location": { "en": "Oxford, United Kingdom", "fr": "Oxford, Royaume-Uni" },
+    "start": "2004",
+    "end": "2005",
+    "note": {
+      "en": "A year studying in English, which is where the bilingual half of the career started.",
+      "fr": "Une année d'études en anglais, à l'origine de la dimension bilingue de mon parcours."
+    }
+  },
+  {
+    "id": "grenoble-dut-cs",
+    "institution": "Université Grenoble Alpes",
+    "qualification": {
+      "en": "DUT, Computer Science (two-year degree)",
+      "fr": "DUT Informatique"
+    },
+    "location": { "en": "Grenoble, France", "fr": "Grenoble, France" },
+    "start": "2002",
+    "end": "2004"
+  }
+]

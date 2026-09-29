@@ -1,0 +1,124 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import StatusPill from '@/components/StatusPill.astro';
+import { langStaticPaths } from '@/lib/paths';
+import { getPage } from '@/lib/pages';
+import { availability, contact, profile } from '@/lib/content';
+import { pick, t } from '@/i18n';
+import type { Lang } from '@/i18n/ui';
+
+export const getStaticPaths = langStaticPaths;
+
+const { lang } = Astro.props as { lang: Lang };
+const page = getPage('contact');
+
+const openness = [
+  { label: t('contact.openToWork', lang), value: availability.openToWork },
+  { label: t('contact.openToBoard', lang), value: availability.openToBoard },
+  { label: t('contact.openToAdvising', lang), value: availability.openToAdvising },
+  { label: t('contact.openToSpeaking', lang), value: availability.openToSpeaking },
+] as const;
+
+// LinkedIn is the single contact channel, so the primary call to action points
+// there. The remaining links are profiles rather than ways to get in touch.
+const linkedIn = contact.links.find((link) => link.icon === 'linkedin');
+const otherLinks = contact.links.filter((link) => link.icon !== 'linkedin');
+---
+
+<BaseLayout lang={lang} pageId="contact" title={t('contact.title', lang)} description={page.description[lang]}>
+  <PageHeader eyebrow={pick(profile.basedIn, lang)} title={t('contact.title', lang)} lead={t('contact.lead', lang)} />
+
+  <section class="container-page py-12 md:py-16">
+    <div class="grid gap-10 md:grid-cols-[1fr_22rem] md:gap-16">
+      <div>
+        <div class="reveal card p-7">
+          <StatusPill lang={lang} />
+          <p class="mt-4 text-base leading-relaxed text-muted">{pick(availability.statusNote, lang)}</p>
+
+          {
+            linkedIn && (
+              <div class="mt-7">
+                <a
+                  href={linkedIn.url}
+                  target="_blank"
+                  rel="noopener noreferrer me"
+                  class="inline-flex items-center gap-2.5 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-contrast transition-all duration-300 ease-[var(--ease-out-expo)] hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/25"
+                >
+                  <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z" />
+                  </svg>
+                  {t('contact.messageOnLinkedIn', lang)}
+                </a>
+
+                <p class="mt-4 text-sm text-faint">
+                  <span class="label-mono">{t('contact.responseTime', lang)}</span>{' '}
+                  {pick(availability.responseTime, lang)}
+                </p>
+              </div>
+            )
+          }
+        </div>
+
+        <div class="reveal mt-8" style="--reveal-delay: 100ms">
+          <h2 class="label-mono mb-4">{t('contact.openTo', lang)}</h2>
+          <ul class="space-y-2.5">
+            {
+              openness.map((item) => (
+                <li class="flex items-center justify-between gap-4 border-b border-border pb-2.5 text-sm">
+                  <span class="text-text">{item.label}</span>
+                  <span class:list={['font-mono text-xs', item.value ? 'text-accent' : 'text-faint']}>
+                    {item.value ? t('contact.yes', lang) : t('contact.no', lang)}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+
+          {
+            availability.advisoryNote && (
+              <p class="mt-4 border-l-2 border-border pl-3 text-sm leading-relaxed text-muted">
+                {pick(availability.advisoryNote, lang)}
+              </p>
+            )
+          }
+        </div>
+      </div>
+
+      {
+        otherLinks.length > 0 && (
+          <aside class="reveal" style="--reveal-delay: 160ms">
+            <h2 class="label-mono mb-4">{t('contact.elsewhere', lang)}</h2>
+            <ul class="space-y-2">
+              {otherLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    class="card group flex items-center justify-between gap-4 p-4"
+                  >
+                    <span>
+                      <span class="block text-sm font-medium text-text transition-colors group-hover:text-accent">
+                        {link.label}
+                      </span>
+                      <span class="block font-mono text-xs text-faint">{link.handle}</span>
+                    </span>
+                    <svg
+                      class="size-3.5 shrink-0 text-faint transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path d="M6 3h7v7M13 3 4 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
