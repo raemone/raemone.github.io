@@ -21,6 +21,7 @@ import {
   type Talk,
 } from './schema';
 import { z } from 'astro/zod';
+import type { Lang } from '@/i18n/ui';
 
 /**
  * Parses a data file and rethrows with the filename attached. Without this, a
@@ -118,6 +119,15 @@ export function computeStats(now: Date = new Date()) {
 }
 
 export const stats = computeStats();
+
+/**
+ * Highlights with unfilled placeholders stripped out. A `TODO —` line is a note
+ * to the author, not content: without this guard an unfinished role would
+ * publish its reminder text to the live site.
+ */
+export function publishedHighlights(role: Role, lang: Lang): string[] {
+  return role.highlights[lang].filter((highlight) => !highlight.trimStart().startsWith('TODO'));
+}
 
 /** Every unique skill across roles, used by the résumé page. */
 export function allSkills(list: Role[] = roles): string[] {

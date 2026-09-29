@@ -7,6 +7,7 @@ import {
   industryOptions,
   profile,
   projects,
+  publishedHighlights,
   roles,
   splitTalks,
   talks,
@@ -184,5 +185,27 @@ describe('education', () => {
   it('uses unique ids', () => {
     const ids = education.map((entry) => entry.id);
     expect(new Set(ids).size).toBe(ids.length);
+  });
+});
+
+describe('publishedHighlights', () => {
+  const role = roles[0];
+
+  it('strips unfilled TODO placeholders so they never reach the live site', () => {
+    for (const lang of ['en', 'fr'] as const) {
+      for (const highlight of publishedHighlights(role, lang)) {
+        expect(highlight.startsWith('TODO')).toBe(false);
+      }
+    }
+  });
+
+  it('leaves real highlights untouched', () => {
+    const written = roles.find((r) => r.id === 'microsoft-senior-technical-specialist');
+    expect(written && publishedHighlights(written, 'en').length).toBeGreaterThan(0);
+  });
+
+  it('never publishes a TODO from any role, in either language', () => {
+    const all = roles.flatMap((r) => [...publishedHighlights(r, 'en'), ...publishedHighlights(r, 'fr')]);
+    expect(all.filter((h) => h.includes('TODO'))).toEqual([]);
   });
 });

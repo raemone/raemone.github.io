@@ -14,26 +14,41 @@
     "end": "present",
     "current": true,
     "summary": {
-      "en": "Architecting Copilot Studio deployments for Microsoft's most strategic enterprise customers, and feeding what those deployments reveal back into the product.",
-      "fr": "Conception d'architectures Copilot Studio pour les clients grands comptes les plus stratégiques de Microsoft, et remontée des enseignements vers le produit."
+      "en": "Lead enterprise architecture engagements that help organisations design, govern, deploy and scale AI agents across Copilot Studio, Microsoft 365 Copilot, Copilot Cowork, Agent 365 and Microsoft Foundry — turning complex production scenarios into reusable architectures, implementation patterns and product feedback.",
+      "fr": "Je pilote des missions d’architecture qui aident les organisations à concevoir, gouverner, déployer et mettre à l’échelle des agents IA sur Copilot Studio, Microsoft 365 Copilot, Copilot Cowork, Agent 365 et Microsoft Foundry — en transformant des scénarios de production complexes en architectures réutilisables, patterns d’implémentation et retours produit."
     },
     "highlights": {
       "en": [
-        "TODO — the outcomes you want to be known for in this role"
+        "Built a decision framework for choosing between Microsoft 365 Copilot, Cowork, Agent Builder, Copilot Studio’s two harnesses, Scout and Microsoft Foundry — based on control, extensibility, execution environment, governance and workload type",
+        "Deliver architecture modules on orchestration, implementation methodology, MCP, computer use, governance and knowledge at the Copilot Agents Architecture Bootcamp, and shaped the programme’s operating model and reusable lab strategy",
+        "Developed enterprise governance and AI FinOps guidance covering agent access control, lifecycle management, evaluation cost, consumption visibility and service-principal automation",
+        "Lead cross-customer guidance on SharePoint retrieval, metadata filtering, MCP servers, connectors, authentication and grounded agent behaviour",
+        "Convert recurring customer blockers into structured product signals across interoperability, A2A and MCP, diagnostics, file processing, evaluation, observability and harness parity"
       ],
       "fr": [
-        "TODO — les résultats pour lesquels vous voulez être reconnu dans ce rôle"
+        "Création d’un cadre de décision pour choisir entre Microsoft 365 Copilot, Cowork, Agent Builder, les deux harness de Copilot Studio, Scout et Microsoft Foundry — selon le contrôle, l’extensibilité, l’environnement d’exécution, la gouvernance et le type de charge",
+        "Animation des modules d’architecture sur l’orchestration, la méthodologie d’implémentation, MCP, l’usage de l’ordinateur, la gouvernance et la connaissance au Copilot Agents Architecture Bootcamp, et contribution au modèle opérationnel et à la stratégie d’ateliers réutilisables du programme",
+        "Élaboration de recommandations de gouvernance et d’AI FinOps : contrôle d’accès des agents, gestion du cycle de vie, coût d’évaluation, visibilité de la consommation et automatisation par principal de service",
+        "Pilotage des recommandations inter-clients sur la recherche SharePoint, le filtrage par métadonnées, les serveurs MCP, les connecteurs, l’authentification et l’ancrage des réponses",
+        "Transformation des blocages clients récurrents en signaux produit structurés : interopérabilité, A2A et MCP, diagnostics, traitement de fichiers, évaluation, observabilité et parité entre harness"
       ]
     },
     "skills": [
       "Copilot Studio",
-      "Agentic AI",
-      "Multi-agent orchestration",
-      "Model Context Protocol",
-      "RAG & knowledge grounding",
-      "Autonomous agents",
-      "Azure AI",
-      "Entra ID"
+      "Microsoft 365 Copilot",
+      "Copilot Cowork",
+      "Agent 365",
+      "Microsoft Foundry",
+      "MCP",
+      "A2A",
+      "Work IQ",
+      "Power Platform",
+      "Dataverse",
+      "Azure AI Services",
+      "TypeScript",
+      "Python",
+      "PowerShell",
+      "KQL"
     ]
   },
   {
@@ -51,22 +66,41 @@
     "end": "2026-08",
     "current": false,
     "summary": {
-      "en": "Leading Copilot Studio engagements with top-tier enterprise customers while working alongside product leadership and program management.",
-      "fr": "Pilotage des missions Copilot Studio avec les clients grands comptes, en lien étroit avec les équipes produit et de gestion de programme."
+      "en": "Led a customer-facing Copilot Studio team responsible for strategic enterprise advisory, architecture, technical escalation, product incubation and reusable enablement — combining people leadership with direct customer engagement and product influence.",
+      "fr": "Direction d’une équipe Copilot Studio en contact client, en charge du conseil stratégique, de l’architecture, des escalades techniques, de l’incubation produit et des ressources réutilisables — alliant management, engagement client direct et influence sur le produit."
     },
     "highlights": {
       "en": [
-        "TODO — highlights from this role"
+        "Managed and coached a distributed team of architects delivering advisory and production-shaped engagements across financial services, healthcare, retail, manufacturing, consumer goods and professional services",
+        "Directed an accelerated customer programme validating the GitHub Copilot harness, workflows, skills, modern orchestration and migration patterns",
+        "Established recurring field-to-product forums connecting customer architects with Copilot Studio engineering across knowledge, tools, governance, analytics and orchestration",
+        "Coordinated complex production escalations spanning performance, context length, authentication, deployment, billing and governance — separating product defects from design and implementation issues",
+        "Helped operate and deliver multi-day architecture bootcamps covering generative orchestration, implementation methodology, governance, MCP, computer use and the Copilot Studio Kit"
       ],
       "fr": [
-        "TODO — points clés de ce rôle"
+        "Management et accompagnement d’une équipe d’architectes répartie, sur des missions de conseil et de mise en production dans les services financiers, la santé, la distribution, l’industrie, les biens de consommation et les services professionnels",
+        "Direction d’un programme client accéléré de validation du harness GitHub Copilot, des workflows, des skills, de l’orchestration moderne et des schémas de migration",
+        "Mise en place de forums réguliers entre le terrain et le produit, reliant les architectes clients aux équipes d’ingénierie Copilot Studio sur la connaissance, les outils, la gouvernance, l’analytique et l’orchestration",
+        "Coordination d’escalades de production complexes — performance, longueur de contexte, authentification, déploiement, facturation et gouvernance — en distinguant les défauts produit des choix de conception",
+        "Contribution à l’animation et à la livraison de bootcamps d’architecture de plusieurs jours : orchestration générative, méthodologie d’implémentation, gouvernance, MCP, usage de l’ordinateur et Copilot Studio Kit"
       ]
     },
     "skills": [
-      "Microsoft Copilot Studio",
-      "AI Agents",
-      "Conversational AI",
-      "Enterprise architecture"
+      "Copilot Studio",
+      "GitHub Copilot harness",
+      "Microsoft 365 Copilot",
+      "Agent 365",
+      "MCP",
+      "A2A",
+      "Power Platform",
+      "Dataverse",
+      "Power Automate",
+      "Azure AI Foundry",
+      "Azure AI Search",
+      "Application Insights",
+      "Power BI",
+      "KQL",
+      "Team leadership"
     ]
   },
   {
@@ -84,22 +118,43 @@
     "end": "2025-10",
     "current": false,
     "summary": {
-      "en": "Turning what enterprise customers hit in production into practical guidance, reusable samples and published architectural patterns for the wider community.",
-      "fr": "Transformation des difficultés rencontrées par les clients en production en recommandations concrètes, exemples réutilisables et patterns d'architecture publiés pour la communauté."
+      "en": "Helped enterprise customers and partners adopt Microsoft Copilot Studio through hands-on architecture guidance, product feedback, reusable tooling, technical content and field enablement — a bridge between real-world implementations and the teams building the platform.",
+      "fr": "Accompagnement des clients grands comptes et partenaires dans l’adoption de Microsoft Copilot Studio : conseil en architecture sur le terrain, retours produit, outillage réutilisable, contenu technique et enablement — un pont entre les implémentations réelles et les équipes qui construisent la plateforme."
     },
     "highlights": {
       "en": [
-        "TODO — highlights from this role"
+        "Contributed to the Copilot Studio Kit, the open-source toolkit for agent testing, evaluation, analytics, governance, inventory, review, debugging and lifecycle management",
+        "Helped develop and deliver the Copilot Studio Architecture Bootcamp, combining product concepts, implementation patterns, guided labs and direct access to subject-matter experts",
+        "Created and promoted implementation guidance on orchestration, instructions, knowledge design, authentication, ALM, analytics, testing and production readiness",
+        "Advised organisations on grounding strategies, Dataverse and SharePoint integration, custom connectors, APIs, workflow automation, Teams deployment and security",
+        "Explored document intelligence, runtime transcripts, dynamic visualisations, multi-model integration and relational-data grounding through advanced agent prototypes",
+        "Validated preview capabilities against enterprise scenarios and turned the findings into product requirements, troubleshooting guidance and reusable patterns"
       ],
       "fr": [
-        "TODO — points clés de ce rôle"
+        "Contribution au Copilot Studio Kit, la boîte à outils open source pour le test, l’évaluation, l’analytique, la gouvernance, l’inventaire, la revue, le débogage et le cycle de vie des agents",
+        "Participation à la conception et à l’animation du Copilot Studio Architecture Bootcamp, combinant concepts produit, patterns d’implémentation, ateliers guidés et accès direct aux experts",
+        "Création et diffusion de recommandations d’implémentation sur l’orchestration, les instructions, la conception des connaissances, l’authentification, l’ALM, l’analytique, les tests et la mise en production",
+        "Conseil aux organisations sur les stratégies d’ancrage, l’intégration Dataverse et SharePoint, les connecteurs personnalisés, les API, l’automatisation des workflows, le déploiement dans Teams et la sécurité",
+        "Exploration du traitement documentaire, des transcriptions à l’exécution, des visualisations dynamiques, de l’intégration multi-modèles et de l’ancrage sur données relationnelles via des prototypes d’agents avancés",
+        "Validation des capacités en préversion sur des scénarios d’entreprise, transformées en exigences produit, guides de dépannage et patterns réutilisables"
       ]
     },
     "skills": [
-      "Public Speaking",
-      "Microsoft Copilot Studio",
-      "Power Platform",
-      "Community"
+      "Copilot Studio",
+      "Power Virtual Agents",
+      "Copilot Studio Kit",
+      "Power Apps",
+      "Power Automate",
+      "Dataverse",
+      "AI Builder",
+      "Azure OpenAI",
+      "Azure AI Search",
+      "Azure Functions",
+      "Microsoft Teams",
+      "SharePoint",
+      "Adaptive Cards",
+      "Power BI",
+      "Application Insights"
     ]
   },
   {

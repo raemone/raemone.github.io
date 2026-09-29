@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { langStaticPaths } from '@/lib/paths';
 import { getPage } from '@/lib/pages';
-import { allSkills, articles, contact, education, profile, roles, splitTalks } from '@/lib/content';
+import { allSkills, articles, contact, education, profile, roles, splitTalks , publishedHighlights } from '@/lib/content';
 import { formatDate, formatMonth, localizePath, pick, pickAll, t } from '@/i18n';
 import type { Lang } from '@/i18n/ui';
 
@@ -65,9 +65,9 @@ const skills = allSkills();
               <p class="font-mono text-xs text-faint">{pick(role.location, lang)}</p>
               <p class="mt-2 text-sm leading-relaxed text-muted">{pick(role.summary, lang)}</p>
 
-              {pickAll(role.highlights, lang).length > 0 && (
+              {publishedHighlights(role, lang).length > 0 && (
                 <ul class="mt-2 space-y-1">
-                  {pickAll(role.highlights, lang).map((highlight) => (
+                  {publishedHighlights(role, lang).map((highlight) => (
                     <li class="flex gap-2 text-sm leading-relaxed text-muted">
                       <span aria-hidden="true">·</span>
                       {highlight}
