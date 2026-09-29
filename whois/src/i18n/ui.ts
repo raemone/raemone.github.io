@@ -15,7 +15,7 @@ export const ui = {
   'nav.home': { en: 'Home', fr: 'Accueil' },
   'nav.about': { en: 'About', fr: 'À propos' },
   'nav.experience': { en: 'Experience', fr: 'Parcours' },
-  'nav.projects': { en: 'Engagements', fr: 'Missions' },
+  'nav.projects': { en: 'Projects', fr: 'Projets' },
   'nav.writing': { en: 'Writing', fr: 'Articles' },
   'nav.speaking': { en: 'Speaking', fr: 'Conférences' },
   'nav.contact': { en: 'Contact', fr: 'Contact' },
@@ -36,7 +36,7 @@ export const ui = {
   'palette.hint': { en: 'to open', fr: 'pour ouvrir' },
   'palette.close': { en: 'Close search', fr: 'Fermer la recherche' },
   'palette.group.pages': { en: 'Pages', fr: 'Pages' },
-  'palette.group.projects': { en: 'Engagements', fr: 'Missions' },
+  'palette.group.projects': { en: 'Projects', fr: 'Projets' },
   'palette.group.articles': { en: 'Articles', fr: 'Articles' },
   'palette.group.talks': { en: 'Talks', fr: 'Conférences' },
 
@@ -67,7 +67,7 @@ export const ui = {
   'experience.highlights': { en: 'Highlights', fr: 'Points clés' },
   'experience.downloadResume': { en: 'Download résumé', fr: 'Télécharger le CV' },
 
-  'projects.title': { en: 'Major engagements', fr: 'Missions majeures' },
+  'projects.title': { en: 'Projects', fr: 'Projets' },
   'projects.lead': {
     en: 'A selection of the engagements I have led or contributed to, plotted where they happened. Not an exhaustive list — these are the ones with the most significant outcomes.',
     fr: 'Une sélection des missions que j’ai menées ou auxquelles j’ai contribué, situées là où elles se sont déroulées. Liste non exhaustive : ce sont celles dont les résultats ont été les plus significatifs.',
@@ -86,7 +86,7 @@ export const ui = {
   'projects.mapView': { en: 'Map', fr: 'Carte' },
   'projects.confidential': { en: 'Confidential customer', fr: 'Client confidentiel' },
   'projects.outcome': { en: 'Outcome', fr: 'Résultat' },
-  'projects.none': { en: 'No engagements match these filters.', fr: 'Aucune mission ne correspond.' },
+  'projects.none': { en: 'No projects match these filters.', fr: 'Aucun projet ne correspond.' },
 
   'writing.title': { en: 'Writing', fr: 'Articles' },
   'writing.lead': {
