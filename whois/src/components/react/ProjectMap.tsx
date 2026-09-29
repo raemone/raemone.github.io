@@ -29,7 +29,14 @@ export interface MapLabels {
   mapView: string;
   outcome: string;
   none: string;
+  zoomIn: string;
+  zoomOut: string;
+  resetZoom: string;
 }
+
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 8;
+const ZOOM_STEP = 1.6;
 
 interface Props {
   geometry: MapGeometry;
@@ -46,6 +53,7 @@ export default function ProjectMap({ geometry, projects, labels }: Props) {
   const [activeId, setActiveId] = useState<string | null>(null);
   /** Set by a click or keyboard activation; survives mouse-out so touch users can read the card. */
   const [pinnedId, setPinnedId] = useState<string | null>(null);
+  const [isPanning, setIsPanning] = useState(false);
 
   const industries = useMemo(() => {
     const seen = new Map<string, string>();
@@ -129,6 +137,77 @@ export default function ProjectMap({ geometry, projects, labels }: Props) {
     [cancelHide],
   );
 
+  /**
+   * Zoom is a plain transform over the map layer rather than a d3-zoom
+   * behaviour, which keeps d3 out of the browser bundle. `k` scales, `x` and
+   * `y` translate, both in viewBox units.
+   */
+  const [zoom, setZoom] = useState({ k: 1, x: 0, y: 0 });
+  const svgRef = useRef<SVGSVGElement>(null);
+  const dragRef = useRef<{ pointerId: number; startX: number; startY: number; originX: number; originY: number } | null>(null);
+
+  /** Keeps the scaled map covering the frame, so panning never reveals empty space beside the world. */
+  const clampPan = useCallback(
+    (k: number, x: number, y: number) => ({
+      k,
+      x: Math.min(0, Math.max(geometry.width * (1 - k), x)),
+      y: Math.min(0, Math.max(geometry.height * (1 - k), y)),
+    }),
+    [geometry.width, geometry.height],
+  );
+
+  /** Scales around a fixed point, so whatever is under the cursor stays under it. */
+  const zoomAbout = useCallback(
+    (factor: number, px: number, py: number) => {
+      setZoom((current) => {
+        const k = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, current.k * factor));
+        if (k === current.k) return current;
+        const worldX = (px - current.x) / current.k;
+        const worldY = (py - current.y) / current.k;
+        return clampPan(k, px - worldX * k, py - worldY * k);
+      });
+    },
+    [clampPan],
+  );
+
+  const zoomByStep = useCallback(
+    (factor: number) => zoomAbout(factor, geometry.width / 2, geometry.height / 2),
+    [zoomAbout, geometry.width, geometry.height],
+  );
+
+  const resetZoom = useCallback(() => setZoom({ k: 1, x: 0, y: 0 }), []);
+
+  const toViewBox = useCallback(
+    (clientX: number, clientY: number) => {
+      const rect = svgRef.current?.getBoundingClientRect();
+      if (!rect) return null;
+      return {
+        x: ((clientX - rect.left) / rect.width) * geometry.width,
+        y: ((clientY - rect.top) / rect.height) * geometry.height,
+      };
+    },
+    [geometry.width, geometry.height],
+  );
+
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+
+    const onWheel = (event: WheelEvent) => {
+      // A plain wheel must keep scrolling the page. Only a modifier zooms,
+      // which is the usual convention for a map embedded in a document.
+      if (!event.ctrlKey && !event.metaKey) return;
+      event.preventDefault();
+      const point = toViewBox(event.clientX, event.clientY);
+      if (point) zoomAbout(event.deltaY < 0 ? ZOOM_STEP : 1 / ZOOM_STEP, point.x, point.y);
+    };
+
+    // Registered by hand because React attaches wheel passively, which would
+    // make preventDefault a no-op and let the page scroll as well as zoom.
+    svg.addEventListener('wheel', onWheel, { passive: false });
+    return () => svg.removeEventListener('wheel', onWheel);
+  }, [toViewBox, zoomAbout]);
+
   const reset = useCallback(() => {
     setIndustry('all');
     setYear('all');
@@ -192,20 +271,65 @@ export default function ProjectMap({ geometry, projects, labels }: Props) {
           <div className="relative">
             <div className="overflow-hidden rounded-xl border border-border bg-bg-subtle">
             <svg
+              ref={svgRef}
               viewBox={`0 0 ${geometry.width} ${geometry.height}`}
-              className="block h-auto w-full"
+              className={`block h-auto w-full touch-none ${
+                zoom.k > 1 ? (isPanning ? 'cursor-grabbing' : 'cursor-grab') : ''
+              }`}
               role="img"
               aria-label={labels.hint}
+              onPointerDown={(event) => {
+                // Only empty map drags; a pin keeps its own click and focus.
+                if (zoom.k <= 1 || (event.target as Element).closest('[role="button"]')) return;
+                dragRef.current = {
+                  pointerId: event.pointerId,
+                  startX: event.clientX,
+                  startY: event.clientY,
+                  originX: zoom.x,
+                  originY: zoom.y,
+                };
+                setIsPanning(true);
+                event.currentTarget.setPointerCapture(event.pointerId);
+              }}
+              onPointerMove={(event) => {
+                const drag = dragRef.current;
+                const rect = svgRef.current?.getBoundingClientRect();
+                if (!drag || drag.pointerId !== event.pointerId || !rect) return;
+                const dx = ((event.clientX - drag.startX) / rect.width) * geometry.width;
+                const dy = ((event.clientY - drag.startY) / rect.height) * geometry.height;
+                setZoom((current) => clampPan(current.k, drag.originX + dx, drag.originY + dy));
+              }}
+              onPointerUp={(event) => {
+                if (dragRef.current?.pointerId !== event.pointerId) return;
+                dragRef.current = null;
+                setIsPanning(false);
+                event.currentTarget.releasePointerCapture(event.pointerId);
+              }}
+              onPointerCancel={() => {
+                dragRef.current = null;
+                setIsPanning(false);
+              }}
+              onDoubleClick={(event) => {
+                const point = toViewBox(event.clientX, event.clientY);
+                if (point) zoomAbout(ZOOM_STEP, point.x, point.y);
+              }}
             >
-              <path d={geometry.sphere} className="fill-surface stroke-border" strokeWidth={1} />
-              <path d={geometry.graticule} className="fill-none stroke-border" strokeWidth={0.4} opacity={0.5} />
-              <g>
+              {/* The land layer scales and translates; pins sit outside it so
+                  they stay the same size at every zoom level. */}
+              <g transform={`translate(${zoom.x} ${zoom.y}) scale(${zoom.k})`}>
+                <path d={geometry.sphere} className="fill-surface stroke-border" strokeWidth={1 / zoom.k} />
+                <path
+                  d={geometry.graticule}
+                  className="fill-none stroke-border"
+                  strokeWidth={0.4 / zoom.k}
+                  opacity={0.5}
+                />
                 {geometry.countries.map((path, index) => (
                   <path
                     key={index}
                     d={path}
                     className="fill-border stroke-bg-subtle"
-                    strokeWidth={0.5}
+                    strokeWidth={0.5 / zoom.k}
                     opacity={0.75}
                   />
                 ))}
@@ -220,7 +344,7 @@ export default function ProjectMap({ geometry, projects, labels }: Props) {
                   return (
                     <g
                       key={point.id}
-                      transform={`translate(${point.x} ${point.y})`}
+                      transform={`translate(${point.x * zoom.k + zoom.x} ${point.y * zoom.k + zoom.y})`}
                       tabIndex={isVisible ? 0 : -1}
                       role="button"
                       aria-label={`${project.project} — ${project.city}, ${project.country}, ${project.year}`}
@@ -283,13 +407,26 @@ export default function ProjectMap({ geometry, projects, labels }: Props) {
                 })}
               </g>
             </svg>
+
+              <div className="absolute right-3 top-3 flex flex-col gap-1">
+                <ZoomButton label={labels.zoomIn} onClick={() => zoomByStep(ZOOM_STEP)} disabled={zoom.k >= MAX_ZOOM}>
+                  <path d="M8 3.5v9M3.5 8h9" />
+                </ZoomButton>
+                <ZoomButton label={labels.zoomOut} onClick={() => zoomByStep(1 / ZOOM_STEP)} disabled={zoom.k <= MIN_ZOOM}>
+                  <path d="M3.5 8h9" />
+                </ZoomButton>
+                <ZoomButton label={labels.resetZoom} onClick={resetZoom} disabled={zoom.k <= MIN_ZOOM}>
+                  <path d="M3.5 8a4.5 4.5 0 1 1 1.6 3.44" />
+                  <path d="M3 12.5V9h3.5" />
+                </ZoomButton>
+              </div>
             </div>
 
             {shownProject && shownPoint && (
               <Tooltip
                 project={shownProject}
-                xPercent={(shownPoint.x / geometry.width) * 100}
-                yPercent={(shownPoint.y / geometry.height) * 100}
+                xPercent={((shownPoint.x * zoom.k + zoom.x) / geometry.width) * 100}
+                yPercent={((shownPoint.y * zoom.k + zoom.y) / geometry.height) * 100}
                 outcomeLabel={labels.outcome}
                 pinned={pinnedId === shownProject.id}
                 onClose={() => setPinnedId(null)}
@@ -307,6 +444,42 @@ export default function ProjectMap({ geometry, projects, labels }: Props) {
         <ProjectList projects={filtered} outcomeLabel={labels.outcome} emptyLabel={labels.none} />
       )}
     </div>
+  );
+}
+
+function ZoomButton({
+  label,
+  onClick,
+  disabled,
+  children,
+}: {
+  label: string;
+  onClick: () => void;
+  disabled: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={label}
+      title={label}
+      className="grid size-8 place-items-center rounded-lg border border-border bg-surface/90 text-muted backdrop-blur transition-colors hover:border-border-strong hover:text-text disabled:pointer-events-none disabled:opacity-40"
+    >
+      <svg
+        className="size-3.5"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.7}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        {children}
+      </svg>
+    </button>
   );
 }
 
