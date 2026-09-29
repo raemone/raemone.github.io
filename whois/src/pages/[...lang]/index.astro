@@ -6,7 +6,6 @@ import {
   currentRole,
   featuredArticles,
   profile,
-  projects,
   splitTalks,
   stats,
 } from '@/lib/content';
@@ -21,7 +20,6 @@ const page = getPage('home');
 const { upcoming } = splitTalks();
 const nextTalks = upcoming.slice(0, 2);
 const latest = featuredArticles(3);
-const recentProjects = projects.slice(0, 4);
 
 const statCards = [
   { value: stats.countries, label: t('stats.countries', lang) },
@@ -92,42 +90,7 @@ const statCards = [
     </div>
   </section>
 
-  <section class="container-page py-16 md:py-24">
-    <div class="mb-8 flex items-baseline justify-between gap-4">
-      <h2 class="reveal text-2xl font-semibold tracking-tight md:text-3xl">{t('home.selectedWork', lang)}</h2>
-      <a
-        href={localizePath('/projects', lang)}
-        class="link-wipe shrink-0 text-sm text-muted transition-colors hover:text-text"
-      >
-        {t('home.viewAll', lang)} →
-      </a>
-    </div>
-
-    <div class="grid gap-4 sm:grid-cols-2">
-      {
-        recentProjects.map((project, index) => (
-          <article class="card reveal p-6" style={`--reveal-delay: ${index * 70}ms`}>
-            <div class="flex items-baseline justify-between gap-3">
-              <p class="label-mono">{pick(project.industry, lang)}</p>
-              <span class="font-mono text-xs tabular-nums text-faint">{project.year}</span>
-            </div>
-            <h3 class="mt-2 text-lg font-semibold">{pick(project.project, lang)}</h3>
-            <p class="text-sm text-accent">
-              {project.customerPublic ? project.customer : t('projects.confidential', lang)}
-            </p>
-            <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">
-              {pick(project.description, lang)}
-            </p>
-            <p class="mt-4 font-mono text-xs text-faint">
-              {project.city}, {project.country}
-            </p>
-          </article>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="border-t border-border bg-bg-subtle">
+  <section>
     <div class="container-page grid gap-12 py-16 md:grid-cols-2 md:py-24">
       <div>
         <div class="mb-6 flex items-baseline justify-between gap-4">
