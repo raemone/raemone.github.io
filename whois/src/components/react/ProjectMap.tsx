@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { MapGeometry } from '@/lib/map';
 
 /** A project flattened to the active language, so the island carries no i18n logic. */
@@ -99,6 +99,36 @@ export default function ProjectMap({ geometry, projects, labels }: Props) {
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [pinnedId]);
 
+  const hideTimer = useRef<number | null>(null);
+
+  const cancelHide = useCallback(() => {
+    if (hideTimer.current !== null) {
+      window.clearTimeout(hideTimer.current);
+      hideTimer.current = null;
+    }
+  }, []);
+
+  /**
+   * Closing is delayed by a grace period so the pointer can cross the gap
+   * between a pin and its card without the card vanishing on the way. Entering
+   * the card cancels the pending close, which is what lets it be read, its text
+   * selected and its links clicked.
+   */
+  const scheduleHide = useCallback(() => {
+    cancelHide();
+    hideTimer.current = window.setTimeout(() => setActiveId(null), 220);
+  }, [cancelHide]);
+
+  useEffect(() => cancelHide, [cancelHide]);
+
+  const showPin = useCallback(
+    (id: string) => {
+      cancelHide();
+      setActiveId(id);
+    },
+    [cancelHide],
+  );
+
   const reset = useCallback(() => {
     setIndustry('all');
     setYear('all');
@@ -159,7 +189,8 @@ export default function ProjectMap({ geometry, projects, labels }: Props) {
 
       {view === 'map' ? (
         <>
-          <div className="relative overflow-hidden rounded-xl border border-border bg-bg-subtle">
+          <div className="relative">
+            <div className="overflow-hidden rounded-xl border border-border bg-bg-subtle">
             <svg
               viewBox={`0 0 ${geometry.width} ${geometry.height}`}
               className="block h-auto w-full"
@@ -194,10 +225,10 @@ export default function ProjectMap({ geometry, projects, labels }: Props) {
                       role="button"
                       aria-label={`${project.project} — ${project.city}, ${project.country}, ${project.year}`}
                       aria-pressed={pinnedId === point.id}
-                      onMouseEnter={() => isVisible && setActiveId(point.id)}
-                      onMouseLeave={() => setActiveId(null)}
-                      onFocus={() => isVisible && setActiveId(point.id)}
-                      onBlur={() => setActiveId(null)}
+                      onMouseEnter={() => isVisible && showPin(point.id)}
+                      onMouseLeave={scheduleHide}
+                      onFocus={() => isVisible && showPin(point.id)}
+                      onBlur={scheduleHide}
                       onClick={() => isVisible && setPinnedId((current) => (current === point.id ? null : point.id))}
                       onKeyDown={(event) => {
                         if (event.key === 'Enter' || event.key === ' ') {
@@ -252,6 +283,7 @@ export default function ProjectMap({ geometry, projects, labels }: Props) {
                 })}
               </g>
             </svg>
+            </div>
 
             {shownProject && shownPoint && (
               <Tooltip
@@ -261,6 +293,8 @@ export default function ProjectMap({ geometry, projects, labels }: Props) {
                 outcomeLabel={labels.outcome}
                 pinned={pinnedId === shownProject.id}
                 onClose={() => setPinnedId(null)}
+                onPointerEnter={cancelHide}
+                onPointerLeave={scheduleHide}
               />
             )}
           </div>
@@ -312,6 +346,8 @@ function Tooltip({
   outcomeLabel,
   pinned,
   onClose,
+  onPointerEnter,
+  onPointerLeave,
 }: {
   project: MapProject;
   xPercent: number;
@@ -319,10 +355,14 @@ function Tooltip({
   outcomeLabel: string;
   pinned: boolean;
   onClose: () => void;
+  onPointerEnter: () => void;
+  onPointerLeave: () => void;
 }) {
-  // Keep the card inside the frame when the pin sits near an edge.
+  // Keep the card inside the frame when the pin sits near a side edge.
   const clampedX = Math.min(Math.max(xPercent, 22), 78);
-  const showBelow = yPercent < 34;
+  // Flip the card to whichever side of the pin has more room. Below the
+  // halfway line there is more space above, and vice versa.
+  const showBelow = yPercent < 45;
 
   return (
     <div
@@ -335,15 +375,15 @@ function Tooltip({
       }}
     >
       {/*
-        Only a pinned card accepts the pointer, so that its close button and
-        text are usable. A hover card stays inert: if it took pointer events,
-        moving the cursor toward it would cross the gap, fire mouseleave on the
-        pin and tear the card down mid-reach.
+        The card takes the pointer so it can be read, its text selected and its
+        close button clicked. The parent delays closing for a moment, so moving
+        the cursor off the pin and onto the card does not tear it down on the
+        way across the gap.
       */}
       <div
-        className={`rounded-xl border border-border-strong bg-surface-raised p-4 shadow-2xl ${
-          pinned ? 'pointer-events-auto' : 'pointer-events-none'
-        }`}
+        onMouseEnter={onPointerEnter}
+        onMouseLeave={onPointerLeave}
+        className="pointer-events-auto rounded-xl border border-border-strong bg-surface-raised p-4 shadow-2xl"
       >
         <div className="mb-2 flex items-start justify-between gap-3">
           <div>
