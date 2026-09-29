@@ -49,8 +49,8 @@ export const PAGES: PageDef[] = [
     labelKey: 'nav.projects',
     inNav: true,
     description: {
-      en: 'Customer engagements around the world, plotted on a map.',
-      fr: 'Missions clients à travers le monde, situées sur une carte.',
+      en: 'A selection of major customer engagements around the world, plotted on a map.',
+      fr: 'Une sélection des missions clients majeures à travers le monde, situées sur une carte.',
     },
   },
   {

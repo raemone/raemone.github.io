@@ -1,33 +1,5 @@
 [
   {
-    "id": "ai-startup-advisory-paris",
-    "customer": "French AI startup — Paris",
-    "customerPublic": false,
-    "project": {
-      "en": "Startup advisory",
-      "fr": "Conseil aux startups"
-    },
-    "description": {
-      "en": "Advisory work with an AI startup building agents for B2B revenue teams — capturing sales conversations, automating the CRM admin around them and surfacing deal signals. The company is under NDA, so it is not named here.",
-      "fr": "Mission de conseil auprès d’une startup d’IA développant des agents pour les équipes commerciales B2B — capture des conversations de vente, automatisation du travail administratif dans le CRM et détection des signaux d’affaires. La société est sous NDA, elle n’est donc pas nommée ici."
-    },
-    "country": "France",
-    "countryCode": "FR",
-    "city": "Paris",
-    "lat": 48.8566,
-    "lng": 2.3522,
-    "year": 2025,
-    "industry": {
-      "en": "Artificial intelligence",
-      "fr": "Intelligence artificielle"
-    },
-    "industryKey": "artificial-intelligence",
-    "tech": [
-      "AI agents",
-      "Revenue intelligence"
-    ]
-  },
-  {
     "id": "ai-startup-advisory-lyon",
     "customer": "French AI startup — Lyon",
     "customerPublic": false,
@@ -53,6 +25,34 @@
     "tech": [
       "AI agents",
       "Supply chain"
+    ]
+  },
+  {
+    "id": "ai-startup-advisory-paris",
+    "customer": "French AI startup — Paris",
+    "customerPublic": false,
+    "project": {
+      "en": "Startup advisory",
+      "fr": "Conseil aux startups"
+    },
+    "description": {
+      "en": "Advisory work with an AI startup building agents for B2B revenue teams — capturing sales conversations, automating the CRM admin around them and surfacing deal signals. The company is under NDA, so it is not named here.",
+      "fr": "Mission de conseil auprès d’une startup d’IA développant des agents pour les équipes commerciales B2B — capture des conversations de vente, automatisation du travail administratif dans le CRM et détection des signaux d’affaires. La société est sous NDA, elle n’est donc pas nommée ici."
+    },
+    "country": "France",
+    "countryCode": "FR",
+    "city": "Paris",
+    "lat": 48.8566,
+    "lng": 2.3522,
+    "year": 2025,
+    "industry": {
+      "en": "Artificial intelligence",
+      "fr": "Intelligence artificielle"
+    },
+    "industryKey": "artificial-intelligence",
+    "tech": [
+      "AI agents",
+      "Revenue intelligence"
     ]
   },
   {
@@ -90,6 +90,274 @@
     }
   },
   {
+    "id": "carrefour-france",
+    "customer": "Carrefour",
+    "customerPublic": true,
+    "project": {
+      "en": "Supply Chain Insights implementation",
+      "fr": "Mise en œuvre de Supply Chain Insights"
+    },
+    "description": {
+      "en": "Rollout of Supply Chain Insights, the retail analytics platform: technical architecture, functional design, implementation and customisation, through to change management, cross-team coordination, budget and C-level communication.",
+      "fr": "Déploiement de Supply Chain Insights, la plateforme d’analytique retail : architecture technique, conception fonctionnelle, implémentation et personnalisation, jusqu’à la conduite du changement, la coordination inter-équipes, le budget et la communication auprès du comité de direction."
+    },
+    "country": "France",
+    "countryCode": "FR",
+    "city": "Massy",
+    "lat": 48.73,
+    "lng": 2.27,
+    "year": 2022,
+    "industry": {
+      "en": "Retail",
+      "fr": "Distribution"
+    },
+    "industryKey": "retail",
+    "tech": [
+      "Supply Chain Insights",
+      "GOLD",
+      "Oracle",
+      "Retail analytics"
+    ]
+  },
+  {
+    "id": "carrefour-romania",
+    "customer": "Carrefour",
+    "customerPublic": true,
+    "project": {
+      "en": "Supply Chain Insights implementation",
+      "fr": "Mise en œuvre de Supply Chain Insights"
+    },
+    "description": {
+      "en": "Rollout of Supply Chain Insights, the retail analytics platform: technical architecture, functional design, implementation and customisation, through to change management, cross-team coordination, budget and C-level communication.",
+      "fr": "Déploiement de Supply Chain Insights, la plateforme d’analytique retail : architecture technique, conception fonctionnelle, implémentation et personnalisation, jusqu’à la conduite du changement, la coordination inter-équipes, le budget et la communication auprès du comité de direction."
+    },
+    "country": "Romania",
+    "countryCode": "RO",
+    "city": "Bucharest",
+    "lat": 44.4268,
+    "lng": 26.1025,
+    "year": 2022,
+    "industry": {
+      "en": "Retail",
+      "fr": "Distribution"
+    },
+    "industryKey": "retail",
+    "tech": [
+      "Supply Chain Insights",
+      "GOLD",
+      "Oracle",
+      "Retail analytics"
+    ]
+  },
+  {
+    "id": "carrefour-spain",
+    "customer": "Carrefour",
+    "customerPublic": true,
+    "project": {
+      "en": "Supply Chain Insights implementation",
+      "fr": "Mise en œuvre de Supply Chain Insights"
+    },
+    "description": {
+      "en": "Rollout of Supply Chain Insights, the retail analytics platform: technical architecture, functional design, implementation and customisation, through to change management, cross-team coordination, budget and C-level communication.",
+      "fr": "Déploiement de Supply Chain Insights, la plateforme d’analytique retail : architecture technique, conception fonctionnelle, implémentation et personnalisation, jusqu’à la conduite du changement, la coordination inter-équipes, le budget et la communication auprès du comité de direction."
+    },
+    "country": "Spain",
+    "countryCode": "ES",
+    "city": "Madrid",
+    "lat": 40.4168,
+    "lng": -3.7038,
+    "year": 2022,
+    "industry": {
+      "en": "Retail",
+      "fr": "Distribution"
+    },
+    "industryKey": "retail",
+    "tech": [
+      "Supply Chain Insights",
+      "GOLD",
+      "Oracle",
+      "Retail analytics"
+    ]
+  },
+  {
+    "id": "delhaize-le-lion",
+    "customer": "Delhaize Le Lion",
+    "customerPublic": true,
+    "project": {
+      "en": "Supply Chain Insights implementation",
+      "fr": "Mise en œuvre de Supply Chain Insights"
+    },
+    "description": {
+      "en": "GOLD ERP implementation and support alongside the Supply Chain Insights rollout. Rollout of Supply Chain Insights, the retail analytics platform: technical architecture, functional design, implementation and customisation, through to change management, cross-team coordination, budget and C-level communication.",
+      "fr": "Implémentation et support de l’ERP GOLD en parallèle du déploiement de Supply Chain Insights. Déploiement de Supply Chain Insights, la plateforme d’analytique retail : architecture technique, conception fonctionnelle, implémentation et personnalisation, jusqu’à la conduite du changement, la coordination inter-équipes, le budget et la communication auprès du comité de direction."
+    },
+    "country": "Belgium",
+    "countryCode": "BE",
+    "city": "Brussels",
+    "lat": 50.8503,
+    "lng": 4.3517,
+    "year": 2022,
+    "industry": {
+      "en": "Retail",
+      "fr": "Distribution"
+    },
+    "industryKey": "retail",
+    "tech": [
+      "Supply Chain Insights",
+      "GOLD",
+      "Oracle",
+      "Retail analytics"
+    ]
+  },
+  {
+    "id": "dollar-general-retail-analytics",
+    "customer": "Dollar General",
+    "customerPublic": true,
+    "project": {
+      "en": "Retail analytics platform",
+      "fr": "Plateforme d’analytique retail"
+    },
+    "description": {
+      "en": "Rollout of Supply Chain Insights, the retail analytics platform: technical architecture, functional design, implementation and customisation, through to change management, cross-team coordination, budget and C-level communication.",
+      "fr": "Déploiement de Supply Chain Insights, la plateforme d’analytique retail : architecture technique, conception fonctionnelle, implémentation et personnalisation, jusqu’à la conduite du changement, la coordination inter-équipes, le budget et la communication auprès du comité de direction."
+    },
+    "country": "United States",
+    "countryCode": "US",
+    "city": "Goodlettsville, Tennessee",
+    "lat": 36.3231,
+    "lng": -86.7133,
+    "year": 2022,
+    "industry": {
+      "en": "Retail",
+      "fr": "Distribution"
+    },
+    "industryKey": "retail",
+    "tech": [
+      "Supply Chain Insights",
+      "GOLD",
+      "Oracle",
+      "Retail analytics"
+    ]
+  },
+  {
+    "id": "intermarche-mousquetaires",
+    "customer": "Intermarché · Les Mousquetaires · STIME",
+    "customerPublic": true,
+    "project": {
+      "en": "Supply Chain Insights implementation",
+      "fr": "Mise en œuvre de Supply Chain Insights"
+    },
+    "description": {
+      "en": "GOLD ERP implementation and support alongside the Supply Chain Insights rollout. Rollout of Supply Chain Insights, the retail analytics platform: technical architecture, functional design, implementation and customisation, through to change management, cross-team coordination, budget and C-level communication.",
+      "fr": "Implémentation et support de l’ERP GOLD en parallèle du déploiement de Supply Chain Insights. Déploiement de Supply Chain Insights, la plateforme d’analytique retail : architecture technique, conception fonctionnelle, implémentation et personnalisation, jusqu’à la conduite du changement, la coordination inter-équipes, le budget et la communication auprès du comité de direction."
+    },
+    "country": "France",
+    "countryCode": "FR",
+    "city": "Bondoufle",
+    "lat": 48.6167,
+    "lng": 2.3833,
+    "year": 2022,
+    "industry": {
+      "en": "Retail",
+      "fr": "Distribution"
+    },
+    "industryKey": "retail",
+    "tech": [
+      "Supply Chain Insights",
+      "GOLD",
+      "Oracle",
+      "Retail analytics"
+    ]
+  },
+  {
+    "id": "rema-1000",
+    "customer": "REMA 1000",
+    "customerPublic": true,
+    "project": {
+      "en": "Supply Chain Insights implementation",
+      "fr": "Mise en œuvre de Supply Chain Insights"
+    },
+    "description": {
+      "en": "Rollout of Supply Chain Insights, the retail analytics platform: technical architecture, functional design, implementation and customisation, through to change management, cross-team coordination, budget and C-level communication.",
+      "fr": "Déploiement de Supply Chain Insights, la plateforme d’analytique retail : architecture technique, conception fonctionnelle, implémentation et personnalisation, jusqu’à la conduite du changement, la coordination inter-équipes, le budget et la communication auprès du comité de direction."
+    },
+    "country": "Norway",
+    "countryCode": "NO",
+    "city": "Oslo",
+    "lat": 59.9139,
+    "lng": 10.7522,
+    "year": 2022,
+    "industry": {
+      "en": "Retail",
+      "fr": "Distribution"
+    },
+    "industryKey": "retail",
+    "tech": [
+      "Supply Chain Insights",
+      "GOLD",
+      "Oracle",
+      "Retail analytics"
+    ]
+  },
+  {
+    "id": "monoprix",
+    "customer": "Monoprix",
+    "customerPublic": true,
+    "project": {
+      "en": "Supply Chain Insights implementation",
+      "fr": "Mise en œuvre de Supply Chain Insights"
+    },
+    "description": {
+      "en": "GOLD ERP implementation and support alongside the Supply Chain Insights rollout. Rollout of Supply Chain Insights, the retail analytics platform: technical architecture, functional design, implementation and customisation, through to change management, cross-team coordination, budget and C-level communication.",
+      "fr": "Implémentation et support de l’ERP GOLD en parallèle du déploiement de Supply Chain Insights. Déploiement de Supply Chain Insights, la plateforme d’analytique retail : architecture technique, conception fonctionnelle, implémentation et personnalisation, jusqu’à la conduite du changement, la coordination inter-équipes, le budget et la communication auprès du comité de direction."
+    },
+    "country": "France",
+    "countryCode": "FR",
+    "city": "Clichy",
+    "lat": 48.9044,
+    "lng": 2.3064,
+    "year": 2019,
+    "industry": {
+      "en": "Retail",
+      "fr": "Distribution"
+    },
+    "industryKey": "retail",
+    "tech": [
+      "Supply Chain Insights",
+      "GOLD",
+      "Oracle",
+      "Retail analytics"
+    ]
+  },
+  {
+    "id": "groupe-casino",
+    "customer": "Groupe Casino",
+    "customerPublic": true,
+    "project": {
+      "en": "Supply Chain Insights implementation",
+      "fr": "Mise en œuvre de Supply Chain Insights"
+    },
+    "description": {
+      "en": "GOLD ERP implementation and support for the group’s retail operations.",
+      "fr": "Implémentation et support de l’ERP GOLD pour les opérations de distribution du groupe."
+    },
+    "country": "France",
+    "countryCode": "FR",
+    "city": "Saint-Étienne",
+    "lat": 45.4397,
+    "lng": 4.3872,
+    "year": 2016,
+    "industry": {
+      "en": "Retail",
+      "fr": "Distribution"
+    },
+    "industryKey": "retail",
+    "tech": [
+      "GOLD",
+      "Oracle"
+    ]
+  },
+  {
     "id": "seicomart-gold-japan",
     "customer": "Seicomart",
     "customerPublic": true,
@@ -98,15 +366,15 @@
       "fr": "Mise en œuvre de GOLD Retail Management"
     },
     "description": {
-      "en": "Aldata's first Japanese customer. I managed the resources, budget, design and implementation of the GOLD supply chain suite on the ground in Hokkaido — a demanding multicultural engagement with tight constraints on budget, staffing and deadline.",
-      "fr": "Premier client japonais d'Aldata. J'ai piloté les ressources, le budget, la conception et la mise en œuvre de la suite supply chain GOLD sur place à Hokkaidō — une mission multiculturelle exigeante, aux fortes contraintes de budget, d'effectifs et de délais."
+      "en": "Aldata’s first Japanese customer. I managed the resources and a £310K budget, plus the design and implementation of the GOLD supply chain suite on the ground in Hokkaido — a demanding multicultural engagement with tight constraints on budget, staffing and deadline.",
+      "fr": "Premier client japonais d’Aldata. J’ai piloté les ressources et un budget de 310 K£, ainsi que la conception et la mise en œuvre de la suite supply chain GOLD sur place à Hokkaidō — une mission multiculturelle exigeante, aux fortes contraintes de budget, d’effectifs et de délais."
     },
     "country": "Japan",
     "countryCode": "JP",
     "city": "Sapporo",
     "lat": 43.0618,
     "lng": 141.3545,
-    "year": 2012,
+    "year": 2013,
     "industry": {
       "en": "Retail",
       "fr": "Distribution"
@@ -125,50 +393,16 @@
     }
   },
   {
-    "id": "dollar-general-supply-chain",
-    "customer": "Dollar General",
-    "customerPublic": true,
-    "project": {
-      "en": "Next-generation retail supply chain",
-      "fr": "Chaîne d'approvisionnement nouvelle génération"
-    },
-    "description": {
-      "en": "Technical and functional consulting on the GOLD supply chain suite after Dollar General selected Aldata for its next-generation retail supply chain — Master Data Management and synchronised store and warehouse demand-based replenishment.",
-      "fr": "Conseil technique et fonctionnel sur la suite supply chain GOLD après le choix d'Aldata par Dollar General pour sa chaîne d'approvisionnement nouvelle génération — Master Data Management et réapprovisionnement synchronisé magasin/entrepôt piloté par la demande."
-    },
-    "country": "United States",
-    "countryCode": "US",
-    "city": "Goodlettsville, Tennessee",
-    "lat": 36.3231,
-    "lng": -86.7133,
-    "year": 2011,
-    "industry": {
-      "en": "Retail",
-      "fr": "Distribution"
-    },
-    "industryKey": "retail",
-    "tech": [
-      "GOLD",
-      "Oracle",
-      "Master Data Management",
-      "Replenishment"
-    ],
-    "outcome": {
-      "en": "Deployed across the largest small-box discount retailer in the United States — over 9,200 stores in 35 states at the time.",
-      "fr": "Déployé chez le plus grand distributeur discount de petite surface des États-Unis — plus de 9 200 magasins dans 35 États à l'époque."
-    }
-  },
-  {
     "id": "gold-exadata-benchmark-atlanta",
-    "customer": "Aldata & Oracle",
+    "customer": "Dollar General",
     "customerPublic": true,
     "project": {
       "en": "GOLD on Exadata X-2 benchmark",
       "fr": "Benchmark de GOLD sur Exadata X-2"
     },
     "description": {
-      "en": "Prepared and ran a two-month benchmark of the GOLD application on Oracle Exadata X-2 in an Oracle lab in Atlanta, leading a team of five performance experts.",
-      "fr": "Préparation et réalisation d'un benchmark de deux mois de l'application GOLD sur Oracle Exadata X-2 dans un laboratoire Oracle à Atlanta, à la tête d'une équipe de cinq experts en performance."
+      "en": "Prepared and ran a two-month benchmark of the GOLD application on Oracle Exadata X-2 in an Oracle lab in Atlanta, leading a team of five performance experts, then followed the project through to full deployment as performance specialist.",
+      "fr": "Préparation et conduite d’un benchmark de deux mois de l’application GOLD sur Oracle Exadata X-2 dans un laboratoire Oracle à Atlanta, à la tête d’une équipe de cinq experts en performance, puis suivi du projet jusqu’au déploiement complet en tant que spécialiste performance."
     },
     "country": "United States",
     "countryCode": "US",
@@ -188,8 +422,8 @@
       "GOLD"
     ],
     "outcome": {
-      "en": "Established the performance envelope of the platform at scale, and fed the findings into advanced performance training for more than thirty internal and external developers.",
-      "fr": "Détermination de l'enveloppe de performance de la plateforme à grande échelle, et transmission des résultats dans une formation avancée destinée à plus de trente développeurs internes et externes."
+      "en": "Demonstrated GOLD supporting 18,000 stores on a single database instance, and proved the end-to-end store replenishment process. Dollar General became the first retailer in the world running its operations on Oracle Exadata.",
+      "fr": "Démonstration de GOLD supportant 18 000 magasins sur une seule instance de base de données, et validation du processus de réapprovisionnement de bout en bout. Dollar General est devenu le premier distributeur au monde à exploiter ses opérations sur Oracle Exadata."
     }
   },
   {
