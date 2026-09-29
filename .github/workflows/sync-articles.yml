@@ -1,0 +1,48 @@
+name: Sync articles
+
+# Refreshes the RSS-sourced entries in whois/src/data/articles.json. Committing
+# the result lands on main, which triggers the deploy workflow.
+on:
+  schedule:
+    # Mondays at 06:00 UTC.
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: whois/package-lock.json
+
+      - name: Install dependencies
+        working-directory: whois
+        run: npm ci
+
+      - name: Fetch feeds
+        working-directory: whois
+        run: npm run sync:articles
+
+      - name: Verify the result still builds
+        working-directory: whois
+        run: npx astro build
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- whois/src/data/articles.json; then
+            echo "No article changes."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add whois/src/data/articles.json
+          git commit -m "Sync articles from RSS feeds"
+          git push

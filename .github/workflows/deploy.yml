@@ -1,0 +1,82 @@
+name: Deploy site
+
+# Publishes the whole raemone.github.io site: the existing demo pages that live
+# at the repository root, plus the Astro portfolio built from whois/ and served
+# at /whois/.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let an in-flight deploy finish rather than cancelling it mid-publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: whois/package-lock.json
+
+      - name: Install dependencies
+        working-directory: whois
+        run: npm ci
+
+      - name: Type-check
+        working-directory: whois
+        run: npx astro check
+
+      - name: Test
+        working-directory: whois
+        run: npx vitest run
+
+      - name: Build portfolio
+        working-directory: whois
+        run: npx astro build
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          # Everything already published from the repository root (demo pages,
+          # images, sample apps) is copied across untouched.
+          rsync -a \
+            --exclude '_site' \
+            --exclude 'whois' \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude 'node_modules' \
+            ./ _site/
+          mkdir -p _site/whois
+          cp -r whois/dist/. _site/whois/
+          # GitHub Pages only serves a 404 from the site root, so the portfolio's
+          # 404 page doubles as the site-wide one. Its asset links are absolute
+          # under /whois/, so it renders correctly from here too.
+          cp whois/dist/404.html _site/404.html
+          # Jekyll would otherwise skip Astro's _astro/ asset directory.
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
