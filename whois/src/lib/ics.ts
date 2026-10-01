@@ -38,7 +38,7 @@ export function buildIcs(talk: Talk, now: Date = new Date()): string {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//raemone.github.io//whois//EN',
+    'PRODID:-//raemone.github.io//portfolio//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',

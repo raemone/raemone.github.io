@@ -5,7 +5,9 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 const SITE = 'https://raemone.github.io';
-const BASE = '/whois';
+// The portfolio is the site root. `normaliseBase` collapses this to an empty
+// string so every generated path stays single-slashed.
+const BASE = '/';
 
 export default defineConfig({
   site: SITE,

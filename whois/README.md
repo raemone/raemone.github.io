@@ -1,4 +1,4 @@
-# Portfolio — raemone.github.io/whois
+# Portfolio — raemone.github.io
 
 A static, bilingual (EN/FR) personal site. No backend, no database: every piece
 of content lives in a JSON file under `src/data/`, and the whole site is
@@ -20,7 +20,7 @@ pre-rendered to plain HTML at build time.
 
 ```bash
 npm install          # once
-npm run dev          # dev server at http://localhost:4321/whois
+npm run dev          # dev server at http://localhost:4321
 npm run build        # type-check, then build to dist/
 npm run preview      # serve dist/ locally
 npm test             # run the test suite
@@ -94,9 +94,12 @@ commits any change, which triggers a redeploy.
 `.github/workflows/deploy.yml` (at the repository root) runs on every push to
 `main`. It type-checks, tests, builds, then assembles the published site as:
 
-- everything already at the repository root (the existing demo pages) — copied untouched
-- this portfolio at `/whois/`
-- the portfolio's 404 page as the site-wide `404.html`
+- everything already at the repository root (the existing demo pages, listed at
+  `/demos.html`) — copied untouched
+- this portfolio at the site root, overlaid on top, supplying `index.html` and
+  the site-wide `404.html`
+- a redirect at `/whois/`, where the portfolio used to live, for links already
+  shared; safe to delete once those have aged out
 
 **One-time setup:** in the repository's *Settings → Pages*, set **Source** to
 **GitHub Actions**. Until that is changed, Pages keeps serving the `main` branch

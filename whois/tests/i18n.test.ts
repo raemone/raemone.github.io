@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  assetPath,
   formatMonth,
   isLang,
   localizePath,
@@ -8,7 +9,15 @@ import {
   switchLangPath,
 } from '@/i18n';
 
+/**
+ * A sub-path base. The site itself is served from the root, covered by the
+ * `root base` block below, but the helpers must stay base-agnostic so the
+ * portfolio can be mounted under a prefix again without code changes.
+ */
 const BASE = '/whois';
+
+/** What `normaliseBase` produces for the configured `base: '/'`. */
+const ROOT = '';
 
 describe('normaliseBase', () => {
   it('adds a leading slash and strips trailing ones', () => {
@@ -77,6 +86,30 @@ describe('switchLangPath', () => {
 
   it('ignores a trailing slash on the current path', () => {
     expect(switchLangPath('/whois/about/', 'fr', BASE)).toBe('/whois/fr/about');
+  });
+});
+
+describe('root base', () => {
+  it('builds home and inner pages without a doubled slash', () => {
+    expect(localizePath('/', 'en', ROOT)).toBe('/');
+    expect(localizePath('/projects', 'en', ROOT)).toBe('/projects');
+  });
+
+  it('still prefixes non-default locales', () => {
+    expect(localizePath('/', 'fr', ROOT)).toBe('/fr');
+    expect(localizePath('/projects', 'fr', ROOT)).toBe('/fr/projects');
+  });
+
+  it('switches language on a root-served page', () => {
+    expect(switchLangPath('/', 'fr', ROOT)).toBe('/fr');
+    expect(switchLangPath('/fr', 'en', ROOT)).toBe('/');
+    expect(switchLangPath('/projects', 'fr', ROOT)).toBe('/fr/projects');
+    expect(switchLangPath('/fr/projects', 'en', ROOT)).toBe('/projects');
+  });
+
+  it('resolves assets from the root', () => {
+    expect(assetPath('favicon.svg', ROOT)).toBe('/favicon.svg');
+    expect(assetPath('/images/portrait.jpg', ROOT)).toBe('/images/portrait.jpg');
   });
 });
 

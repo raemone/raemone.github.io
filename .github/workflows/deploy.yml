@@ -1,8 +1,8 @@
 name: Deploy site
 
-# Publishes the whole raemone.github.io site: the existing demo pages that live
-# at the repository root, plus the Astro portfolio built from whois/ and served
-# at /whois/.
+# Publishes the whole raemone.github.io site: the Astro portfolio built from
+# whois/ and served at the root, plus the existing demo pages that live at the
+# repository root and keep their own paths.
 on:
   push:
     branches: [main]
@@ -58,12 +58,29 @@ jobs:
             --exclude '.github' \
             --exclude 'node_modules' \
             ./ _site/
+          # The portfolio is the site root, so it lands on top of the copy above.
+          # It brings its own index.html and 404.html; GitHub Pages serves a 404
+          # only from the root, so the portfolio's doubles as the site-wide one.
+          cp -r whois/dist/. _site/
+          # The portfolio used to live at /whois/, so anything already shared
+          # pointing there is redirected to its new home rather than 404ing.
+          # Safe to delete once those links have aged out.
           mkdir -p _site/whois
-          cp -r whois/dist/. _site/whois/
-          # GitHub Pages only serves a 404 from the site root, so the portfolio's
-          # 404 page doubles as the site-wide one. Its asset links are absolute
-          # under /whois/, so it renders correctly from here too.
-          cp whois/dist/404.html _site/404.html
+          cat > _site/whois/index.html <<'HTML'
+          <!DOCTYPE html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <title>Redirecting</title>
+              <link rel="canonical" href="https://raemone.github.io/" />
+              <meta http-equiv="refresh" content="0; url=/" />
+              <meta name="robots" content="noindex" />
+            </head>
+            <body>
+              <p>This page moved to <a href="/">raemone.github.io</a>.</p>
+            </body>
+          </html>
+          HTML
           # Jekyll would otherwise skip Astro's _astro/ asset directory.
           touch _site/.nojekyll
 
