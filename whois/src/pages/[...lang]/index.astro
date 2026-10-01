@@ -9,7 +9,7 @@ import {
   splitTalks,
   stats,
 } from '@/lib/content';
-import { formatDate, formatMonth, localizePath, pick, t } from '@/i18n';
+import { assetPath, formatDate, formatMonth, localizePath, pick, t } from '@/i18n';
 import type { Lang } from '@/i18n/ui';
 
 export const getStaticPaths = langStaticPaths;
@@ -154,6 +154,28 @@ const statCards = [
                   <p class="mt-1 font-mono text-xs text-faint">
                     {talk.city}, {talk.country}
                   </p>
+
+                  {/* Same pair of actions as the upcoming cards on /speaking, so a
+                      reader can reach the event or save the date without a detour. */}
+                  <div class="mt-4 flex flex-wrap gap-2 border-t border-border pt-4">
+                    {talk.url && (
+                      <a
+                        href={talk.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="rounded-lg border border-border px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent"
+                      >
+                        {t('speaking.eventPage', lang)}
+                      </a>
+                    )}
+                    <a
+                      href={assetPath(`talks/${talk.id}.ics`)}
+                      download
+                      class="rounded-lg border border-border px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent"
+                    >
+                      {t('speaking.addToCalendar', lang)}
+                    </a>
+                  </div>
                 </li>
               ))}
             </ul>

@@ -4,6 +4,7 @@ import {
   educationSchema,
   i18nString,
   i18nStringArray,
+  profileSchema,
   projectSchema,
   roleSchema,
   talkSchema,
@@ -155,6 +156,57 @@ describe('talkSchema', () => {
 
   it('rejects an unknown format', () => {
     expect(() => talkSchema.parse({ ...validTalk, format: 'fireside' })).toThrow();
+  });
+});
+
+describe('profileSchema traits', () => {
+  /** Every required field, so each test varies only `traits`. */
+  const base = {
+    name: 'Rémi Dyon',
+    initials: 'RD',
+    headline: 'Principal Solution Architect',
+    tagline: 'Tagline',
+    currentCompany: 'Microsoft',
+    currentRole: 'Principal Solution Architect',
+    basedIn: 'Atlanta, Georgia',
+    originFrom: 'France',
+    timezone: 'America/New_York',
+    bio: ['A paragraph.'],
+    photo: 'images/portrait.jpg',
+    photoAlt: 'Portrait',
+  };
+
+  it('normalises a bare string on both halves of a trait', () => {
+    const parsed = profileSchema.parse({
+      ...base,
+      traits: [{ label: 'Systems thinker', detail: 'I connect the moving parts.' }],
+    });
+    expect(parsed.traits[0]).toEqual({
+      label: { en: 'Systems thinker', fr: 'Systems thinker' },
+      detail: { en: 'I connect the moving parts.', fr: 'I connect the moving parts.' },
+    });
+  });
+
+  it('keeps a per-language label and detail distinct', () => {
+    const parsed = profileSchema.parse({
+      ...base,
+      traits: [
+        {
+          label: { en: 'Trusted challenger', fr: 'Contradicteur de confiance' },
+          detail: { en: 'I ask hard questions.', fr: 'Je pose les questions difficiles.' },
+        },
+      ],
+    });
+    expect(parsed.traits[0].label.fr).toBe('Contradicteur de confiance');
+    expect(parsed.traits[0].detail.en).toBe('I ask hard questions.');
+  });
+
+  it('rejects a trait that carries a label but no detail', () => {
+    expect(() => profileSchema.parse({ ...base, traits: [{ label: 'Pragmatic builder' }] })).toThrow();
+  });
+
+  it('defaults to no traits at all', () => {
+    expect(profileSchema.parse(base).traits).toEqual([]);
   });
 });
 

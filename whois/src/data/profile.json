@@ -98,20 +98,74 @@
   ],
   "traits": [
     {
-      "en": "Empathic leader",
-      "fr": "Leader empathique"
+      "label": {
+        "en": "Lifelong learner",
+        "fr": "Apprenant à vie"
+      },
+      "detail": {
+        "en": "I stay curious, experiment often, and continuously refine my thinking.",
+        "fr": "Je reste curieux, j’expérimente souvent et j’affine continuellement ma réflexion."
+      }
     },
     {
-      "en": "Constant over-achiever",
-      "fr": "Toujours en quête de dépassement"
+      "label": {
+        "en": "Empathetic leader",
+        "fr": "Leader empathique"
+      },
+      "detail": {
+        "en": "I listen first, value different perspectives, and create space for others to succeed.",
+        "fr": "J’écoute d’abord, je valorise les points de vue différents et je crée les conditions de la réussite des autres."
+      }
     },
     {
-      "en": "Lifelong learner",
-      "fr": "Apprenant à vie"
+      "label": {
+        "en": "Systems thinker",
+        "fr": "Penseur systémique"
+      },
+      "detail": {
+        "en": "I connect technology, people, processes, and business outcomes.",
+        "fr": "Je relie la technologie, les personnes, les processus et les résultats métier."
+      }
     },
     {
-      "en": "Passionate about solving complex problems",
-      "fr": "Passionné par la résolution de problèmes complexes"
+      "label": {
+        "en": "Customer-focused problem solver",
+        "fr": "Résolution de problèmes orientée client"
+      },
+      "detail": {
+        "en": "I begin with real needs, constraints, and measurable value.",
+        "fr": "Je pars des besoins réels, des contraintes et de la valeur mesurable."
+      }
+    },
+    {
+      "label": {
+        "en": "Pragmatic builder",
+        "fr": "Bâtisseur pragmatique"
+      },
+      "detail": {
+        "en": "I turn ambiguity into prototypes, reusable patterns, and production-ready solutions.",
+        "fr": "Je transforme l’ambiguïté en prototypes, en modèles réutilisables et en solutions prêtes pour la production."
+      }
+    },
+    {
+      "label": {
+        "en": "Trusted challenger",
+        "fr": "Contradicteur de confiance"
+      },
+      "detail": {
+        "en": "I ask difficult questions constructively and ground recommendations in evidence.",
+        "fr": "Je pose les questions difficiles de manière constructive et j’appuie mes recommandations sur des faits."
+      }
+    },
+    {
+      "label": {
+        "en": "Knowledge multiplier",
+        "fr": "Multiplicateur de savoir"
+      },
+      "detail": {
+        "en": "I document, teach, and share what I learn so the entire team moves faster.",
+        "fr": "Je documente, je forme et je partage ce que j’apprends pour que toute l’équipe avance plus vite."
+      }
     }
   ]
 }

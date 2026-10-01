@@ -36,8 +36,13 @@ export const profileSchema = z.object({
   originFrom: i18nString,
   timezone: z.string().min(1),
   bio: i18nStringArray,
-  /** Professional character: how he works, as distinct from what he does outside work. */
-  traits: z.array(i18nString).default([]),
+  /**
+   * Professional character, as distinct from what he does outside work: a short
+   * label plus the sentence that gives it substance.
+   */
+  traits: z
+    .array(z.object({ label: i18nString, detail: i18nString }))
+    .default([]),
   /** An off-the-clock item, optionally linking out to whatever it refers to. */
   funFacts: z
     .array(z.object({ text: i18nString, url: url.optional() }))

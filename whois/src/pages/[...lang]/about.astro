@@ -39,10 +39,13 @@ const facts = [
           profile.traits.length > 0 && (
             <div class="reveal mt-12">
               <h2 class="label-mono mb-4">{t('about.howIWork', lang)}</h2>
-              <ul class="flex flex-wrap gap-2">
+              <ul class="space-y-4">
                 {profile.traits.map((trait) => (
-                  <li class="rounded-full border border-border px-3 py-1.5 text-sm text-muted transition-colors hover:border-accent hover:text-accent">
-                    {pick(trait, lang)}
+                  <li class="group border-l-2 border-border pl-4 transition-colors hover:border-accent">
+                    <p class="text-sm font-medium text-text transition-colors group-hover:text-accent">
+                      {pick(trait.label, lang)}
+                    </p>
+                    <p class="mt-1 text-sm leading-relaxed text-muted">{pick(trait.detail, lang)}</p>
                   </li>
                 ))}
               </ul>
