@@ -61,6 +61,9 @@ export const ui = {
   'about.howIWork': { en: 'How I work', fr: 'Ma façon de travailler' },
   'about.funFacts': { en: 'Off the clock', fr: 'Hors du travail' },
   'about.education': { en: 'Education', fr: 'Formation' },
+  'about.community': { en: 'Community and advisory', fr: 'Communauté et conseil' },
+  'about.badges': { en: 'Badges and certifications', fr: 'Badges et certifications' },
+  'about.badgesOn': { en: 'Verified on Credly', fr: 'Vérifiés sur Credly' },
 
   'experience.title': { en: 'Experience', fr: 'Parcours' },
   'experience.present': { en: 'Present', fr: 'Aujourd’hui' },

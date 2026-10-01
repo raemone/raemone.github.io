@@ -5,9 +5,11 @@ import rawProjects from '@/data/projects.json';
 import rawArticles from '@/data/articles.json';
 import rawTalks from '@/data/talks.json';
 import rawEducation from '@/data/education.json';
+import rawBadges from '@/data/badges.json';
 
 import {
   articleSchema,
+  badgeSchema,
   contactSchema,
   educationSchema,
   profileSchema,
@@ -15,6 +17,7 @@ import {
   roleSchema,
   talkSchema,
   type Article,
+  type Badge,
   type Education,
   type Project,
   type Role,
@@ -45,6 +48,7 @@ const allProjects = parseOrThrow(z.array(projectSchema), rawProjects, 'projects.
 const allArticles = parseOrThrow(z.array(articleSchema), rawArticles, 'articles.json');
 const allTalks = parseOrThrow(z.array(talkSchema), rawTalks, 'talks.json');
 const allEducation = parseOrThrow(z.array(educationSchema), rawEducation, 'education.json');
+const allBadges = parseOrThrow(z.array(badgeSchema), rawBadges, 'badges.json');
 
 /** `present` sorts above every real month so the current role always leads. */
 function monthKey(value: string): string {
@@ -56,6 +60,7 @@ export const projects: Project[] = [...allProjects].sort((a, b) => b.year - a.ye
 export const articles: Article[] = [...allArticles].sort((a, b) => b.date.localeCompare(a.date));
 export const talks: Talk[] = [...allTalks].sort((a, b) => b.date.localeCompare(a.date));
 export const education: Education[] = [...allEducation].sort((a, b) => b.end.localeCompare(a.end));
+export const badges: Badge[] = [...allBadges].sort((a, b) => b.issued.localeCompare(a.issued) || a.name.localeCompare(b.name));
 
 export const currentRole: Role | undefined = roles.find((role) => role.current);
 

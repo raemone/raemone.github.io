@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "sync:articles": "node scripts/sync-articles.mjs"
+    "sync:articles": "node scripts/sync-articles.mjs",
+    "sync:badges": "node scripts/sync-badges.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^4.2.1",

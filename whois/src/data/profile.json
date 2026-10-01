@@ -35,6 +35,46 @@
       "Vingt ans plus tard, le parcours est passé par Grenoble et une année à Oxford Brookes, puis par la maintenance de logiciels supply chain à Paris, la conduite d’un projet à Sapporo, la business intelligence dans la distribution, et aujourd’hui l’IA conversationnelle et agentique. Les projets m’ont mené en Europe, en Afrique du Nord, au Moyen-Orient et au Japon. Je vis à Atlanta depuis 2014."
     ]
   },
+  "community": [
+    {
+      "role": {
+        "en": "Advisor",
+        "fr": "Conseiller"
+      },
+      "organisation": {
+        "en": "Two French AI startups",
+        "fr": "Deux startups françaises en IA"
+      },
+      "detail": {
+        "en": "Advising founding teams on AI product direction and agent architecture. Both engagements are under NDA, so neither company is named here.",
+        "fr": "Accompagnement des équipes fondatrices sur la direction produit en IA et l’architecture d’agents. Les deux missions sont sous NDA, aucune des entreprises n’est donc nommée ici."
+      }
+    },
+    {
+      "role": {
+        "en": "Mentor",
+        "fr": "Mentor"
+      },
+      "organisation": "Women in Power Platform",
+      "url": "https://www.linkedin.com/company/women-in-power-platform/",
+      "detail": {
+        "en": "Mentoring women building careers on the Power Platform, through a community that connects them with people already doing the work.",
+        "fr": "Mentorat de femmes qui construisent leur carrière sur la Power Platform, au sein d’une communauté qui les met en relation avec celles et ceux qui exercent déjà le métier."
+      }
+    },
+    {
+      "role": {
+        "en": "Champion",
+        "fr": "Champion"
+      },
+      "organisation": "Microsoft Power Up Program",
+      "url": "https://www.linkedin.com/groups/14624201/",
+      "detail": {
+        "en": "Helping career switchers learn Microsoft technology and move into their first Power Platform role.",
+        "fr": "Accompagnement de personnes en reconversion dans l’apprentissage des technologies Microsoft et vers leur premier poste sur la Power Platform."
+      }
+    }
+  ],
   "funFacts": [
     {
       "text": {

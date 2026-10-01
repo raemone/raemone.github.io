@@ -43,6 +43,21 @@ export const profileSchema = z.object({
   traits: z
     .array(z.object({ label: i18nString, detail: i18nString }))
     .default([]),
+  /**
+   * Volunteer and advisory work alongside the day job. `organisation` is a
+   * proper noun in most cases, but stays bilingual so an unnamed one (an NDA'd
+   * client, say) can be described in each language.
+   */
+  community: z
+    .array(
+      z.object({
+        role: i18nString,
+        organisation: i18nString,
+        url: url.optional(),
+        detail: i18nString,
+      }),
+    )
+    .default([]),
   /** An off-the-clock item, optionally linking out to whatever it refers to. */
   funFacts: z
     .array(z.object({ text: i18nString, url: url.optional() }))
@@ -165,6 +180,20 @@ export const talkSchema = z.object({
   recordingUrl: url.optional(),
 });
 
+/**
+ * A Credly badge. Synced by scripts/sync-badges.mjs, which also stores the
+ * image locally — `image` is a repository path, not a Credly URL, so the page
+ * makes no third-party request.
+ */
+export const badgeSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  issuer: z.string().min(1),
+  issued: isoDate,
+  url,
+  image: z.string().min(1),
+});
+
 export const profileArraySchemas = {
   roles: z.array(roleSchema),
   projects: z.array(projectSchema),
@@ -180,4 +209,5 @@ export type Project = z.infer<typeof projectSchema>;
 export type Article = z.infer<typeof articleSchema>;
 export type Talk = z.infer<typeof talkSchema>;
 export type Education = z.infer<typeof educationSchema>;
+export type Badge = z.infer<typeof badgeSchema>;
 export type I18nString = { en: string; fr: string };

@@ -25,6 +25,7 @@ npm run build        # type-check, then build to dist/
 npm run preview      # serve dist/ locally
 npm test             # run the test suite
 npm run sync:articles # refresh RSS-sourced articles (see below)
+npm run sync:badges   # refresh Credly badges and their images (see below)
 ```
 
 ## Editing content
@@ -34,13 +35,14 @@ Everything you will want to change is in `src/data/`. Search the repo for
 
 | File | Holds |
 | --- | --- |
-| `profile.json` | Name, headline, tagline, bio, where you are from and live, photos, languages |
+| `profile.json` | Name, headline, tagline, bio, where you are from and live, photos, languages, community and advisory roles |
 | `contact.json` | Email, social links, and the **open to work / speaking / advising** flags |
 | `experience.json` | Roles, in any order — the site sorts them |
 | `projects.json` | Engagements, including the `lat`/`lng` that place each map pin |
 | `articles.json` | Articles and posts |
 | `talks.json` | Conferences and webinars; upcoming vs past is derived from the date |
 | `feeds.json` | RSS feeds to poll for new articles |
+| `badges.json` | Credly badges — **generated**, do not hand-edit; run `npm run sync:badges` |
 
 ### Bilingual fields
 
@@ -88,6 +90,20 @@ converts each item into an article entry and rewrites `articles.json`.
 To switch it on: set `"enabled": true` on a feed and replace the placeholder URL.
 `.github/workflows/sync-articles.yml` then runs it every Monday at 06:00 UTC and
 commits any change, which triggers a redeploy.
+
+### Credly badges
+
+`npm run sync:badges` reads the public Credly profile, writes `src/data/badges.json`
+and stores a downscaled copy of each badge image in `public/images/badges/`.
+
+The images live in this repository on purpose. Credly's own embed is a
+third-party script that sets cookies, and hot-linking the images would still
+announce every reader to Credly. Storing them means the About page makes no
+third-party request at all — the only Credly URLs in the build are the
+verification links on each badge, which fire only when someone clicks one.
+
+Run it after earning a badge. Images for badges that are no longer public are
+pruned on the next run.
 
 ## Deployment
 

@@ -3,7 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/PageHeader.astro';
 import { langStaticPaths } from '@/lib/paths';
 import { getPage } from '@/lib/pages';
-import { education, profile } from '@/lib/content';
+import { badges, education, profile } from '@/lib/content';
 import { assetPath, pick, pickAll, t } from '@/i18n';
 import type { Lang } from '@/i18n/ui';
 
@@ -54,6 +54,40 @@ const facts = [
         }
 
         {
+          profile.community.length > 0 && (
+            <div class="reveal mt-12">
+              <h2 class="label-mono mb-4">{t('about.community', lang)}</h2>
+              <ul class="space-y-5">
+                {profile.community.map((entry) => {
+                  const organisation = pick(entry.organisation, lang);
+                  return (
+                    <li class="border-l-2 border-border pl-4">
+                      <div class="flex flex-wrap items-baseline gap-x-2">
+                        <p class="text-sm font-medium text-text">{pick(entry.role, lang)}</p>
+                        <span class="text-faint">·</span>
+                        {entry.url ? (
+                          <a
+                            href={entry.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="link-wipe text-sm text-accent"
+                          >
+                            {organisation}
+                          </a>
+                        ) : (
+                          <span class="text-sm text-accent">{organisation}</span>
+                        )}
+                      </div>
+                      <p class="mt-1.5 text-sm leading-relaxed text-muted">{pick(entry.detail, lang)}</p>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )
+        }
+
+        {
           education.length > 0 && (
             <div class="reveal mt-12">
               <h2 class="label-mono mb-4">{t('about.education', lang)}</h2>
@@ -74,6 +108,50 @@ const facts = [
                   </li>
                 ))}
               </ol>
+            </div>
+          )
+        }
+
+        {
+          badges.length > 0 && (
+            <div class="reveal mt-12">
+              <div class="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h2 class="label-mono">{t('about.badges', lang)}</h2>
+                <span class="font-mono text-xs text-faint">{t('about.badgesOn', lang)}</span>
+              </div>
+              <ul class="grid grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] gap-x-4 gap-y-6">
+                {badges.map((badge) => (
+                  <li>
+                    <a
+                      href={badge.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="group flex flex-col items-center text-center"
+                    >
+                      {/*
+                        Served from this repository, not from Credly: the sync
+                        script stores a downscaled copy, so the page pulls in no
+                        third-party asset and sets no third-party cookie.
+                      */}
+                      <img
+                        src={assetPath(badge.image)}
+                        alt=""
+                        width="72"
+                        height="72"
+                        loading="lazy"
+                        decoding="async"
+                        class="size-18 transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover:-translate-y-1"
+                      />
+                      <p class="mt-2 text-xs font-medium leading-snug transition-colors group-hover:text-accent">
+                        {badge.name}
+                      </p>
+                      <p class="mt-0.5 font-mono text-[0.65rem] leading-snug text-faint">
+                        {badge.issuer} · {badge.issued.slice(0, 4)}
+                      </p>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           )
         }

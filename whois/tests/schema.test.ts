@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   articleSchema,
+  badgeSchema,
   educationSchema,
   i18nString,
   i18nStringArray,
@@ -159,6 +160,33 @@ describe('talkSchema', () => {
   });
 });
 
+describe('badgeSchema', () => {
+  const valid = {
+    id: '9b5eaef4-319c-4446-832e-8a63194f4acd',
+    name: 'Agent Hack Champion @ PPCC 2025',
+    issuer: 'Power Platform Community Conference',
+    issued: '2025-10-30',
+    url: 'https://www.credly.com/badges/9b5eaef4-319c-4446-832e-8a63194f4acd/public_url',
+    image: 'images/badges/9b5eaef4-319c-4446-832e-8a63194f4acd.png',
+  };
+
+  it('accepts a synced badge', () => {
+    expect(badgeSchema.parse(valid).name).toBe('Agent Hack Champion @ PPCC 2025');
+  });
+
+  it('rejects a year-only issue date', () => {
+    expect(() => badgeSchema.parse({ ...valid, issued: '2025' })).toThrow();
+  });
+
+  it('rejects a badge with no issuer', () => {
+    expect(() => badgeSchema.parse({ ...valid, issuer: '' })).toThrow();
+  });
+
+  it('rejects a non-url verification link', () => {
+    expect(() => badgeSchema.parse({ ...valid, url: 'credly.com/badges/abc' })).toThrow();
+  });
+});
+
 describe('profileSchema traits', () => {
   /** Every required field, so each test varies only `traits`. */
   const base = {
@@ -207,6 +235,45 @@ describe('profileSchema traits', () => {
 
   it('defaults to no traits at all', () => {
     expect(profileSchema.parse(base).traits).toEqual([]);
+  });
+
+  it('normalises a community entry and leaves the link optional', () => {
+    const parsed = profileSchema.parse({
+      ...base,
+      community: [
+        {
+          role: 'Mentor',
+          organisation: 'Women in Power Platform',
+          url: 'https://www.linkedin.com/company/women-in-power-platform/',
+          detail: 'Mentoring women building careers on the Power Platform.',
+        },
+        {
+          role: { en: 'Advisor', fr: 'Conseiller' },
+          organisation: { en: 'Two French AI startups', fr: 'Deux startups françaises en IA' },
+          detail: { en: 'Under NDA.', fr: 'Sous NDA.' },
+        },
+      ],
+    });
+    expect(parsed.community[0].organisation).toEqual({
+      en: 'Women in Power Platform',
+      fr: 'Women in Power Platform',
+    });
+    // An NDA'd entry carries no link, and must not be rejected for it.
+    expect(parsed.community[1].url).toBeUndefined();
+    expect(parsed.community[1].organisation.fr).toBe('Deux startups françaises en IA');
+  });
+
+  it('rejects a community entry whose link is not a url', () => {
+    expect(() =>
+      profileSchema.parse({
+        ...base,
+        community: [{ role: 'Mentor', organisation: 'X', url: 'linkedin.com/x', detail: 'd' }],
+      }),
+    ).toThrow();
+  });
+
+  it('defaults to no community entries', () => {
+    expect(profileSchema.parse(base).community).toEqual([]);
   });
 });
 
