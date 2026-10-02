@@ -1,17 +1,17 @@
 [
   {
-    "id": "ppcc26-copilot-studio-deep-dive-workshop",
+    "id": "ppcc26-retrieval-patterns",
     "event": "Power Platform Community Conference 2026",
-    "title": "Deep Dive Into the New Copilot Studio: Engineering Enterprise Agents and Workflows",
+    "title": "Recommended Architectural Patterns & Common Pitfalls for MCS Retrieval Agents",
     "abstract": {
-      "en": "A full-day, engineering-level workshop on the new Copilot Studio. How the agentic orchestrator plans and executes long-horizon tasks, how instructions and skills shape behaviour, and how to build end-to-end automations with the new workflow designer — event-driven and scheduled triggers, human-in-the-loop approvals, and error handling designed in from the start.",
-      "fr": "Un atelier d'une journée complète, au niveau ingénierie, sur le nouveau Copilot Studio. Comment l'orchestrateur agentique planifie et exécute des tâches de longue haleine, comment les instructions et les skills façonnent le comportement, et comment construire des automatisations de bout en bout avec le nouveau concepteur de workflows — déclencheurs événementiels et planifiés, approbations avec intervention humaine, et gestion des erreurs pensée dès le départ."
+      "en": "\"Why can't my agent read my Excel file accurately?\" A walk through real customer scenarios where agents struggle with unstructured data: where RAG works well, where it breaks down on complex tabular content and large datasets, and how Dataverse, connectors, MCP-based approaches and modern orchestration patterns improve retrieval accuracy.",
+      "fr": "« Pourquoi mon agent ne lit-il pas correctement mon fichier Excel ? » Un parcours de scénarios clients réels où les agents peinent avec les données non structurées : là où le RAG fonctionne bien, là où il échoue sur les données tabulaires complexes et les grands volumes, et comment Dataverse, les connecteurs, les approches MCP et les patterns d'orchestration modernes améliorent la précision."
     },
-    "date": "2026-10-25",
+    "date": "2026-10-27",
     "city": "Las Vegas",
     "country": "United States",
-    "format": "workshop",
-    "url": "https://powerplatformconf.com/workshops/Deep-Dive-Into-the-New-Copilot-Studio%3A-Engineering-Enterprise-Agents-and-Workflows"
+    "format": "session",
+    "url": "https://powerplatformconf.com/sessions/Recommended-Architectural-Patterns-%26-Common-Pitfalls-for-MCS-Retrieval-Agents"
   },
   {
     "id": "ppcc26-agent-jungle",
@@ -28,32 +28,32 @@
     "url": "https://powerplatformconf.com/sessions/Lost-in-the-Agent-Jungle%3A-What-to-Use-When%3F"
   },
   {
-    "id": "ppcc26-retrieval-patterns",
+    "id": "ppcc26-copilot-studio-deep-dive-workshop",
     "event": "Power Platform Community Conference 2026",
-    "title": "Recommended Architectural Patterns & Common Pitfalls for MCS Retrieval Agents",
+    "title": "Deep Dive Into the New Copilot Studio: Engineering Enterprise Agents and Workflows",
     "abstract": {
-      "en": "\"Why can't my agent read my Excel file accurately?\" A walk through real customer scenarios where agents struggle with unstructured data: where RAG works well, where it breaks down on complex tabular content and large datasets, and how Dataverse, connectors, MCP-based approaches and modern orchestration patterns improve retrieval accuracy.",
-      "fr": "« Pourquoi mon agent ne lit-il pas correctement mon fichier Excel ? » Un parcours de scénarios clients réels où les agents peinent avec les données non structurées : là où le RAG fonctionne bien, là où il échoue sur les données tabulaires complexes et les grands volumes, et comment Dataverse, les connecteurs, les approches MCP et les patterns d'orchestration modernes améliorent la précision."
+      "en": "A full-day, engineering-level workshop on the new Copilot Studio. How the agentic orchestrator plans and executes long-horizon tasks, how instructions and skills shape behaviour, and how to build end-to-end automations with the new workflow designer — event-driven and scheduled triggers, human-in-the-loop approvals, and error handling designed in from the start.",
+      "fr": "Un atelier d'une journée complète, au niveau ingénierie, sur le nouveau Copilot Studio. Comment l'orchestrateur agentique planifie et exécute des tâches de longue haleine, comment les instructions et les skills façonnent le comportement, et comment construire des automatisations de bout en bout avec le nouveau concepteur de workflows — déclencheurs événementiels et planifiés, approbations avec intervention humaine, et gestion des erreurs pensée dès le départ."
     },
-    "date": "2026-10-27",
+    "date": "2026-10-25",
     "city": "Las Vegas",
     "country": "United States",
-    "format": "session",
-    "url": "https://powerplatformconf.com/sessions/Recommended-Architectural-Patterns-%26-Common-Pitfalls-for-MCS-Retrieval-Agents"
+    "format": "workshop",
+    "url": "https://powerplatformconf.com/workshops/Deep-Dive-Into-the-New-Copilot-Studio%3A-Engineering-Enterprise-Agents-and-Workflows"
   },
   {
-    "id": "summit26-beyond-chat",
+    "id": "summit26-sharepoint-grounding",
     "event": "Community Summit North America 2026",
-    "title": "Beyond Chat: Building Autonomous and Multi-Agent Solutions with Enhanced Task Orchestration",
+    "title": "From Buried Files to Trusted Answers: SharePoint Knowledge Grounding That Actually Works",
     "abstract": {
-      "en": "When to reach for autonomous triggers, multi-agent orchestration and Skills instead of a single conversational agent. How to design human-in-the-loop approval steps that keep autonomous agents safe and auditable, and how to read per-trigger run analytics to measure and improve reliability.",
-      "fr": "Quand utiliser des déclencheurs autonomes, l'orchestration multi-agents et les Skills plutôt qu'un simple agent conversationnel. Comment concevoir des étapes d'approbation humaine qui gardent les agents autonomes sûrs et auditables, et comment lire les analyses d'exécution par déclencheur pour mesurer et améliorer la fiabilité."
+      "en": "Why retrieval quality degrades on large or multilingual SharePoint sources, and how to correct it. How to configure metadata scoping and page-level citations so answers are precise and independently verifiable, and how to ground agents safely on sensitivity-labelled, permission-trimmed content.",
+      "fr": "Pourquoi la qualité de recherche se dégrade sur des sources SharePoint volumineuses ou multilingues, et comment y remédier. Comment configurer le ciblage par métadonnées et les citations au niveau de la page pour des réponses précises et vérifiables, et comment ancrer les agents en toute sécurité sur du contenu étiqueté et filtré par permissions."
     },
-    "date": "2026-10-12",
+    "date": "2026-10-14",
     "city": "Nashville",
     "country": "United States",
     "format": "session",
-    "url": "https://connect.summitna.com/8_0/sessions/session-details.cfm?scheduleid=2426"
+    "url": "https://connect.summitna.com/8_0/sessions/session-details.cfm?scheduleid=2425"
   },
   {
     "id": "summit26-mcp-servers",
@@ -70,18 +70,18 @@
     "url": "https://connect.summitna.com/8_0/sessions/session-details.cfm?scheduleid=2423"
   },
   {
-    "id": "summit26-sharepoint-grounding",
+    "id": "summit26-beyond-chat",
     "event": "Community Summit North America 2026",
-    "title": "From Buried Files to Trusted Answers: SharePoint Knowledge Grounding That Actually Works",
+    "title": "Beyond Chat: Building Autonomous and Multi-Agent Solutions with Enhanced Task Orchestration",
     "abstract": {
-      "en": "Why retrieval quality degrades on large or multilingual SharePoint sources, and how to correct it. How to configure metadata scoping and page-level citations so answers are precise and independently verifiable, and how to ground agents safely on sensitivity-labelled, permission-trimmed content.",
-      "fr": "Pourquoi la qualité de recherche se dégrade sur des sources SharePoint volumineuses ou multilingues, et comment y remédier. Comment configurer le ciblage par métadonnées et les citations au niveau de la page pour des réponses précises et vérifiables, et comment ancrer les agents en toute sécurité sur du contenu étiqueté et filtré par permissions."
+      "en": "When to reach for autonomous triggers, multi-agent orchestration and Skills instead of a single conversational agent. How to design human-in-the-loop approval steps that keep autonomous agents safe and auditable, and how to read per-trigger run analytics to measure and improve reliability.",
+      "fr": "Quand utiliser des déclencheurs autonomes, l'orchestration multi-agents et les Skills plutôt qu'un simple agent conversationnel. Comment concevoir des étapes d'approbation humaine qui gardent les agents autonomes sûrs et auditables, et comment lire les analyses d'exécution par déclencheur pour mesurer et améliorer la fiabilité."
     },
-    "date": "2026-10-14",
+    "date": "2026-10-12",
     "city": "Nashville",
     "country": "United States",
     "format": "session",
-    "url": "https://connect.summitna.com/8_0/sessions/session-details.cfm?scheduleid=2425"
+    "url": "https://connect.summitna.com/8_0/sessions/session-details.cfm?scheduleid=2426"
   },
   {
     "id": "coreshift-2026-agentic-ai",
@@ -139,19 +139,71 @@
     "url": "https://events.teams.microsoft.com/event/9163fe53-143f-4cbc-a9ea-13c1305e735d@9a0c7552-3833-46c4-bbac-8bc7f960ee52"
   },
   {
-    "id": "bootcamp-new-york-2025",
+    "id": "bootcamp-atlanta-2026",
     "event": "Copilot Studio Architecture Bootcamp",
-    "title": "Copilot Studio Architecture Bootcamp — New York",
+    "title": "Copilot Studio Architecture Bootcamp — Atlanta",
     "abstract": {
-      "en": "Three days of instructor-led architecture training for enterprise teams. I opened the hands-on labs and delivered modules on real-world envisioning and customer stories, a deep dive into generative orchestration, unlocking success with the Implementation Guide, an autonomous sales opportunity agent, MCP and computer-use agents, and a deep dive into the Copilot Studio Kit.",
-      "fr": "Trois jours de formation à l’architecture pour des équipes en entreprise. J’ai ouvert les ateliers pratiques et animé les modules sur le cadrage de cas d’usage réels et les retours clients, l’orchestration générative en profondeur, le guide d’implémentation, un agent autonome d’opportunités commerciales, MCP et les agents pilotant l’ordinateur, ainsi que le Copilot Studio Kit."
+      "en": "Three days of instructor-led architecture training for enterprise teams, spanning agent architecture, knowledge and grounding, integration, governance, security and ALM, with hands-on labs throughout.",
+      "fr": "Trois jours de formation à l’architecture pour des équipes en entreprise, couvrant l’architecture d’agents, l’ancrage des connaissances, l’intégration, la gouvernance, la sécurité et l’ALM, avec des ateliers pratiques tout au long."
     },
-    "date": "2025-10-01",
-    "endDate": "2025-10-03",
-    "city": "New York",
+    "date": "2026-03-31",
+    "endDate": "2026-04-02",
+    "city": "Atlanta, Georgia",
     "country": "United States",
     "format": "workshop",
     "url": "https://microsoft.github.io/cat/programs/architecture-bootcamp.html"
+  },
+  {
+    "id": "ppcc-2025-ask-the-experts-webinar",
+    "event": "Power Platform Community Conference",
+    "title": "Ask the Experts: Strategic Insights from the Power Platform Community Conference",
+    "abstract": {
+      "en": "I hosted this post-conference webinar, drawing together the strategic takeaways from the Power Platform Community Conference for people who could not attend in person.",
+      "fr": "J’ai animé ce webinaire post-conférence, rassemblant les enseignements stratégiques de la Power Platform Community Conference pour ceux qui n’avaient pas pu s’y rendre."
+    },
+    "date": "2025-11-06",
+    "city": "Online",
+    "country": "Remote",
+    "format": "webinar"
+  },
+  {
+    "id": "ppcc-2025-support-desk-to-concierge",
+    "event": "Power Platform Community Conference 2025",
+    "title": "From Support Desk to Concierge: Elevating Customer Experience with Copilot Studio",
+    "abstract": {
+      "en": "Taking a support experience past reactive ticket handling and towards something that anticipates what a customer needs, built on Copilot Studio. One of the conference’s highly attended sessions.",
+      "fr": "Faire passer une expérience de support au-delà du traitement réactif des tickets, vers un service qui anticipe les besoins du client, construit sur Copilot Studio. L’une des sessions les plus suivies de la conférence."
+    },
+    "date": "2025-10-28",
+    "city": "Las Vegas",
+    "country": "United States",
+    "format": "session"
+  },
+  {
+    "id": "ppcc-2025-copilot-studio-in-a-day",
+    "event": "Power Platform Community Conference 2025",
+    "title": "Copilot Studio in a Day — preconference workshop",
+    "abstract": {
+      "en": "A guided, day-long preconference workshop taking attendees across Copilot Studio end to end, delivered ahead of the main conference programme.",
+      "fr": "Un atelier de pré-conférence d’une journée, guidé de bout en bout sur Copilot Studio, animé avant l’ouverture du programme principal."
+    },
+    "date": "2025-10-26",
+    "city": "Las Vegas",
+    "country": "United States",
+    "format": "workshop"
+  },
+  {
+    "id": "acuvate-slack-copilot-studio-workspace",
+    "event": "Acuvate",
+    "title": "Turn Slack into an AI-powered Workspace with Copilot Studio",
+    "abstract": {
+      "en": "A webinar with live demos on bringing Copilot Studio into Slack: cutting the context-switching that fragments a working day, automating routine tasks where the team already works, and what that does for productivity. Presented with Satheesh Kothakapu, VP of Technology at Acuvate.",
+      "fr": "Un webinaire avec démonstrations en direct sur l’intégration de Copilot Studio dans Slack : réduire les changements de contexte qui fragmentent la journée, automatiser les tâches récurrentes là où l’équipe travaille déjà, et ce que cela change pour la productivité. Présenté avec Satheesh Kothakapu, VP of Technology chez Acuvate."
+    },
+    "date": "2025-10-23",
+    "city": "Online",
+    "country": "Remote",
+    "format": "webinar"
   },
   {
     "id": "bootcamp-redmond-2025",
@@ -169,44 +221,31 @@
     "url": "https://microsoft.github.io/cat/programs/architecture-bootcamp.html"
   },
   {
-    "id": "ppcc-2025-copilot-studio-in-a-day",
-    "event": "Power Platform Community Conference 2025",
-    "title": "Copilot Studio in a Day — preconference workshop",
-    "abstract": {
-      "en": "A guided, day-long preconference workshop taking attendees across Copilot Studio end to end, delivered ahead of the main conference programme.",
-      "fr": "Un atelier de pré-conférence d’une journée, guidé de bout en bout sur Copilot Studio, animé avant l’ouverture du programme principal."
-    },
-    "date": "2025-10-26",
-    "city": "Las Vegas",
-    "country": "United States",
-    "format": "workshop"
-  },
-  {
-    "id": "ppcc-2025-ask-the-experts-webinar",
-    "event": "Power Platform Community Conference",
-    "title": "Ask the Experts: Strategic Insights from the Power Platform Community Conference",
-    "abstract": {
-      "en": "I hosted this post-conference webinar, drawing together the strategic takeaways from the Power Platform Community Conference for people who could not attend in person.",
-      "fr": "J’ai animé ce webinaire post-conférence, rassemblant les enseignements stratégiques de la Power Platform Community Conference pour ceux qui n’avaient pas pu s’y rendre."
-    },
-    "date": "2025-11-06",
-    "city": "Online",
-    "country": "Remote",
-    "format": "webinar"
-  },
-  {
-    "id": "bootcamp-atlanta-2026",
+    "id": "bootcamp-new-york-2025",
     "event": "Copilot Studio Architecture Bootcamp",
-    "title": "Copilot Studio Architecture Bootcamp — Atlanta",
+    "title": "Copilot Studio Architecture Bootcamp — New York",
     "abstract": {
-      "en": "Three days of instructor-led architecture training for enterprise teams, spanning agent architecture, knowledge and grounding, integration, governance, security and ALM, with hands-on labs throughout.",
-      "fr": "Trois jours de formation à l’architecture pour des équipes en entreprise, couvrant l’architecture d’agents, l’ancrage des connaissances, l’intégration, la gouvernance, la sécurité et l’ALM, avec des ateliers pratiques tout au long."
+      "en": "Three days of instructor-led architecture training for enterprise teams. I opened the hands-on labs and delivered modules on real-world envisioning and customer stories, a deep dive into generative orchestration, unlocking success with the Implementation Guide, an autonomous sales opportunity agent, MCP and computer-use agents, and a deep dive into the Copilot Studio Kit.",
+      "fr": "Trois jours de formation à l’architecture pour des équipes en entreprise. J’ai ouvert les ateliers pratiques et animé les modules sur le cadrage de cas d’usage réels et les retours clients, l’orchestration générative en profondeur, le guide d’implémentation, un agent autonome d’opportunités commerciales, MCP et les agents pilotant l’ordinateur, ainsi que le Copilot Studio Kit."
     },
-    "date": "2026-03-31",
-    "endDate": "2026-04-02",
-    "city": "Atlanta, Georgia",
+    "date": "2025-10-01",
+    "endDate": "2025-10-03",
+    "city": "New York",
     "country": "United States",
     "format": "workshop",
     "url": "https://microsoft.github.io/cat/programs/architecture-bootcamp.html"
+  },
+  {
+    "id": "techbridge-cxo-alliance-human-centric-ai",
+    "event": "Techbridge CxO Alliance",
+    "title": "Human-Centric Innovation: Leveraging Agentic AI While Elevating Human Skills",
+    "abstract": {
+      "en": "A cross-sector panel on where agentic AI belongs and where it does not: the autonomy it brings to task execution and decision-making, set against the empathy, ethics, leadership and cultural nuance it cannot supply. Hosted by Techbridge at Insight Global and moderated by Brian Benn, VP and CIO at Clark Atlanta University, with panellists from Insight Global and Jones Day.",
+      "fr": "Une table ronde intersectorielle sur la place de l’IA agentique, et sur ses limites : l’autonomie qu’elle apporte à l’exécution des tâches et à la prise de décision, face à l’empathie, l’éthique, le leadership et les nuances culturelles qu’elle ne peut pas fournir. Organisée par Techbridge chez Insight Global et animée par Brian Benn, VP et DSI de Clark Atlanta University, avec des intervenants d’Insight Global et de Jones Day."
+    },
+    "date": "2025-05-14",
+    "city": "Atlanta, Georgia",
+    "country": "United States",
+    "format": "panel"
   }
 ]
