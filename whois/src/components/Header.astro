@@ -16,6 +16,10 @@ const { lang, pageId } = Astro.props;
 ---
 
 {/*
+  The inline nav switches to the menu button at `lg`, not `md`. Seven nav items
+  plus the logo and the control cluster need about 910px; at 768px that
+  overflowed the viewport and gave the whole page a horizontal scrollbar.
+
   The header is deliberately NOT `transition:persist`. Persisting it carried the
   previous page's DOM across a client-side navigation, which left both the
   active underline and `aria-current="page"` pointing at the page you just came
@@ -37,7 +41,7 @@ const { lang, pageId } = Astro.props;
       <span class="hidden text-sm font-semibold tracking-tight sm:block">{profile.name}</span>
     </a>
 
-    <nav class="ml-auto hidden md:block" aria-label="Primary">
+    <nav class="ml-auto hidden lg:block" aria-label="Primary">
       <ul class="flex items-center gap-0.5">
         {
           NAV_PAGES.filter((page) => page.id !== 'home').map((page) => {
@@ -67,7 +71,7 @@ const { lang, pageId } = Astro.props;
       </ul>
     </nav>
 
-    <div class="ml-auto flex items-center gap-1 md:ml-0">
+    <div class="ml-auto flex items-center gap-1 lg:ml-0">
       <button
         type="button"
         data-palette-trigger
@@ -89,7 +93,7 @@ const { lang, pageId } = Astro.props;
         data-menu-trigger
         aria-expanded="false"
         aria-controls="mobile-nav"
-        class="rounded-lg border border-border p-2 text-muted transition-colors hover:text-text md:hidden"
+        class="rounded-lg border border-border p-2 text-muted transition-colors hover:text-text lg:hidden"
         aria-label={t('nav.menu', lang)}
       >
         <svg class="size-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -99,7 +103,7 @@ const { lang, pageId } = Astro.props;
     </div>
   </div>
 
-  <nav id="mobile-nav" hidden class="border-t border-border md:hidden" aria-label="Primary mobile">
+  <nav id="mobile-nav" hidden class="border-t border-border lg:hidden" aria-label="Primary mobile">
     <ul class="container-page py-2">
       {
         NAV_PAGES.filter((page) => page.id !== 'home').map((page) => (
