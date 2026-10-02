@@ -119,6 +119,12 @@ export const ui = {
   'speaking.recording': { en: 'Recording', fr: 'Enregistrement' },
   'speaking.eventPage': { en: 'Event page', fr: 'Page de l’événement' },
   'speaking.addToCalendar': { en: 'Add to calendar', fr: 'Ajouter au calendrier' },
+  'speaking.filterFormat': { en: 'Filter by format', fr: 'Filtrer par format' },
+  'speaking.filterAll': { en: 'All', fr: 'Toutes' },
+  'speaking.noneOfType': {
+    en: 'Nothing of this format in this section.',
+    fr: 'Rien de ce format dans cette section.',
+  },
   'speaking.countdownDays': { en: 'days away', fr: 'jours restants' },
   'speaking.today': { en: 'Today', fr: 'Aujourd’hui' },
 

@@ -22,6 +22,16 @@ const FORMAT_LABELS: Record<Talk['format'], Record<Lang, string>> = {
   podcast: { en: 'Podcast', fr: 'Podcast' },
   webinar: { en: 'Webinar', fr: 'Webinaire' },
 };
+
+// Only the formats actually used get a chip, in the order above, so the row
+// never offers a filter that would empty both lists.
+const formatFilters = (Object.keys(FORMAT_LABELS) as Talk['format'][])
+  .map((format) => ({
+    format,
+    label: FORMAT_LABELS[format][lang],
+    count: talks.filter((talk) => talk.format === format).length,
+  }))
+  .filter((entry) => entry.count > 0);
 ---
 
 <BaseLayout lang={lang} pageId="speaking" title={t('speaking.title', lang)} description={page.description[lang]}>
@@ -36,6 +46,33 @@ const FORMAT_LABELS: Record<Talk['format'], Record<Lang, string>> = {
   />
 
   <section class="container-page py-12 md:py-16">
+    {
+      formatFilters.length > 1 && (
+        <div
+          class="reveal mb-10 flex flex-wrap gap-2"
+          role="group"
+          aria-label={t('speaking.filterFormat', lang)}
+        >
+          {/*
+            Active state is carried by aria-pressed alone: the script toggles the
+            attribute and the styling follows it, so there is no class list to
+            keep in sync with the accessible state.
+          */}
+          <button type="button" data-format-filter="all" aria-pressed="true" class="filter-chip">
+            {t('speaking.filterAll', lang)}
+            <span class="filter-chip-count">{talks.length}</span>
+          </button>
+          {formatFilters.map((entry) => (
+            <button type="button" data-format-filter={entry.format} aria-pressed="false" class="filter-chip">
+              {entry.label}
+              <span class="filter-chip-count">{entry.count}</span>
+            </button>
+          ))}
+        </div>
+      )
+    }
+
+    <div data-talk-section>
     <h2 class="reveal label-mono mb-6">{t('speaking.upcoming', lang)}</h2>
 
     {
@@ -44,7 +81,12 @@ const FORMAT_LABELS: Record<Talk['format'], Record<Lang, string>> = {
       ) : (
         <ul class="space-y-4">
           {upcoming.map((talk, index) => (
-            <li id={talk.id} class="reveal card scroll-mt-24 border-l-2 border-l-accent p-6" style={`--reveal-delay: ${index * 80}ms`}>
+            <li
+              id={talk.id}
+              data-format={talk.format}
+              class="reveal card scroll-mt-24 border-l-2 border-l-accent p-6"
+              style={`--reveal-delay: ${index * 80}ms`}
+            >
               <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-2">
                 <div class="min-w-0 flex-1">
                   <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -95,12 +137,23 @@ const FORMAT_LABELS: Record<Talk['format'], Record<Lang, string>> = {
       )
     }
 
-    {past.length > 0 && <h2 class="reveal label-mono mb-6 mt-16">{t('speaking.past', lang)}</h2>}
+      <p data-talk-empty hidden class="text-sm text-muted">{t('speaking.noneOfType', lang)}</p>
+    </div>
 
-    <ul class:list={['divide-y divide-border', past.length > 0 && 'border-y border-border']}>
+    {
+      past.length > 0 && (
+        <div data-talk-section>
+          <h2 class="reveal label-mono mb-6 mt-16">{t('speaking.past', lang)}</h2>
+
+          <ul class="divide-y divide-border border-y border-border">
       {
         past.map((talk, index) => (
-          <li id={talk.id} class="reveal scroll-mt-24 py-6" style={`--reveal-delay: ${(index % 6) * 60}ms`}>
+          <li
+            id={talk.id}
+            data-format={talk.format}
+            class="reveal scroll-mt-24 py-6"
+            style={`--reveal-delay: ${(index % 6) * 60}ms`}
+          >
             <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-2">
               <div class="min-w-0 flex-1">
                 <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -139,8 +192,56 @@ const FORMAT_LABELS: Record<Talk['format'], Record<Lang, string>> = {
           </li>
         ))
       }
-    </ul>
+          </ul>
+
+          <p data-talk-empty hidden class="mt-6 text-sm text-muted">{t('speaking.noneOfType', lang)}</p>
+        </div>
+      )
+    }
   </section>
+
+  <script>
+    // Filters both lists at once from a single row of chips. Plain DOM rather
+    // than an island: this only toggles visibility, and the page ships no other
+    // client JavaScript beyond the countdowns below.
+    function initTalkFilters() {
+      const buttons = document.querySelectorAll<HTMLButtonElement>('[data-format-filter]');
+      if (buttons.length === 0) return;
+
+      const sections = document.querySelectorAll<HTMLElement>('[data-talk-section]');
+
+      const apply = (format: string) => {
+        for (const section of sections) {
+          const items = section.querySelectorAll<HTMLElement>('li[data-format]');
+          let visible = 0;
+
+          for (const item of items) {
+            const matches = format === 'all' || item.dataset.format === format;
+            item.hidden = !matches;
+            if (matches) visible += 1;
+          }
+
+          // A section with no match hides its list, borders and all, and says so.
+          const list = section.querySelector('ul');
+          const empty = section.querySelector<HTMLElement>('[data-talk-empty]');
+          if (list) list.hidden = items.length > 0 && visible === 0;
+          if (empty) empty.hidden = items.length === 0 || visible > 0;
+        }
+
+        for (const button of buttons) {
+          button.setAttribute('aria-pressed', String(button.dataset.formatFilter === format));
+        }
+      };
+
+      for (const button of buttons) {
+        if (button.dataset.bound === 'true') continue;
+        button.dataset.bound = 'true';
+        button.addEventListener('click', () => apply(button.dataset.formatFilter ?? 'all'));
+      }
+    }
+
+    document.addEventListener('astro:page-load', initTalkFilters);
+  </script>
 
   <script>
     // Countdowns are filled in on the client so a cached page never shows a
