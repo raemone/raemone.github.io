@@ -1,6 +1,6 @@
 import type { Lang, UiKey } from '@/i18n/ui';
 
-export type PageId = 'home' | 'about' | 'experience' | 'projects' | 'writing' | 'speaking' | 'contact' | 'resume';
+export type PageId = 'home' | 'about' | 'experience' | 'projects' | 'code' | 'writing' | 'speaking' | 'contact' | 'resume';
 
 export interface PageDef {
   id: PageId;
@@ -51,6 +51,16 @@ export const PAGES: PageDef[] = [
     description: {
       en: 'A selection of major customer engagements around the world, plotted on a map.',
       fr: 'Une sélection des missions clients majeures à travers le monde, situées sur une carte.',
+    },
+  },
+  {
+    id: 'code',
+    path: '/code',
+    labelKey: 'nav.code',
+    inNav: true,
+    description: {
+      en: 'Agent skills, Copilot Studio topic snippets and a few things built for fun.',
+      fr: 'Compétences d’agent, extraits de rubriques Copilot Studio et quelques projets pour le plaisir.',
     },
   },
   {

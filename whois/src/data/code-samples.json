@@ -1,0 +1,58 @@
+[
+  {
+    "id": "eu-greenwashing-analysis",
+    "name": "EU Greenwashing Analysis",
+    "summary": {
+      "en": "An agent skill that reads product descriptions, marketing copy and catalogue entries and flags environmental claims that EU Directive 2024/825 and the Green Claims Directive will not support. Each claim comes back with a risk level, the regulation it runs into, and a compliant rewrite.",
+      "fr": "Une compétence d’agent qui analyse descriptions produit, textes marketing et fiches catalogue pour repérer les allégations environnementales que la directive UE 2024/825 et la directive Green Claims ne permettent pas. Chaque allégation revient avec un niveau de risque, la règle concernée et une reformulation conforme."
+    },
+    "category": "compliance",
+    "platforms": ["copilot-studio", "cowork", "scout"],
+    "url": "https://microsoft.github.io/cat-agent-skills/skills/eu-greenwashing-analysis/"
+  },
+  {
+    "id": "generating-podcast-script",
+    "name": "Podcast Script Generator",
+    "summary": {
+      "en": "An agent skill that turns a topic, or a pile of source material such as a newsletter or a set of articles, into a two-host podcast episode with distinct personalities. It returns a readable transcript, a multi-voice SSML document, and optionally the narrated audio through Azure Text to Speech.",
+      "fr": "Une compétence d’agent qui transforme un sujet, ou un ensemble de sources comme une newsletter ou une série d’articles, en épisode de podcast à deux voix aux personnalités distinctes. Elle produit une transcription lisible, un document SSML multi-voix et, en option, l’audio narré via Azure Text to Speech."
+    },
+    "category": "productivity",
+    "platforms": ["copilot-studio"],
+    "url": "https://microsoft.github.io/cat-agent-skills/skills/generating-podcast-script/"
+  },
+  {
+    "id": "sharepoint-pdf-page-citations",
+    "name": "SharePoint PDF Page Citations",
+    "summary": {
+      "en": "A topic snippet that appends a page anchor to PDF citations when SharePoint is the knowledge source, so a citation opens on the page the answer actually came from instead of the top of the document. Works with generative orchestration, and emits one citation per page when a single PDF grounds several parts of an answer.",
+      "fr": "Un extrait de rubrique qui ajoute une ancre de page aux citations PDF lorsque SharePoint sert de source de connaissances : la citation s’ouvre sur la page dont provient la réponse, et non en tête du document. Compatible avec l’orchestration générative, avec une citation par page lorsqu’un même PDF fonde plusieurs passages."
+    },
+    "category": "authoring",
+    "platforms": ["copilot-studio"],
+    "url": "https://github.com/raemone/CopilotStudioSamples/tree/master/authoring/snippets/topics/sharepoint-pdf-page-citations"
+  },
+  {
+    "id": "citation-swap",
+    "name": "Citation Swap",
+    "summary": {
+      "en": "A topic snippet that rewrites the citations an agent generates from uploaded-file knowledge so they point at the same documents published on a public site. Readers get the whole document to open or download rather than the indexed chunk behind the answer.",
+      "fr": "Un extrait de rubrique qui réécrit les citations générées à partir de fichiers chargés comme connaissances, pour qu’elles pointent vers les mêmes documents publiés sur un site public. Le lecteur obtient le document complet, à consulter ou à télécharger, plutôt que l’extrait indexé derrière la réponse."
+    },
+    "category": "authoring",
+    "platforms": ["copilot-studio"],
+    "url": "https://github.com/raemone/CopilotStudioSamples/tree/master/authoring/snippets/topics/citation-swap"
+  },
+  {
+    "id": "games",
+    "name": "Roxy Run, Roxy Pinball and Poop Patrol",
+    "summary": {
+      "en": "Browser games built for my kids. A pixel-art platformer with momentum, slopes and rolling; a 3D pinball table on Three.js with missions and a global score; and a family chore tracker that runs on points, streaks and badges. TypeScript and Canvas, installable and playable offline, with leaderboards on Vercel Functions and Redis.",
+      "fr": "Des jeux navigateur réalisés pour mes enfants. Un plateformer en pixel art avec inertie, pentes et roulades ; un flipper 3D en Three.js avec missions et score mondial ; et un suivi des corvées familiales à base de points, de séries et de badges. TypeScript et Canvas, installables et jouables hors ligne, avec des classements sur Vercel Functions et Redis."
+    },
+    "category": "hack",
+    "platforms": [],
+    "url": "https://raemone.github.io/Games/",
+    "sourceUrl": "https://github.com/raemone/Games"
+  }
+]

@@ -43,6 +43,7 @@ Everything you will want to change is in `src/data/`. Search the repo for
 | `talks.json` | Conferences and webinars; upcoming vs past is derived from the date |
 | `feeds.json` | RSS feeds to poll for new articles |
 | `badges.json` | Credly badges — **generated**, do not hand-edit; run `npm run sync:badges` |
+| `code-samples.json` | Agent skills, topic snippets and side projects, each with one category and any number of platforms |
 
 ### Bilingual fields
 

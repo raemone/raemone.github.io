@@ -6,10 +6,12 @@ import rawArticles from '@/data/articles.json';
 import rawTalks from '@/data/talks.json';
 import rawEducation from '@/data/education.json';
 import rawBadges from '@/data/badges.json';
+import rawCodeSamples from '@/data/code-samples.json';
 
 import {
   articleSchema,
   badgeSchema,
+  codeSampleSchema,
   contactSchema,
   educationSchema,
   profileSchema,
@@ -18,6 +20,7 @@ import {
   talkSchema,
   type Article,
   type Badge,
+  type CodeSample,
   type Education,
   type Project,
   type Role,
@@ -49,6 +52,7 @@ const allArticles = parseOrThrow(z.array(articleSchema), rawArticles, 'articles.
 const allTalks = parseOrThrow(z.array(talkSchema), rawTalks, 'talks.json');
 const allEducation = parseOrThrow(z.array(educationSchema), rawEducation, 'education.json');
 const allBadges = parseOrThrow(z.array(badgeSchema), rawBadges, 'badges.json');
+const allCodeSamples = parseOrThrow(z.array(codeSampleSchema), rawCodeSamples, 'code-samples.json');
 
 /** `present` sorts above every real month so the current role always leads. */
 function monthKey(value: string): string {
@@ -61,6 +65,8 @@ export const articles: Article[] = [...allArticles].sort((a, b) => b.date.locale
 export const talks: Talk[] = [...allTalks].sort((a, b) => b.date.localeCompare(a.date));
 export const education: Education[] = [...allEducation].sort((a, b) => b.end.localeCompare(a.end));
 export const badges: Badge[] = [...allBadges].sort((a, b) => b.issued.localeCompare(a.issued) || a.name.localeCompare(b.name));
+/** Authored order: the data file is small and its sequence is the editorial one. */
+export const codeSamples: CodeSample[] = allCodeSamples;
 
 export const currentRole: Role | undefined = roles.find((role) => role.current);
 

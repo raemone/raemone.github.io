@@ -194,6 +194,25 @@ export const badgeSchema = z.object({
   image: z.string().min(1),
 });
 
+/** What a sample is for. One per sample, so it reads as a single label. */
+export const CODE_CATEGORIES = ['automation', 'productivity', 'compliance', 'authoring', 'hack'] as const;
+
+/** Agent hosts a sample runs on. A skill often targets several, so this is a list. */
+export const CODE_PLATFORMS = ['copilot-studio', 'cowork', 'scout'] as const;
+
+export const codeSampleSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  summary: i18nString,
+  category: z.enum(CODE_CATEGORIES),
+  /** Empty for samples that are not built on an agent platform at all. */
+  platforms: z.array(z.enum(CODE_PLATFORMS)).default([]),
+  /** Where the sample is best seen: docs, a live build, or the source itself. */
+  url,
+  /** Only when `url` points somewhere other than the code. */
+  sourceUrl: url.optional(),
+});
+
 export const profileArraySchemas = {
   roles: z.array(roleSchema),
   projects: z.array(projectSchema),
@@ -210,4 +229,7 @@ export type Article = z.infer<typeof articleSchema>;
 export type Talk = z.infer<typeof talkSchema>;
 export type Education = z.infer<typeof educationSchema>;
 export type Badge = z.infer<typeof badgeSchema>;
+export type CodeSample = z.infer<typeof codeSampleSchema>;
+export type CodeCategory = (typeof CODE_CATEGORIES)[number];
+export type CodePlatform = (typeof CODE_PLATFORMS)[number];
 export type I18nString = { en: string; fr: string };

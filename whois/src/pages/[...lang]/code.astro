@@ -1,0 +1,208 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import { langStaticPaths } from '@/lib/paths';
+import { getPage } from '@/lib/pages';
+import { codeSamples } from '@/lib/content';
+import { CODE_CATEGORIES, CODE_PLATFORMS } from '@/lib/schema';
+import type { CodeCategory, CodePlatform } from '@/lib/schema';
+import { pick, t } from '@/i18n';
+import type { Lang, UiKey } from '@/i18n/ui';
+
+export const getStaticPaths = langStaticPaths;
+
+const { lang } = Astro.props as { lang: Lang };
+const page = getPage('code');
+
+const categoryLabel = (category: CodeCategory) => t(`code.category.${category}` as UiKey, lang);
+const platformLabel = (platform: CodePlatform) => t(`code.platform.${platform}` as UiKey, lang);
+
+/** A link straight to GitHub is the code; anything else is docs or a live build. */
+const isSourceLink = (url: string) => new URL(url).hostname === 'github.com';
+
+// Only taxonomy values actually in use get a chip, so a filter can never empty
+// the whole grid. Categories keep the declared order; platforms likewise.
+const categoryFilters = CODE_CATEGORIES.map((category) => ({
+  key: category,
+  label: categoryLabel(category),
+  count: codeSamples.filter((sample) => sample.category === category).length,
+})).filter((entry) => entry.count > 0);
+
+const platformFilters = CODE_PLATFORMS.map((platform) => ({
+  key: platform,
+  label: platformLabel(platform),
+  count: codeSamples.filter((sample) => sample.platforms.includes(platform)).length,
+})).filter((entry) => entry.count > 0);
+---
+
+<BaseLayout lang={lang} pageId="code" title={t('code.title', lang)} description={page.description[lang]}>
+  <PageHeader
+    eyebrow={`${codeSamples.length} ${t('code.samples', lang)}`}
+    title={t('code.title', lang)}
+    lead={t('code.lead', lang)}
+  />
+
+  <section class="container-page py-12 md:py-16">
+    <div class="reveal mb-10 space-y-3">
+      <div class="flex flex-wrap gap-2" role="group" aria-label={t('code.filterCategory', lang)}>
+        <button type="button" data-category-filter="all" aria-pressed="true" class="filter-chip">
+          {t('code.all', lang)}
+          <span class="filter-chip-count">{codeSamples.length}</span>
+        </button>
+        {
+          categoryFilters.map((entry) => (
+            <button type="button" data-category-filter={entry.key} aria-pressed="false" class="filter-chip">
+              {entry.label}
+              <span class="filter-chip-count">{entry.count}</span>
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="flex flex-wrap gap-2" role="group" aria-label={t('code.filterPlatform', lang)}>
+        <button type="button" data-platform-filter="all" aria-pressed="true" class="filter-chip">
+          {t('code.all', lang)}
+          <span class="filter-chip-count">{codeSamples.length}</span>
+        </button>
+        {
+          platformFilters.map((entry) => (
+            <button type="button" data-platform-filter={entry.key} aria-pressed="false" class="filter-chip">
+              {entry.label}
+              <span class="filter-chip-count">{entry.count}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <ul data-sample-grid class="grid gap-5 md:grid-cols-2">
+      {
+        codeSamples.map((sample, index) => (
+          <li
+            id={sample.id}
+            data-category={sample.category}
+            data-platforms={sample.platforms.join(' ')}
+            class="reveal card flex scroll-mt-24 flex-col p-6"
+            style={`--reveal-delay: ${(index % 6) * 70}ms`}
+          >
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="rounded-full bg-accent-subtle px-2.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-accent">
+                {categoryLabel(sample.category)}
+              </span>
+            </div>
+
+            <h2 class="mt-3 text-lg font-semibold leading-snug">
+              <a
+                href={sample.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="transition-colors hover:text-accent"
+              >
+                {sample.name}
+              </a>
+            </h2>
+
+            <p class="mt-2 grow text-sm leading-relaxed text-muted">{pick(sample.summary, lang)}</p>
+
+            {sample.platforms.length > 0 && (
+              <div class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span class="label-mono">{t('code.runsOn', lang)}</span>
+                {sample.platforms.map((platform) => (
+                  <span class="rounded-full border border-border px-2.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-muted">
+                    {platformLabel(platform)}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <div class="mt-5 flex flex-wrap gap-2 border-t border-border pt-4">
+              <a
+                href={sample.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="rounded-lg border border-border px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent"
+              >
+                {isSourceLink(sample.url) ? t('code.viewSource', lang) : t('code.open', lang)}
+              </a>
+              {sample.sourceUrl && (
+                <a
+                  href={sample.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="rounded-lg border border-border px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent"
+                >
+                  {t('code.viewSource', lang)}
+                </a>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p data-sample-empty hidden class="text-sm text-muted">{t('code.none', lang)}</p>
+  </section>
+
+  <script>
+    // Two independent filters that combine: a sample has to satisfy both. Plain
+    // DOM, matching the speaking page — this only toggles visibility.
+    function initSampleFilters() {
+      const grid = document.querySelector<HTMLElement>('[data-sample-grid]');
+      if (!grid) return;
+
+      const items = [...grid.querySelectorAll<HTMLElement>('li[data-category]')];
+      const empty = document.querySelector<HTMLElement>('[data-sample-empty]');
+      const categoryButtons = document.querySelectorAll<HTMLButtonElement>('[data-category-filter]');
+      const platformButtons = document.querySelectorAll<HTMLButtonElement>('[data-platform-filter]');
+
+      let activeCategory = 'all';
+      let activePlatform = 'all';
+
+      const apply = () => {
+        let visible = 0;
+
+        for (const item of items) {
+          // A sample carries several platforms, so this is a membership test
+          // rather than an equality one.
+          const platforms = (item.dataset.platforms ?? '').split(' ').filter(Boolean);
+          const matches =
+            (activeCategory === 'all' || item.dataset.category === activeCategory) &&
+            (activePlatform === 'all' || platforms.includes(activePlatform));
+
+          item.hidden = !matches;
+          if (matches) visible += 1;
+        }
+
+        grid.hidden = visible === 0;
+        if (empty) empty.hidden = visible > 0;
+
+        for (const button of categoryButtons) {
+          button.setAttribute('aria-pressed', String(button.dataset.categoryFilter === activeCategory));
+        }
+        for (const button of platformButtons) {
+          button.setAttribute('aria-pressed', String(button.dataset.platformFilter === activePlatform));
+        }
+      };
+
+      for (const button of categoryButtons) {
+        if (button.dataset.bound === 'true') continue;
+        button.dataset.bound = 'true';
+        button.addEventListener('click', () => {
+          activeCategory = button.dataset.categoryFilter ?? 'all';
+          apply();
+        });
+      }
+
+      for (const button of platformButtons) {
+        if (button.dataset.bound === 'true') continue;
+        button.dataset.bound = 'true';
+        button.addEventListener('click', () => {
+          activePlatform = button.dataset.platformFilter ?? 'all';
+          apply();
+        });
+      }
+    }
+
+    document.addEventListener('astro:page-load', initSampleFilters);
+  </script>
+</BaseLayout>

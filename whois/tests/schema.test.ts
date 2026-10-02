@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   articleSchema,
   badgeSchema,
+  codeSampleSchema,
   educationSchema,
   i18nString,
   i18nStringArray,
@@ -157,6 +158,51 @@ describe('talkSchema', () => {
 
   it('rejects an unknown format', () => {
     expect(() => talkSchema.parse({ ...validTalk, format: 'fireside' })).toThrow();
+  });
+});
+
+describe('codeSampleSchema', () => {
+  const valid = {
+    id: 'eu-greenwashing-analysis',
+    name: 'EU Greenwashing Analysis',
+    summary: 'Detect unsupported environmental claims.',
+    category: 'compliance',
+    platforms: ['copilot-studio', 'cowork', 'scout'],
+    url: 'https://microsoft.github.io/cat-agent-skills/skills/eu-greenwashing-analysis/',
+  };
+
+  it('keeps every platform a skill targets', () => {
+    const parsed = codeSampleSchema.parse(valid);
+    expect(parsed.platforms).toEqual(['copilot-studio', 'cowork', 'scout']);
+    expect(parsed.summary).toEqual({
+      en: 'Detect unsupported environmental claims.',
+      fr: 'Detect unsupported environmental claims.',
+    });
+  });
+
+  it('accepts a sample that belongs to no platform', () => {
+    // The games are not built on an agent platform, so an empty list is valid
+    // rather than a reason to reject the entry.
+    expect(codeSampleSchema.parse({ ...valid, platforms: [] }).platforms).toEqual([]);
+    const { platforms, ...withoutPlatforms } = valid;
+    expect(codeSampleSchema.parse(withoutPlatforms).platforms).toEqual([]);
+  });
+
+  it('rejects a category outside the list', () => {
+    expect(() => codeSampleSchema.parse({ ...valid, category: 'misc' })).toThrow();
+  });
+
+  it('rejects an unknown platform', () => {
+    expect(() => codeSampleSchema.parse({ ...valid, platforms: ['teams'] })).toThrow();
+  });
+
+  it('requires a single category, not several', () => {
+    expect(() => codeSampleSchema.parse({ ...valid, category: ['compliance', 'hack'] })).toThrow();
+  });
+
+  it('leaves the source link optional and validates it when present', () => {
+    expect(codeSampleSchema.parse(valid).sourceUrl).toBeUndefined();
+    expect(() => codeSampleSchema.parse({ ...valid, sourceUrl: 'github.com/raemone/Games' })).toThrow();
   });
 });
 
