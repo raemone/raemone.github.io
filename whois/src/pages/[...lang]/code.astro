@@ -43,7 +43,12 @@ const platformFilters = CODE_PLATFORMS.map((platform) => ({
   />
 
   <section class="container-page py-12 md:py-16">
-    <div class="reveal mb-10 space-y-3">
+    {/*
+      One row on anything wider than a phone, with a rule between the two
+      groups. Below that they stack, where a vertical rule would land mid-wrap
+      and separate nothing.
+    */}
+    <div class="reveal mb-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2">
       <div class="flex flex-wrap gap-2" role="group" aria-label={t('code.filterCategory', lang)}>
         <button type="button" data-category-filter="all" aria-pressed="true" class="filter-chip">
           {t('code.all', lang)}
@@ -58,6 +63,8 @@ const platformFilters = CODE_PLATFORMS.map((platform) => ({
           ))
         }
       </div>
+
+      <span class="hidden h-5 w-px shrink-0 bg-border sm:block" aria-hidden="true"></span>
 
       <div class="flex flex-wrap gap-2" role="group" aria-label={t('code.filterPlatform', lang)}>
         <button type="button" data-platform-filter="all" aria-pressed="true" class="filter-chip">
