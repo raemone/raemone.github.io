@@ -127,15 +127,16 @@
   {
     "id": "acuvate-govern-scale-enterprise-agents",
     "event": "Acuvate",
-    "title": "Control, Govern & Scale Your Enterprise Agents, All in One Place",
+    "title": "Agent 365 Unlocked — Control, Govern & Scale Your Enterprise Agents, All in One Place",
     "abstract": {
-      "en": "A joint webinar with Acuvate on bringing an enterprise agent estate under one point of control — governing it, scaling it and keeping oversight as it grows. Presented with Satheesh Kothakapu.",
-      "fr": "Un webinaire conjoint avec Acuvate sur la gestion d’un parc d’agents en entreprise depuis un point de contrôle unique — gouvernance, mise à l’échelle et supervision à mesure qu’il grandit. Présenté avec Satheesh Kothakapu."
+      "en": "A joint webinar with Acuvate on bringing an enterprise agent estate under a single point of control with Agent 365: the failure patterns that sink agent rollouts, the governance and discoverability practices that hold up at scale, how to grow an agent estate across an organisation safely, and the Acuvate Atlas Tenant Scanner in action. Presented with Satheesh Kothakapu, VP of Technology at Acuvate.",
+      "fr": "Un webinaire conjoint avec Acuvate sur la gestion d’un parc d’agents en entreprise depuis un point de contrôle unique avec Agent 365 : les schémas d’échec qui font capoter les déploiements, les pratiques de gouvernance et de découvrabilité qui tiennent à l’échelle, comment étendre un parc d’agents en toute sûreté dans l’organisation, et le Acuvate Atlas Tenant Scanner en démonstration. Présenté avec Satheesh Kothakapu, VP of Technology chez Acuvate."
     },
     "date": "2026-05-28",
     "city": "Online",
     "country": "Remote",
-    "format": "webinar"
+    "format": "webinar",
+    "url": "https://events.teams.microsoft.com/event/9163fe53-143f-4cbc-a9ea-13c1305e735d@9a0c7552-3833-46c4-bbac-8bc7f960ee52"
   },
   {
     "id": "bootcamp-new-york-2025",
