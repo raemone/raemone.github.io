@@ -55,6 +55,8 @@ export const profileSchema = z.object({
         organisation: i18nString,
         url: url.optional(),
         detail: i18nString,
+        /** For a seat that carries a defined remit rather than a single duty. */
+        responsibilities: i18nStringArray.optional(),
       }),
     )
     .default([]),

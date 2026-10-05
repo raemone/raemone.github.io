@@ -38,6 +38,34 @@
   "community": [
     {
       "role": {
+        "en": "Programming committee board",
+        "fr": "Comité de programme"
+      },
+      "organisation": "AI Summit North America 2027",
+      "url": "https://www.summitna.com/",
+      "detail": {
+        "en": "A seat on the board that shapes the 2027 programme, from the call for speakers through to the agenda delivered on site.",
+        "fr": "Un siège au comité qui façonne le programme 2027, de l’appel à intervenants jusqu’à l’agenda livré sur place."
+      },
+      "responsibilities": {
+        "en": [
+          "Set the direction of the agenda and the technical ground it covers.",
+          "Select the programme: assess submissions once the call for speakers closes, then choose the sessions and speakers that reach the final agenda.",
+          "Recruit senior speakers from across Microsoft and the wider community, and contribute a session of my own.",
+          "Grow attendance through my own network and Microsoft’s.",
+          "Represent the event on site as host, moderator and speaker."
+        ],
+        "fr": [
+          "Orienter l’agenda et le périmètre technique qu’il couvre.",
+          "Sélectionner le programme : évaluer les propositions à la clôture de l’appel à intervenants, puis retenir les sessions et les intervenants qui composeront l’agenda final.",
+          "Recruter des intervenants de premier plan chez Microsoft et dans la communauté, et proposer une session.",
+          "Développer l’audience par mon réseau et celui de Microsoft.",
+          "Représenter l’événement sur place : animation, modération et prise de parole."
+        ]
+      }
+    },
+    {
+      "role": {
         "en": "Advisor",
         "fr": "Conseiller"
       },

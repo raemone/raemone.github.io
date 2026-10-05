@@ -79,6 +79,17 @@ const facts = [
                         )}
                       </div>
                       <p class="mt-1.5 text-sm leading-relaxed text-muted">{pick(entry.detail, lang)}</p>
+
+                      {entry.responsibilities && (
+                        <ul class="mt-2.5 space-y-1.5">
+                          {pickAll(entry.responsibilities, lang).map((duty) => (
+                            <li class="flex gap-2.5 text-sm leading-relaxed text-muted">
+                              <span class="mt-2 size-1 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                              {duty}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </li>
                   );
                 })}

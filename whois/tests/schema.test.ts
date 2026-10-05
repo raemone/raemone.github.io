@@ -309,6 +309,42 @@ describe('profileSchema traits', () => {
     expect(parsed.community[1].organisation.fr).toBe('Deux startups françaises en IA');
   });
 
+  it('carries an optional remit, normalised across both languages', () => {
+    const parsed = profileSchema.parse({
+      ...base,
+      community: [
+        {
+          role: 'Programming committee board',
+          organisation: 'AI Summit North America 2027',
+          detail: 'A seat on the board shaping the programme.',
+          responsibilities: ['Set the direction of the agenda.', 'Select the programme.'],
+        },
+        { role: 'Mentor', organisation: 'X', detail: 'd' },
+      ],
+    });
+    expect(parsed.community[0].responsibilities).toEqual({
+      en: ['Set the direction of the agenda.', 'Select the programme.'],
+      fr: ['Set the direction of the agenda.', 'Select the programme.'],
+    });
+    // Most seats carry a single duty line and no list at all.
+    expect(parsed.community[1].responsibilities).toBeUndefined();
+  });
+
+  it('keeps a per-language remit distinct', () => {
+    const parsed = profileSchema.parse({
+      ...base,
+      community: [
+        {
+          role: 'Programming committee board',
+          organisation: 'AI Summit North America 2027',
+          detail: { en: 'A seat on the board.', fr: 'Un siège au comité.' },
+          responsibilities: { en: ['Select the programme.'], fr: ['Sélectionner le programme.'] },
+        },
+      ],
+    });
+    expect(parsed.community[0].responsibilities?.fr).toEqual(['Sélectionner le programme.']);
+  });
+
   it('rejects a community entry whose link is not a url', () => {
     expect(() =>
       profileSchema.parse({
