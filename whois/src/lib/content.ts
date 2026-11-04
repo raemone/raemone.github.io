@@ -75,12 +75,19 @@ export const currentRole: Role | undefined = roles.find((role) => role.current);
  * from the clock so the split is testable and so the build output is
  * deterministic for a given build day.
  */
+/**
+ * Splits talks either side of today. Both halves are sorted here rather than
+ * inherited from `list`: `past` used to come back in whatever order it was
+ * given, which only looked right because the default `talks` is already sorted.
+ */
 export function splitTalks(list: Talk[] = talks, now: Date = new Date()) {
   const today = now.toISOString().slice(0, 10);
   const isUpcoming = (talk: Talk) => (talk.endDate ?? talk.date) >= today;
   return {
+    /** Soonest first: the home page takes the first two as "next on stage". */
     upcoming: list.filter(isUpcoming).sort((a, b) => a.date.localeCompare(b.date)),
-    past: list.filter((talk) => !isUpcoming(talk)),
+    /** Newest first. */
+    past: list.filter((talk) => !isUpcoming(talk)).sort((a, b) => b.date.localeCompare(a.date)),
   };
 }
 

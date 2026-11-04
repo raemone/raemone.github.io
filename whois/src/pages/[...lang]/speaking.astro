@@ -14,6 +14,12 @@ const { lang } = Astro.props as { lang: Lang };
 const page = getPage('speaking');
 const { upcoming, past } = splitTalks();
 
+// The page reads as one sequence, furthest ahead down to oldest. `splitTalks`
+// returns upcoming soonest-first, because "which talk is next" is what the home
+// page asks of it, so the order is flipped here for display only. `past` already
+// runs newest-first.
+const upcomingNewestFirst = [...upcoming].reverse();
+
 const FORMAT_LABELS: Record<Talk['format'], Record<Lang, string>> = {
   keynote: { en: 'Keynote', fr: 'Plénière' },
   session: { en: 'Session', fr: 'Session' },
@@ -80,7 +86,7 @@ const formatFilters = (Object.keys(FORMAT_LABELS) as Talk['format'][])
         <p class="reveal text-sm text-muted">{t('speaking.noUpcoming', lang)}</p>
       ) : (
         <ul class="space-y-4">
-          {upcoming.map((talk, index) => (
+          {upcomingNewestFirst.map((talk, index) => (
             <li
               id={talk.id}
               data-format={talk.format}

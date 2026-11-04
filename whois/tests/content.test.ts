@@ -95,11 +95,21 @@ describe('splitTalks', () => {
   });
 
   it('sorts upcoming talks soonest first', () => {
+    // The home page takes the first two as "next on stage", so this order is a
+    // contract, not a presentation choice. The speaking page flips it for display.
     const { upcoming } = splitTalks(
       [makeTalk('late', '2026-12-01'), makeTalk('soon', '2026-07-01')],
       now,
     );
     expect(upcoming.map((talk) => talk.id)).toEqual(['soon', 'late']);
+  });
+
+  it('returns past talks newest first', () => {
+    const { past } = splitTalks(
+      [makeTalk('oldest', '2024-01-10'), makeTalk('recent', '2026-05-20'), makeTalk('middle', '2025-03-02')],
+      now,
+    );
+    expect(past.map((talk) => talk.id)).toEqual(['recent', 'middle', 'oldest']);
   });
 });
 
