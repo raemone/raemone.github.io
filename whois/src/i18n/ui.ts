@@ -128,7 +128,7 @@ export const ui = {
   'code.platform.scout': { en: 'Scout', fr: 'Scout' },
   'speaking.title': { en: 'Speaking', fr: 'Conférences' },
   'speaking.lead': {
-    en: 'Conferences, user groups and webinars where I have shared the work.',
+    en: 'Conferences, user groups and webinars where I have shared my work.',
     fr: 'Conférences, groupes d’utilisateurs et webinaires où j’ai partagé mon travail.',
   },
   'speaking.upcoming': { en: 'Upcoming', fr: 'À venir' },
