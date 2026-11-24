@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootcamp registration</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+</head>
+<body>
+  <header><div><p class="eyebrow">ORGANIZER WORKSPACE</p><h1>Bootcamp registration</h1></div><button id="refresh" type="button" disabled>Refresh</button></header>
+  <p id="status" role="status" aria-live="polite">Connecting to the MCP host...</p>
+  <main>
+    <section aria-labelledby="directory-title">
+      <div class="section-heading"><h2 id="directory-title">Participants</h2><span id="count">0 loaded</span></div>
+      <form id="search-form"><label for="search">Search name, email, company, role, or skill</label><div class="search-row"><input id="search" maxlength="100" type="search"><button id="search-button" type="button" disabled>Search</button></div></form>
+      <div class="actions"><button id="list-all" type="button" disabled>List all participants</button></div>
+      <div id="participants"></div>
+      <button id="more" type="button" hidden disabled>Load more</button>
+    </section>
+    <section aria-labelledby="form-title">
+      <h2 id="form-title">Add participant</h2>
+      <form id="participant-form">
+        <label for="firstName">First name *</label><input id="firstName" name="firstName" maxlength="850" autocomplete="given-name" required>
+        <label for="lastName">Last name *</label><input id="lastName" name="lastName" maxlength="100" autocomplete="family-name" required>
+        <label for="email">Email *</label><input id="email" name="email" type="email" maxlength="100" autocomplete="email" required>
+        <label for="company">Company</label><input id="company" name="company" maxlength="100" autocomplete="organization">
+        <label for="role">Role</label><input id="role" name="role" maxlength="100" autocomplete="organization-title">
+        <fieldset><legend>Skills</legend><div id="skills" class="skill-options"></div></fieldset>
+        <p id="legacy-skills" hidden></p>
+        <label for="profilePictureUrl">Profile picture URL</label><input id="profilePictureUrl" name="profilePictureUrl" type="url" maxlength="100" placeholder="https://..." aria-describedby="picture-help">
+        <p id="picture-help" class="help">Direct HTTPS image URL, up to 100 characters. The server may restrict image hosts. Broken or blocked images show initials.</p>
+        <div class="actions"><button type="button" id="save" disabled>Add participant</button><button type="button" id="cancel" hidden disabled>Cancel edit</button></div>
+      </form>
+    </section>
+  </main>
+  <footer>Organizer-only personal data. Email duplicates are checked, but the existing table has no unique email key.</footer>
+  <dialog id="delete-dialog" aria-labelledby="delete-title"><h2 id="delete-title">Delete participant?</h2><p id="delete-message"></p><p>This permanently removes the registration from Dataverse.</p><p id="delete-error" role="alert"></p><div class="actions"><button id="delete-confirm" type="button">Delete permanently</button><button id="delete-cancel" type="button">Keep participant</button></div></dialog>
+  <script type="module" src="./src/ui.ts"></script>
+</body>
+</html>
