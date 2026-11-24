@@ -57,6 +57,7 @@ jobs:
             --exclude '.git' \
             --exclude '.github' \
             --exclude 'node_modules' \
+            --exclude '/apps/bootcamp-registration/' \
             ./ _site/
           # The portfolio is the site root, so it lands on top of the copy above.
           # It brings its own index.html and 404.html; GitHub Pages serves a 404
